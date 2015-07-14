@@ -1,0 +1,21 @@
+services:
+    abdev.qte:
+        class: abdev\qte\qte
+        arguments:
+            - @request
+            - @cache.driver
+            - @config
+            - @dbal.conn
+            - @template
+            - @user
+            - @log
+            - %core.root_path%
+            - %core.php_ext%
+            - %core.table_prefix%
+    abdev.qte.listener:
+        class: abdev\qte\event\listener
+        arguments:
+            - @controller.helper
+            - @template
+        tags:
+            - { name: event.listener }

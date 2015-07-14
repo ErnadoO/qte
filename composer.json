@@ -1,0 +1,46 @@
+{
+	"name": "abdev/qte",
+	"type": "phpbb-extension",
+	"description": "Quick Title Edition",
+	"homepage": "https://github.com/adri1b/qte",
+	"version": "2.0.0-dev",
+	"keywords": ["phpbb", "extension", "qte", "attributes", "tags", "prefixes"],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "ABDev",
+			"role": "Developer"
+		},
+		{
+			"name": "PastisD",
+			"role": "Developer"
+		},
+		{
+			"name": "Geolim4",
+			"homepage": "http://geolim4.com/",
+			"role": "Developer"
+		},
+		{
+			"name": "Zoddo",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"composer/installers": "~1.0"
+	},
+	"require-dev": {
+		"phpbb/epv": "dev-master"
+	},
+	"extra": {
+		"display-name": "Quick Title Edition",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.1.0-RC3,<3.2.*@dev"
+		},
+		"version-check": {
+			"host": "adri1b.github.io",
+			"directory": "/qte",
+			"filename": "versions.json"
+		}
+	}
+}
