@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+<header>
+	<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+	<title lang="en">Changelog from 1.2.1 to 1.2.2</title>
+	<title lang="fr">Migrer de la version 1.2.1 à la version 1.2.2</title>
+	<description lang="en">Allows to update the MOD from 1.2.1 to 1.2.2</description>
+	<description lang="fr">Permet de mettre à jour le MOD de la version 1.2.1 à la version 1.2.2</description>
+	<author-group>
+		<author>
+      <realname>Adrien Bonnel</realname>
+      <username>ABDev</username>
+      <homepage>http://abdev.biz/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Ewan Martin</realname>
+			<username>PastisD</username>
+			<homepage>http://www.phpbb-forge.com/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<username>Jester</username>
+			<homepage>http://jesterstyles.free.fr/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2010-11-30" position="Logo creator" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Daniel Chalsèche</realname>
+			<username>Dakin Quelia</username>
+			<homepage>http://www.phpbb-forge.com/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2011-08-27" position="Debugger" />
+			</contributions-group>
+		</author>
+	</author-group>
+	<mod-version>1.2.2</mod-version>
+	<installation>
+		<level>easy</level>
+		<time>600</time>
+		<target-version>3.0.12</target-version>
+	</installation>
+	<history>
+		<entry>
+			<date>2013-05-01</date>
+			<rev-version>1.2.2</rev-version>
+			<changelog lang="en">
+				<change>Simplified the most complex code parts</change>
+				<change>Fixed uninstall issues</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>Simplification des parties de code les plus complexes</change>
+				<change>Correction d'erreurs de désinstallation</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+			</changelog>
+		</entry>
+	</history>
+	<link-group>
+		<link type="parent" href="../../install.xml" lang="en">Back to install file</link>
+		<link type="contrib" href="changelogs.xml" lang="en">Back to changelogs list</link>
+		<link type="parent" href="../../install.xml" lang="fr">Retourner au fichier d'installation</link>
+		<link type="contrib" href="changelogs.xml" lang="fr">Retourner à la liste des mises à jour</link>
+	</link-group>
+</header>
+<action-group>
+	<copy>
+		<file from="root/adm/style/acp_attributes.html" to="adm/style/acp_attributes.html" />
+		<file from="root/adm/style/acp_attributes.js" to="adm/style/acp_attributes.js" />
+		<file from="root/adm/style/jquery-1.9.1.min.js" to="adm/style/jquery-1.9.1.min.js" />
+		<file from="root/adm/style/jscolor.js" to="adm/style/jscolor.js" />
+		<file from="root/umil/*.*" to="umil/*.*" />
+		<file from="root/db_update.php" to="db_update.php" />
+	</copy>
+	<delete>
+		<file name="adm/style/jquery-1.8.2.min.js" />
+	</delete>
+	<open src="includes/search/fulltext_mysql.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>	function keyword_search(</find>
+		<inline-edit>
+			<inline-remove>, $attribute_id = 0</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>		// generate a search_key from all the options to identify the results</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+// add
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>	function author_search(</find>
+		<inline-edit>
+			<inline-remove>, $attribute_id = 0</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>		// generate a search_key from all the options to identify the results</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+// add
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )]]></find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+		else]]></action>
+	</edit>
+	</open>
+	<open src="includes/search/fulltext_native.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>	function keyword_search(</find>
+		<inline-edit>
+			<inline-remove>, $attribute_id = 0</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>		// generate a search_key from all the options to identify the results</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+// add
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>	function author_search(</find>
+		<inline-edit>
+			<inline-remove>, $attribute_id = 0</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>		// generate a search_key from all the options to identify the results</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+// add
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )]]></find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		$attribute_id = 0;
+		if ( array_key_exists('attr_id', $id_ary) )
+		{
+			$attribute_id = (int) $id_ary['attr_id'];
+			unset($id_ary['attr_id']);
+		}
+		else]]></action>
+	</edit>
+	</open>
+	<open src="search.php">
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	 || $attr_id
+//-- modify</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+$submit |= $attr_id;
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>if ($keywords</find>
+		<inline-edit>
+			<inline-remove> || $attr_id</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>	sort($author_id_ary);</find>
+		<action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$id_ary += array('attr_id' => $attr_id);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attr_id
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>		$total_match_count =</find>
+		<inline-edit>
+			<inline-remove>, $attr_id</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attr_id
+//-- modify</remove>
+	</edit>
+	<edit>
+		<find>		$total_match_count =</find>
+		<inline-edit>
+			<inline-remove>, $attr_id</inline-remove>
+		</inline-edit>
+	</edit>
+	<edit>
+		<remove>//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	else if ( empty($search_id) && $attr_id )
+	{
+		$total_match_count = $search->attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attr_id, $id_ary, $start, $per_page);
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	else if ( empty($search_id) && $attr_id )
+	{
+		$total_match_count = $search->attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $id_ary, $start, $per_page);
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	</open>
+	<php-installer>db_update.php</php-installer>
+	<diy-instructions lang="en">Run the SQL install file, db_update.php, in your web browser and delete the file upon script completion.</diy-instructions>
+	<diy-instructions lang="fr">Exécutez ensuite le fichier d'installation, intitulé db_update.php, dans votre navigateur Internet puis supprimez-le une fois l'installation effectuée.</diy-instructions>
+</action-group>
+</mod>

@@ -1,0 +1,159 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<!-- IF S_EDIT -->
+
+	<script type="text/javascript" src="{ROOT_PATH}style/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="{ROOT_PATH}style/acp_attributes.js"></script>
+	<script type="text/javascript" src="{ROOT_PATH}style/jscolor.js"></script>
+
+	<script type="text/javascript">
+	// <![CDATA[
+	qte.u_ajax = '{U_AJAX}';
+	// ]]>
+	</script>
+
+	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
+
+	<h1>{L_QTE_ADD_EDIT}</h1>
+
+	<p>{L_QTE_ADD_EDIT_EXPLAIN}</p>
+
+	<!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+	<!-- ENDIF -->
+
+	<form id="acp_attributes" method="post" action="{U_ACTION}">
+
+	<fieldset class="attribute">
+	<legend>{L_QTE_FIELDS}</legend>
+	<dl>
+		<dt><label for="attr_type">{L_QTE_TYPE}:</label></dt>
+		<dd><label><input type="radio" class="radio" name="attr_type" value="0"<!-- IF not S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_TXT}</label>
+			<label><input type="radio" class="radio" name="attr_type" value="1"<!-- IF S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_IMG}</label></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_name">{L_QTE_NAME}:</label><br /><span>{L_QTE_NAME_EXPLAIN}</span></dt>
+		<dd><input class="text post" name="attr_name" type="text" id="attr_name" value="{ATTR_NAME}" maxlength="255" /></dd>
+	</dl>
+	<dl id="img"<!-- IF not S_TEXT --> style="display:none;"<!-- ENDIF -->>
+		<dt><label for="attr_img">{L_QTE_IMG}:</label><br /><span>{L_QTE_IMG_EXPLAIN}</span></dt>
+		<dd><input class="text post" name="attr_img" type="text" id="attr_img" value="{ATTR_IMG}" maxlength="255" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_desc">{L_QTE_DESC}:</label><br /><span>{L_QTE_DESC_EXPLAIN}</span></dt>
+		<dd><input class="text post" name="attr_desc" type="text" id="attr_desc" value="{ATTR_DESC}" maxlength="60" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_date">{L_QTE_DATE}:</label><br /><span>{L_QTE_DATE_EXPLAIN}</span></dt>
+		<dd><input class="text post" name="attr_date" type="text" id="attr_date" value="{ATTR_DATE}" maxlength="255" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_colour">{L_QTE_COLOUR}:</label><br /><span>{L_QTE_COLOUR_EXPLAIN}</span></dt>
+		<dd><input class="text post color {required:false,caps:false}" name="attr_colour" type="text" id="attr_colour" value="{ATTR_COLOUR}" size="6" maxlength="6" /></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_user_colour">{L_QTE_USER_COLOUR}:</label><br /><span>{L_QTE_USER_COLOUR_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" id="attr_user_colour" class="radio" name="attr_user_colour" value="1"<!-- IF S_USER_COLOUR --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="attr_user_colour" value="0"<!-- IF not S_USER_COLOUR --> checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+	</dl>
+	<dl>
+		<dt><label for="attr_auth_id">{L_QTE_COPY_AUTHS}:</label><br /><span>{L_QTE_COPY_AUTHS_EXPLAIN}</span></dt>
+		<dd>
+			<input type="hidden" name="attr_id" value="{ATTR_ID}"/>
+			<select name="attr_auth_id" id="attr_auth_id">
+				<option value="-1">{L_QTE_AUTH_NO_PERMISSIONS}</option>
+				<!-- BEGIN select_row -->
+				<option value="{select_row.QTE_ID}"{select_row.QTE_COLOUR}<!-- IF select_row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{select_row.QTE_NAME}<!-- IF select_row.S_QTE_DESC --> [{select_row.QTE_DESC}]<!-- ENDIF --></option>
+				<!-- END select_row -->
+			</select>
+			<input name="set_permissions" class="button2" type="button" value="{L_GO}" />
+		</dd>
+	</dl>
+	</fieldset>
+
+	<!-- INCLUDE acp_attributes_auths.html -->
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		{S_FORM_TOKEN}
+	</fieldset>
+
+	</form>
+
+<!-- ELSE -->
+
+	<h1>{L_QTE_MANAGE_TITLE}</h1>
+
+	<p>{L_QTE_MANAGE_EXPLAIN}</p>
+
+	<form id="acp_attributes" method="post" action="{U_ACTION}">
+	<fieldset class="tabulated">
+	<legend>{L_QTE_MANAGE_TITLE}</legend>
+
+	<p class="quick">
+		<input type="hidden" name="action" value="add" />
+		<input class="button2" name="add" type="submit" value="{L_QTE_ADD}" />
+	</p>
+
+	<table cellspacing="1">
+	<thead>
+	<tr>
+		<th>{L_QTE_ATTRIBUTE}</th>
+		<th>{L_QTE_DESC}</th>
+		<th>{L_QTE_COLOUR}</th>
+		<th>{L_QTE_DATE}</th>
+		<th>{L_QTE_USAGE}</th>
+		<th>{L_ACTION}</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN row -->
+	<!-- IF row.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+		<td style="text-align:center;"><!-- IF row.S_IMAGE -->{row.QTE_IMG}<!-- ELSE --><span style="color:#{row.QTE_COLOUR}; font-weight: bold;">{row.QTE_TXT}</span><!-- ENDIF --></td>
+		<td style="text-align:left; width:200px;"><!-- IF row.S_DESC -->{row.QTE_DESC}<!-- ELSE --><span style="font-style:italic;">{L_QTE_NONE}</span><!-- ENDIF --></td>
+		<td style="text-align:center; width:180px;"><!-- IF row.S_COLOUR --><strong style="color:#{row.QTE_COLOUR};">{row.QTE_COLOUR}</strong><!-- ELSE --><!-- IF row.S_CSS -->{L_QTE_CSS}<!-- ELSE --><span style="font-style:italic;">{L_QTE_NONE}</span><!-- ENDIF --><!-- ENDIF --></td>
+		<td style="text-align:center; width:180px;"><!-- IF row.S_DATE -->{row.QTE_DATE}<!-- ELSE --><span style="font-style:italic;">{L_QTE_NONE}</span><!-- ENDIF --></td>
+		<td style="text-align:center; width:100px;">{row.QTE_COUNT}&nbsp;({row.QTE_PER_CENT}%)</td>
+		<td style="vertical-align:top; width:100px; text-align:right; white-space:nowrap;">
+			<!-- IF row.S_FIRST_ROW && not row.S_LAST_ROW -->
+				{ICON_MOVE_UP_DISABLED}
+				<a href="{row.U_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+			<!-- ELSEIF not row.S_FIRST_ROW && not row.S_LAST_ROW-->
+				<a href="{row.U_MOVE_UP}">{ICON_MOVE_UP}</a>
+				<a href="{row.U_MOVE_DOWN}">{ICON_MOVE_DOWN}</a>
+			<!-- ELSEIF row.S_LAST_ROW && not row.S_FIRST_ROW -->
+				<a href="{row.U_MOVE_UP}">{ICON_MOVE_UP}</a>
+				{ICON_MOVE_DOWN_DISABLED}
+			<!-- ELSE -->
+				{ICON_MOVE_UP_DISABLED}
+				{ICON_MOVE_DOWN_DISABLED}
+			<!-- ENDIF -->
+			<a href="{row.U_EDIT}">{ICON_EDIT}</a>
+			<a href="{row.U_DELETE}">{ICON_DELETE}</a>
+		</td>
+	</tr>
+	<!-- BEGINELSE -->
+	<tr class="row3">
+		<td colspan="6">{L_ACP_NO_ITEMS}</td>
+	</tr>
+	<!-- END row -->
+	</tbody>
+	</table>
+
+	<p class="quick">
+		<input type="hidden" name="action" value="add" />
+		<input class="button2" name="add" type="submit" value="{L_QTE_ADD}" />
+	</p>
+	</fieldset>
+	</form>
+
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+  <header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en">Changelog from 1.0.0 Beta 1 to 1.0.0 Beta 2</title>
+    <title lang="fr">Migrer de la version 1.0.0 Beta 1 à la version 1.0.0 Beta 2</title>
+    <description lang="en">Allows to update the MOD from 1.0.0 Beta 1 to 1.0.0 Beta 2</description>
+    <description lang="fr">Permet de mettre à jour le MOD de la version 1.0.0 Beta 1 à la version 1.0.0 Beta 2</description>
+    <author-group>
+			<author>
+        <realname>Adrien Bonnel</realname>
+        <username>ABDev</username>
+        <homepage>http://abdev.biz/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Ewan Martin</realname>
+				<username>PastisD</username>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+    </author-group>
+    <mod-version>1.0.0 Beta 2</mod-version>
+    <installation>
+      <level>intermediate</level>
+      <time>300</time>
+      <target-version>3.0.12</target-version>
+    </installation>
+    <history>
+      <entry>
+        <date>2008-04-12</date>
+        <rev-version>1.0.0 Beta 2</rev-version>
+        <changelog lang="en">
+          <change>Second release (private)</change>
+          <change>Fixed: users weren't allowed to apply attributes</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Seconde version (privée)</change>
+          <change>Corrigé: les utilisateurs n'étaient pas autorisés à appliquer des attributs</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-02-28</date>
+        <rev-version>1.0.0 Beta 1</rev-version>
+        <changelog lang="en">
+          <change>First release (private)</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version (privée)</change>
+        </changelog>
+      </entry>
+    </history>
+		<link-group>
+			<link type="parent" href="../../install.xml" lang="en">"Quick Title Edition" installation file</link>
+			<link type="parent" href="../../install.xml" lang="fr">Fichier d'installation du MOD "Quick Title Edition"</link>
+		</link-group>
+  </header>
+  <action-group>
+    <open src="includes/functions.php">
+      <edit>
+        <remove><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+/**
+* Borrowed from Categories Hierarchy 2.1.x
+* Used to check if a lang key exists	
+*/
+function lang($key)
+{
+	global $user;
+	return isset($user->lang[$key]) ? $user->lang[$key] : $key;
+}
+
+/**
+* Borrowed from Categories Hierarchy 2.1.x
+* Used to check if a image key exists
+*/
+function img($key, $text)
+{
+	global $user, $phpbb_root_path;
+	return isset($user->img_array[$key]) ? $user->img($key, $text) : '<img src="' . $phpbb_root_path . $key . '" alt="' . $text . '" title="' . $text . '" />';
+}
+
+/**
+* Borrowed from the Rank Color System MOD
+* Used to have a different color for each template
+*/
+function get_color($a_name, $a_colour)
+{
+	return empty($a_colour) ? ( empty($a_name) ? '' : 'class="' . strtolower($a_name) . '"' ) : 'style="color: #' . $a_colour . '; font-weight: bold;"';
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></remove>
+      </edit>
+    </open>
+    <open src="common.php">
+      <edit>
+        <find>require($phpbb_root_path . 'includes/utf/utf_tools.' . $phpEx);</find>
+        <action type="after-add">//-- mod : board management plus -----------------------------------------------
+//-- add
+require($phpbb_root_path . 'includes/functions_common.' . $phpEx);
+//-- fin mod : board management plus -------------------------------------------</action>
+      </edit>
+    </open>
+    <open src="posting.php">
+      <edit>
+        <find>$lastclick	= request_var('lastclick', 0);</find>
+        <action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+$attr_id = request_var('attr_id', 0);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>case 'reply':</find>
+        <action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>case 'bump':</find>
+        <action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>	trigger_error('BUMP_ERROR');
+}</find>
+        <action type="before-add"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ($mode == 'attribute')
+{
+	$attribute = ($attr_id > -1) ? implode(',', array($attr_id, $user->data['user_id'], time())) : '';
+
+	$sql = 'UPDATE ' . TOPICS_TABLE . '
+		SET topic_attribute = \'' . $attribute . '\'
+		WHERE topic_id = ' . (int) $topic_id;
+	$db->sql_query($sql);
+
+	$meta_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
+	meta_refresh(3, $meta_url);
+
+	$message = $user->lang['ATTRIBUTE_APPLIED'] . '<br /><br />' . sprintf($user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
+	$message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id) . '">', '</a>');
+
+	trigger_error($message);
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+      </edit>
+    </open>
+    <open src="viewtopic.php">
+      <edit>
+        <find>	'S_ATTR_COMBO'	=>
+	'ATTR_COMBO'	=>
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with"><![CDATA[	'S_ATTR_COMBO' => append_sid("{$phpbb_root_path}posting.$phpEx", "mode=attribute&amp;f=$forum_id&amp;t=$topic_id"),
+	'ATTR_COMBO'	=> $qte->combo($topic_data['topic_attribute'], $topic_data['topic_poster']),
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+      </edit>
+    </open>
+  </action-group>
+</mod>

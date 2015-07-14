@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+  <header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en">Changelog from 1.0.0 Beta 2 to 1.0.0 RC1</title>
+    <title lang="fr">Migrer de la version 1.0.0 Beta 2 à la version RC1</title>
+    <description lang="en">Allows to update the MOD from 1.0.0 Beta 2 to 1.0.0 RC1</description>
+    <description lang="fr">Permet de mettre à jour le MOD de la version 1.0.0 Beta 2 à la version 1.0.0 RC1</description>
+    <author-group>
+			<author>
+        <realname>Adrien Bonnel</realname>
+        <username>ABDev</username>
+        <homepage>http://abdev.biz/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Ewan Martin</realname>
+				<username>PastisD</username>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+    </author-group>
+    <mod-version>1.0.0 RC1</mod-version>
+    <installation>
+      <level>intermediate</level>
+      <time>300</time>
+      <target-version>3.0.12</target-version>
+    </installation>
+    <history>
+      <entry>
+        <date>2008-04-27</date>
+        <rev-version>1.0.0 RC1</rev-version>
+        <changelog lang="en">
+          <change>First public release candidate</change>
+          <change>Addded: "subsilver2" style support</change>
+          <change>Fixed: attributes can now be applied from the moderator control panel</change>
+          <change>Fixed: attribute was lost when it was changed from the posting editor</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version publique admissible</change>
+          <change>Ajouté: support du style "subsilver2"</change>
+          <change>Corrigé: les attributs peuvent maintenant être appliqués depuis le panneau de modération</change>
+          <change>Corrigé: l'attribut était perdu si celui-ci étant changé depuis l'éditeur de saisie des messages</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-12</date>
+        <rev-version>1.0.0 Beta 2</rev-version>
+        <changelog lang="en">
+          <change>Second release (private)</change>
+          <change>Fixed: users weren't allowed to apply attributes</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Seconde version (privée)</change>
+          <change>Corrigé: les utilisateurs n'étaient pas autorisés à appliquer des attributs</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-02-28</date>
+        <rev-version>1.0.0 Beta 1</rev-version>
+        <changelog lang="en">
+          <change>First release (private)</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version (privée)</change>
+        </changelog>
+      </entry>
+    </history>
+		<link-group>
+			<link type="parent" href="../../install.xml" lang="en">"Quick Title Edition" installation file</link>
+			<link type="parent" href="../../install.xml" lang="fr">Fichier d'installation du MOD "Quick Title Edition"</link>
+		</link-group>
+  </header>
+  <action-group>
+    <open src="includes/mcp/mcp_forum.php">
+      <edit>
+        <find>		'S_MCP_ACTION'			=></find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		'ATTR_COMBO'	=> $qte->combo('', $user->data['user_id']),
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+    </open>
+    <open src="includes/mcp/mcp_post.php">
+      <edit>
+        <remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	global $qte;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+      </edit>
+      <edit>
+        <remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		'S_TOPIC_ATTR'	=> !empty($post_info['topic_attribute']) ? true : false,
+		'TOPIC_ATTRIBUTE' => $qte->attr($post_info['topic_attribute']),
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+      </edit>
+    </open>
+		<open src="styles/prosilver/template/mcp_post.html">
+			<edit>
+				<find><![CDATA[		<h3><!-- IF S_TOPIC_ATTR -->{TOPIC_ATTRIBUTE} <!-- ENDIF -->{POST_SUBJECT}</h3>]]></find>
+				<action type="replace-with"><![CDATA[		<h3>{POST_SUBJECT}</h3>]]></action>
+			</edit>
+		</open>
+    <open src="posting.php">
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include($phpbb_root_path . 'includes/functions_attributes.' . $phpEx);
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+$user->add_lang('mods/attributes');
+include($phpbb_root_path . 'includes/functions_attributes.' . $phpEx);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------
+	case 'reply':</find>
+        <action type="replace-with">	case 'reply':
+//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>	case 'bump':
+//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">	case 'bump':</action>
+      </edit>
+      <edit>
+        <find>	// no break;
+
+	case 'reply':</find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	case 'attribute':
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ($mode == 'attribute')
+{
+	$attribute =
+
+	$sql = 'UPDATE ' . TOPICS_TABLE . '
+		SET
+		WHERE
+	$db->sql_query($sql);
+
+	$meta_url =
+	meta_refresh(3, $meta_url);
+
+	$message =
+	$message .=
+
+	trigger_error($message);
+}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ( $mode == 'attribute' )
+{
+	$attribute = ($attr_id > -1) ? implode(',', array($attr_id, $user->data['user_id'], time())) : '';
+
+	$sql = 'UPDATE ' . TOPICS_TABLE . '
+		SET topic_attribute = \'' . $attribute . '\'
+		WHERE topic_id = ' . (int) $topic_id;
+	$db->sql_query($sql);
+
+	$meta_url = append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
+	meta_refresh(3, $meta_url);
+
+	$msg = ($attr_id > -1) ? 'ATTRIBUTE_APPLIED' : 'ATTRIBUTE_REMOVED';
+
+	$message = $user->lang[$msg] . '<br /><br />' . sprintf($user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
+	$message .= '<br /><br />' . sprintf($user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id) . '">', '</a>');
+
+	trigger_error($message);
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+      </edit>
+      <edit>
+        <remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$post_data['attr_id'] = request_var('attr_id', 0);
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+      </edit>
+      <edit>
+        <find>$post_data['enable_magic_url'] =</find>
+        <action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ($mode == 'edit' || $mode == 'post')
+{
+	$post_data['attr_id'] = request_var('attr_id', 0);
+}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	'S_POSTING'	=> true,</find>
+        <action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	'S_POSTING'	=> ($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id'])) ? true : false,]]></action>
+      </edit>
+    </open>
+    <open src="viewtopic.php">
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	'S_TOPIC_ATTR'	=></find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	'S_VIEW_COMBO' => ($user->data['user_id'] == $topic_data['topic_poster'] || $auth->acl_get('m_') || $auth->acl_get('a_')) ? true : false,
+
+	'S_TOPIC_ATTR'	=> !empty($topic_data['topic_attribute']) ? true : false,</action>
+      </edit>
+    </open>
+		<diy-instructions lang="en">Purge your forum cache.</diy-instructions>
+		<diy-instructions lang="fr">Purgez le cache du forum.</diy-instructions>
+  </action-group>
+</mod>

@@ -1,0 +1,133 @@
+<?php
+//
+//	file: language/en/mods/info_acp_attributes.php
+//	author: abdev
+//	begin: 11/22/2010
+//	version: 0.1.4 - 12/27/2013
+//	licence: http://opensource.org/licenses/gpl-license.php GNU Public License
+//
+
+// ignore
+if ( !defined('IN_PHPBB') )
+{
+	exit;
+}
+
+// init lang ary, if it doesn't !
+if ( empty($lang) || !is_array($lang) )
+{
+	$lang = array();
+}
+
+// administration
+$lang = array_merge($lang, array(
+	'QTE_MANAGE' => 'Manage topic attributes',
+	'QTE_MANAGE_TITLE' => 'Topic attributes',
+	'QTE_MANAGE_EXPLAIN' => 'Here you can manage the wordings and the icons used as topic attributes.',
+
+	'QTE_ADD' => 'Add a new attribute',
+	'QTE_ADD_EXPLAIN' => 'Here you can define the new attribute fields.',
+	'QTE_EDIT' => 'Edit attribute',
+	'QTE_EDIT_EXPLAIN' => 'Here you can modify the fields of the selected attribute.',
+
+	'QTE_FIELDS' => 'Attribute fields',
+	'QTE_TYPE' => 'Attribute type',
+	'QTE_TYPE_TXT' => 'Text',
+	'QTE_TYPE_IMG' => 'Image',
+	'QTE_NAME' => 'Attribute name',
+	'QTE_NAME_EXPLAIN' => '- Use language constant if name is served from language file, or enter directly the attribute name.<br />- Insert <strong>%%mod%%</strong> will display the user name who applied the attribute.<br />- Insert <strong>%%date%%</strong> will display the day date when the attribute was applied.<br /><br />- Example : <strong>[Solved by %%mod%%]</strong> will display <strong>[Solved by %s]</strong>',
+	'QTE_DESC' => 'Attribute description',
+	'QTE_DESC_EXPLAIN' => 'You can enter a short comment, which will be used in order to differentiate your attributes if some need to have the same name.',
+	'QTE_IMG' => 'Attribute image',
+	'QTE_IMG_EXPLAIN' => 'You can use the image name if it is served in the imageset, or seize the relative path of the image.',
+	'QTE_DATE' => 'Attribute date format',
+	'QTE_DATE_EXPLAIN' => 'The syntax used is identical to the PHP <a href="http://www.php.net/date">date()</a> function.',
+	'QTE_COLOUR' => 'Attribute colour',
+	'QTE_COLOUR_EXPLAIN' => 'Select a value from the <strong>colour picker</strong>, or enter it directly.<br />Leave blank to use a CSS class named like the attribute name.',
+	'QTE_USER_COLOUR' => 'Colour the username, who applied the attribute',
+	'QTE_USER_COLOUR_EXPLAIN' => 'If you use the <strong>%mod%</strong> argument and that option is enabled, the user group colour will be applied.',
+	'QTE_COPY_AUTHS' => 'Copy permissions from',
+	'QTE_COPY_AUTHS_EXPLAIN' => 'If you choose to copy permissions, the attribute will have the same permissions as the one you select here. This will overwrite any permissions you have previously set for this attribute with the permissions of the attribute you select here. If the <strong>Custom</strong> option is selected, the current permissions will be kept.',
+
+	'QTE_PERMISSIONS' => 'Attribute permissions',
+	'QTE_ALLOWED_FORUMS' => 'Allowed forums',
+	'QTE_ALLOWED_FORUMS_EXPLAIN' => 'Forums, where allowed groups can use that attribute.<br />Select multiple forums by holding <samp>CTRL</samp> or <samp>COMMAND</samp> and clicking.',
+	'QTE_ALLOWED_GROUPS' => 'Allowed groups',
+	'QTE_ALLOWED_GROUPS_EXPLAIN' => 'Groups, which are allowed to use that attribute.<br />Select multiple groups by holding <samp>CTRL</samp> or <samp>COMMAND</samp> and clicking.',
+	'QTE_ALLOWED_AUTHOR' => 'Allow the topic author to use that attribute in the selected forums',
+	'QTE_ALLOWED_AUTHOR_EXPLAIN' => 'If that option is enabled, the topic author will be able to use that attribute, even if he is not a member of the selected groups.',
+	'QTE_COPY_PERMISSIONS' => 'Copy attributes permissions from',
+	'QTE_COPY_PERMISSIONS_EXPLAIN' => 'When created, the forum will have the same attributes permissions as the one you selected. If no forum is selected, attributes will not be displayed while their permissions will not have been defined.',
+
+	'QTE_AUTH_ADD' => 'Add a permission',
+	'QTE_AUTH_REMOVE' => 'Remove that permission',
+	'QTE_AUTH_NO_PERMISSIONS' => 'Do not copy permissions',
+
+	'QTE_ATTRIBUTE' => 'Attribute',
+	'QTE_ATTRIBUTES' => 'Attributes',
+	'QTE_USAGE' => 'Usage',
+
+	'QTE_CSS' => 'Probably CSS-managed',
+	'QTE_NONE' => 'N/A',
+	'QTE_KEY_USERNAME' => '¦user¦',
+	'QTE_KEY_DATE' => '¦date¦',
+
+	'QTE_MUST_SELECT' => 'You must select an attribute.',
+	'QTE_NAME_ERROR' => 'The “Attribute name” field seems to be empty.',
+	'QTE_DESC_ERROR' => 'The “Attribute description” field seems to be too long.',
+	'QTE_COLOUR_ERROR' => 'The “Attribute colour” field seems to contain a mistake.',
+	'QTE_DATE_ARGUMENT_ERROR' => 'You have defined a date format. But you have not defined the <strong>%date%</strong> argument inside your attribute.',
+	'QTE_DATE_FORMAT_ERROR' => 'You have defined the <strong>%date%</strong> argument inside your attribute. But you have not defined the date format.',
+	'QTE_USER_COLOUR_ERROR' => 'You have enabled which ensures to colour the username. But you have not defined the <strong>%mod%</strong> argument inside your attribute.',
+	'QTE_FORUM_ERROR' => 'You cannot specify a category or a forum link.',
+
+	'QTE_ADDED' => 'A new attribute has been added.',
+	'QTE_UPDATED' => 'The selected attribute has been updated.',
+	'QTE_REMOVED' => 'The selected attribute has been deleted.',
+
+	'LOG_ATTRIBUTE_ADDED' => '<strong>Added a new attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_UPDATED' => '<strong>Updated an attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_REMOVED'	=> '<strong>Deleted an attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_MOVE_DOWN'	=> '<strong>Moved an attribute</strong> %1$s <strong>below</strong> %2$s',
+	'LOG_ATTRIBUTE_MOVE_UP'	=> '<strong>Moved an attribute</strong> %1$s <strong>above</strong> %2$s',
+));
+
+// forums
+$lang = array_merge($lang, array(
+	'QTE_TOPICS_ATTR_SETTINGS' => 'Topic attributes settings',
+
+	'QTE_DEFAULT_ATTR' => 'Default attribute of the forum',
+	'QTE_DEFAULT_ATTR_EXPLAIN' => 'The selected attribute will be applied when a new topic is created, whatever the user permissions.',
+	'QTE_HIDE_ATTR' => 'Hide the remove option',
+	'QTE_HIDE_ATTR_EXPLAIN' => 'The selected groups will not see the remove option.',
+	'QTE_FORCE_USERS' => 'Force users to apply an attribute to their topic',
+	'QTE_FORCE_USERS_EXPLAIN' => 'If enabled, users will have to select an attribute for their topic in that forum.',
+));
+
+// umil
+$lang = array_merge($lang, array(
+	'QTE' => 'Quick Title Edition',
+
+	'INSTALL_QTE' => 'Install Quick Title Edition',
+	'INSTALL_QTE_CONFIRM' => 'Are you ready to install Quick Title Edition ?',
+	'UPDATE_QTE' => 'Update Quick Title Edition',
+	'UPDATE_QTE_CONFIRM' => 'Are you ready to update Quick Title Edition ?',
+	'UNINSTALL_QTE' => 'Uninstall Quick Title Edition',
+	'UNINSTALL_QTE_CONFIRM' => 'Are you ready to uninstall Quick Title Edition ? All settings and data saved by this MOD will be removed !',
+));
+
+// upgrades
+$lang = array_merge($lang, array(
+	'QTE_RC2_UPDATED' => 'Your “Quick Title Edition” version has now been updated.<br /><br />Do not forget to delete this file from your server.',
+	'QTE_RC2_GREATER' => 'You are already using a greater version than RC2 version.<br /><br />Do not forget to delete this file from your server.',
+));
+
+// permissions
+$lang = array_merge($lang, array(
+	'acl_a_attr_manage' => array('lang' => 'Can manage topic attributes', 'cat' => 'posting'),
+));
+
+// legacy
+$lang = array_merge($lang, array(
+	'ACP_MANAGE_ATTRIBUTES' => 'Topic attributes',
+));

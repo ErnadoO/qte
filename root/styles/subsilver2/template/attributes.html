@@ -1,0 +1,84 @@
+<!-- IF not S_PRIVMSGS and S_QTE_SELECT -->
+
+	<!-- IF S_VIEWTOPIC -->
+	<br clear="all" />
+
+	<table width="100%" cellspacing="0">
+	<tr>
+		<td align="right"><form method="post" action="{S_QTE_FORM}">
+		<table cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td nowrap="nowrap"><span class="gensmall">{L_QTE_ATTRIBUTES}:</span>
+				<select name="attr_id">
+					<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->" style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
+					<!-- BEGIN row -->
+					<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+					<!-- END row -->
+				</select>
+			<input class="btnlite" type="submit" value="{L_GO}" />
+			</td>
+		</tr>
+		</table>
+		</form></td>
+	</tr>
+	</table>
+	<!-- ELSEIF S_VIEWFORUM -->
+	&nbsp;<span class="gensmall">{L_QTE_SORT}</span>
+	<select name="attr_id">
+		<option value="0">{QTE_ALL}</option>
+		<!-- BEGIN row -->
+		<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+		<!-- END row -->
+	</select>
+	<!-- ELSEIF S_SPLIT_VIEW -->
+	<tr>
+		<td class="row1" nowrap="nowrap"><span class="gen">{L_QTE_ATTRIBUTE}</span></td>
+		<td class="row2" colspan="2">
+			<select name="attr_id">
+				<!-- IF S_EDIT_POST --><option value="-2" style="font-weight:bold;">{L_QTE_ATTRIBUTE_KEEP}</option><!-- ENDIF -->
+				<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->" style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
+				<!-- BEGIN row -->
+				<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+				<!-- END row -->
+			</select>
+		</td>
+	</tr>
+	<!-- ELSEIF S_POSTING -->
+	<tr>
+		<td class="row1"><strong class="genmed">{L_QTE_ATTRIBUTE}:</strong></td>
+		<td class="row2">
+			<select name="attr_id">
+				<!-- IF S_EDIT_POST && not S_QTE_EMPTY && not IS_AUTHOR --><option value="-2" style="font-weight:bold;" selected="selected">{L_QTE_ATTRIBUTE_KEEP}</option><!-- ENDIF -->
+				<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->"<!-- IF S_QTE_SELECTED --> selected="selected"<!-- ENDIF --> style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
+				<!-- BEGIN row -->
+				<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+				<!-- END row -->
+			</select>
+		</td>
+	</tr>
+	<!-- ELSEIF S_CAN_SYNC && not S_MERGE_SELECT -->
+	<td align="{S_CONTENT_FLOW_BEGIN}" nowrap="nowrap">
+		<strong class="gensmall">{L_QTE_ATTRIBUTES}:</strong>
+		<select name="attr_id">
+			<option value="-1" style="font-weight:bold;">{L_QTE_ATTRIBUTE_DESIRED}</option>
+			<!-- BEGIN row -->
+			<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+			<!-- END row -->
+		</select>
+		<input class="btnmain" name="attribute" type="submit" value="{L_SUBMIT}" />
+	</td>
+	<!-- ELSEIF S_IN_SEARCH -->
+	<tr>
+		<td class="row1" colspan="2" width="50%"><b class="genmed">{L_QTE_ATTRIBUTE_SEARCH}:</b><br /><span class="gensmall">{L_QTE_ATTRIBUTE_SEARCH_EXPLAIN}</span></td>
+		<td class="row2" colspan="2" valign="top">
+			<select name="attr_id">
+				<option value="0" style="font-weight:bold;">{L_QTE_ATTRIBUTE_SELECT}</option>
+				<!-- BEGIN row -->
+				<option value="{row.QTE_ID}"{row.QTE_COLOUR}>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+				<!-- END row -->
+			</select>
+		</td>
+	</tr>
+	<!-- ENDIF -->
+
+<!-- ENDIF -->

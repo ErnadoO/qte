@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+<header>
+	<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+	<title lang="en">Changelog from 1.1.1 to 1.2.0</title>
+	<title lang="fr">Migrer de la version 1.1.1 à la version 1.2.0</title>
+	<description lang="en">Allows to update the MOD from 1.1.1 to 1.2.0</description>
+	<description lang="fr">Permet de mettre à jour le MOD de la version 1.1.1 à la version 1.2.0</description>
+	<author-group>
+		<author>
+      <realname>Adrien Bonnel</realname>
+      <username>ABDev</username>
+      <homepage>http://abdev.biz/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Ewan Martin</realname>
+			<username>PastisD</username>
+			<homepage>http://www.phpbb-forge.com/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<username>Jester</username>
+			<homepage>http://jesterstyles.free.fr/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2010-11-30" position="Logo creator" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Daniel Chalsèche</realname>
+			<username>Dakin Quelia</username>
+			<homepage>http://www.phpbb-forge.com/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2011-08-27" position="Debugger" />
+			</contributions-group>
+		</author>
+	</author-group>
+	<mod-version>1.2.0</mod-version>
+	<installation>
+		<level>easy</level>
+		<time>900</time>
+		<target-version>3.0.12</target-version>
+	</installation>
+	<history>
+		<entry>
+			<date>2012-09-02</date>
+			<rev-version>1.2.0</rev-version>
+			<changelog lang="en">
+				<change>Optimized the SQL queries for big boards</change>
+				<change>Revised the permissions system</change>
+				<change>Possibility to copy the permissions of another attribute</change>
+				<change>Possibility to define a default attribute per forum, whatever the user level</change>
+				<change>Possibility to prevent to remove topic attributes per forum, as the selected groups</change>
+				<change>Fixed an issue when editing the imagesets</change>
+				<change>Fixed an ID issue on the tables when using the extended permissions system</change>
+				<change>Fixed and improved some language keys</change>
+				<change>Fixed the loss of the choice when previewing a topic</change>
+				<change>Added the attribute display when editing a first post, if it has one, and in the user activity on the main front of the user control panel</change>
+				<change>Removed the restriction of the attributs displaying in the search and sort functions, an user must be able to search and/or to sort as the attribute of his choice when he sees it</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+				<change>Light code reduction and installation</change>
+				<change>Removed the add-ons from the main archive</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>Optimisation des requêtes SQL pour les gros forums</change>
+				<change>Révision du système de permissions</change>
+				<change>Possibilité de copier les permissions d'un attribut existant</change>
+				<change>Possibilité de définir un attribut par défaut par forum, quel que soit le niveau de permissions de l'utilisateur</change>
+				<change>Possibilité d'empêcher la suppression d'un attribut par forum, selon les groupes sélectionnés</change>
+				<change>Correction d'un message d'erreur pouvant apparaître lors de l'édition des packs d'images</change>
+				<change>Correction d'un problème d'ID sur les tableaux lors de l'utilisation étendue des permissions</change>
+				<change>Corrections et améliorations de certaines clés de langues</change>
+				<change>Correction de la perte du choix lors de la prévisualisation d'un sujet</change>
+				<change>Ajout de l'affichage de l'attribut lors de l'édition du premier message, si celui-ci en possède un, ainsi que dans l'activité de l'utilisateur sur la page principale du panneau de l'utilisateur</change>
+				<change>Suppression de la restriction de l'affichage des attributs dans les fonctions de recherche et de tri, un utilisateur doit pouvoir rechercher et/ou trier selon l'attribut de son choix dès lors que ce dernier lui est affiché</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+				<change>Légères simplifications de code et d'installation</change>
+				<change>Retrait des add-ons de l'archive principale</change>
+			</changelog>
+		</entry>
+	</history>
+	<link-group>
+		<link type="parent" href="../../install.xml" lang="en">Back to install file</link>
+		<link type="contrib" href="changelogs.xml" lang="en">Back to changelogs list</link>
+		<link type="parent" href="../../install.xml" lang="fr">Retourner au fichier d'installation</link>
+		<link type="contrib" href="changelogs.xml" lang="fr">Retourner à la liste des mises à jour</link>
+	</link-group>
+</header>
+<action-group>
+	<copy>
+		<file from="root/adm/style/acp_attributes.js" to="adm/style/acp_attributes.js" />
+		<file from="root/adm/style/acp_attributes.html" to="adm/style/acp_attributes.html" />
+		<file from="root/adm/style/acp_attributes_auths.html" to="adm/style/acp_attributes_auths.html" />
+		<file from="root/adm/style/acp_attributes_forums.html" to="adm/style/acp_attributes_forums.html" />
+		<file from="root/adm/style/jquery-1.8.1.min.js" to="adm/style/jquery-1.8.1.min.js" />
+		<file from="root/adm/style/jscolor.js" to="adm/style/jscolor.js" />
+		<file from="root/includes/acp/acp_attributes.php" to="includes/acp/acp_attributes.php" />
+		<file from="root/includes/functions_attributes.php" to="includes/functions_attributes.php" />
+		<file from="root/language/en/mods/attributes.php" to="language/en/mods/attributes.php" />
+		<file from="root/language/en/mods/info_acp_attributes.php" to="language/en/mods/info_acp_attributes.php" />
+		<file from="root/styles/prosilver/template/attributes.html" to="styles/prosilver/template/attributes.html" />
+		<file from="root/umil/*.*" to="umil/*.*" />
+		<file from="root/db_update.php" to="db_update.php" />
+	</copy>
+	<delete>
+		<file name="adm/style/jquery-1.7.2.min.js" />
+	</delete>
+	<open src="adm/style/acp_forums.html">
+	<edit>
+		<remove><![CDATA[		<dl>
+			<dt><label for="force_attr">{L_QTE_FORCE_USERS}:</label><br /><span>{L_QTE_FORCE_USERS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="force_attr" value="1"<!-- IF S_FORCE_ATTR --> id="force_attr" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="force_attr" value="0"<!-- IF not S_FORCE_ATTR --> id="force_attr" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>]]></remove>
+	</edit>
+	<edit>
+		<find><![CDATA[		<fieldset>
+			<legend>{L_FORUM_PRUNE_SETTINGS}</legend>]]></find>
+		<action type="before-add"><![CDATA[		<!-- INCLUDE acp_attributes_forums.html -->]]></action>
+	</edit>
+	</open>
+	<open src="includes/acp/acp_forums.php">
+	<edit>
+		<find>		$user->add_lang('acp/forums');</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		global $qte;
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>				// No break here</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+					$forum_data += array(
+						'default_attr' => request_var('default_attr', 0),
+						'hide_attr' => request_var('hide_attr', array(0)),
+					);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>					$forum_data['forum_password_confirm'] = $forum_data['forum_password'];</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+					$forum_data += array('default_attr' => 0, 'hide_attr' => array());
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+				$template->assign_vars(array('S_FORCE_ATTR' => $forum_data['force_attr'] ? true : false));
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				// init ary
+				$tpl_fields = array();
+
+				if ( $action == 'edit' )
+				{
+					$qte->attr_default($forum_id, $forum_data['default_attr']);
+
+					$group_ids = unserialize(trim($forum_data['hide_attr']));
+					if ( $group_ids === false )
+					{
+						$group_ids = array();
+					}
+
+					$tpl_fields += array('S_GROUPS_HIDE_ATTR' => $qte->qte_group_select($group_ids));
+				}
+
+				$tpl_fields += array('S_FORCE_ATTR' => $forum_data['force_attr'] ? true : false);
+
+				// send to template
+				$template->assign_vars($tpl_fields);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>		validate_range($range_test_ary, $errors);</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( sizeof($forum_data['hide_attr']) )
+		{
+			$forum_data['hide_attr'] = serialize($forum_data['hide_attr']);
+		}
+		else
+		{
+			$forum_data['hide_attr'] = '';
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/acp/acp_logs.php">
+	<edit>
+		<remove><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- delete
+/*-MOD]]></remove>
+	</edit>
+	<edit>
+		<find><![CDATA[MOD-*/
+//-- add
+		$user->add_lang(array('mcp', 'mods/info_mcp_attributes'));
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		$user->add_lang('mods/info_mcp_attributes');
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/acp/acp_styles.php">
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		$this->imageset_keys['icons'] = array_merge($this->imageset_keys['icons'], array('icon_topic_solved', 'icon_topic_cancel'));
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( !isset($this->imageset_keys['custom']) )
+		{
+			$this->imageset_keys['custom'] = array();
+		}
+		$this->imageset_keys['custom'] += array_merge($this->imageset_keys['custom'], array('icon_topic_solved', 'icon_topic_cancel'));
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/mcp/mcp_forum.php">
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$qte->attr_select($forum_id, $user->data['user_id'], '');
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$forum_info['hide_attr'] = unserialize(trim($forum_info['hide_attr']));
+	if ( $forum_info['hide_attr'] === false )
+	{
+		$forum_info['hide_attr'] = array();
+	}
+
+	$qte->attr_select($forum_id, $user->data['user_id'], '', $forum_info['hide_attr']);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>	foreach ($topic_list as $topic_id)</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/mcp/mcp_queue.php">
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( ($post_info['topic_first_post_id'] == $post_info['post_id']) && !empty($post_info['topic_attr_id']) )
+				{]]></find>
+		<action type="after-add">					$qte->get_users_by_topic_id(array($post_info['topic_id']));</action>
+	</edit>
+	<edit>
+		<find>				foreach ($rowset as $row)</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				$topic_list = array();
+				foreach( $rowset as $row )
+				{
+					$topic_list[] = (int) $row['topic_id'];
+				}
+				$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/mcp/mcp_topic.php">
+	<edit>
+		<find>	foreach ($rowset as $i => $row)</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$topic_list = array();
+	foreach( $rowset as $row )
+	{
+		$topic_list[] = (int) $row['topic_id'];
+	}
+	$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( $action == 'split' )
+	{
+		$qte->attr_select($topic_info['forum_id'], $user->data['user_id'], '');
+	}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( $action == 'split' )
+	{
+		$topic_info['hide_attr'] = unserialize(trim($topic_info['hide_attr']));
+		if ( $topic_info['hide_attr'] === false )
+		{
+			$topic_info['hide_attr'] = array();
+		}
+
+		$qte->attr_select($topic_info['forum_id'], $user->data['user_id'], '', $topic_info['hide_attr']);
+	}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/ucp/ucp_main.php">
+	<edit>
+		<find>	foreach ($topic_list as $topic_id)</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/functions_display.php">
+	<edit>
+		<find>		$result = $db->sql_query($sql);
+		$active_t_row['topic_title'] = (string) $db->sql_fetchfield('topic_title');</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- delete
+/*-MOD</action>
+		<action type="after-add">MOD-*/
+//-- add
+		$sql = str_replace('SELECT ', 'SELECT topic_attr_id, topic_attr_user, topic_attr_time, ', $sql);
+		$result = $db->sql_query_limit($sql, 1);
+		$active_t_row += $db->sql_fetchrow($result);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>		'S_SHOW_ACTIVITY'		=> true)
+	);</find>
+		<action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( !empty($active_t_row['topic_attr_id']) )
+	{
+		global $qte;
+
+		$qte->get_users_by_topic_id(array($active_t_id));
+		$template->assign_vars(array(
+			'S_TOPIC_ATTR' => true,
+			'TOPIC_ATTRIBUTE' => $qte->attr_display($active_t_row['topic_attr_id'], $active_t_row['topic_attr_user'], $active_t_row['topic_attr_time']),
+		));
+	}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="includes/functions_user.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+				$sql = 'UPDATE ' . TOPICS_TABLE . '
+					SET topic_attr_user = ' . ANONYMOUS . '
+					WHERE topic_attr_user = ' . (int) $user_id;
+				$db->sql_query($sql);
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>				// Since we change every post by this author, we need to count this amount towards the anonymous user</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				$sql = 'UPDATE ' . TOPICS_TABLE . '
+					SET topic_attr_user = ' . ANONYMOUS . '
+					WHERE topic_attr_user = ' . (int) $user_id;
+				$db->sql_query($sql);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="styles/prosilver/template/posting_layout.html">
+	<edit>
+		<find><![CDATA[	<h2><a href="{U_VIEW_TOPIC}">{TOPIC_TITLE}</a></h2>]]></find>
+		<inline-edit>
+			<inline-find><![CDATA[<a href="{U_VIEW_TOPIC}">]]></inline-find>
+			<inline-action type="before-add"><![CDATA[<!-- IF S_TOPIC_ATTR -->{TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+		</inline-edit>
+	</edit>
+	</open>
+	<open src="styles/prosilver/template/ucp_main_front.html">
+	<edit>
+		<find><![CDATA[<strong><a href="{U_ACTIVE_TOPIC}">]]></find>
+		<inline-edit>
+			<inline-find><![CDATA[<strong><a href="{U_ACTIVE_TOPIC}">]]></inline-find>
+			<inline-action type="before-add"><![CDATA[<!-- IF S_TOPIC_ATTR -->{TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+		</inline-edit>
+	</edit>
+	</open>
+	<open src="common.php">
+	<edit>
+		<find>?></find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+require $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+
+// instantiate the class now !
+if ( !empty($config['qte_version']) )
+{
+	$qte = new qte();
+}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="mcp.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	</open>
+	<open src="posting.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$post_data['attr_id'] = request_var('attr_id', 0);
+	if ( empty($post_data['attr_id']) && !empty($post_data['topic_attr_id']) )
+	{
+		$post_data['attr_id'] = $post_data['topic_attr_id'];
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$post_data['attr_id'] = request_var('attr_id', 0);
+	if ( !empty($post_data['topic_attr_id']) )
+	{
+		if ( empty($post_data['attr_id']) || ($post_data['attr_id'] == -2) )
+		{
+			$post_data['attr_id'] = $post_data['topic_attr_id'];
+		}
+	}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+			$data += array('attr_id' => (int) $post_data['attr_id']);
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>			// The last parameter tells submit_post if search indexer has to be run</find>
+		<action type="before-add"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+			$post_data['attr_id'] = (($mode == 'post') && !empty($post_data['default_attr'])) ? $post_data['default_attr'] : $post_data['attr_id'];
+			$data += array('attr_id' => (int) $post_data['attr_id']);
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( !empty($post_data['attr_id']) )
+		{</find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( !empty($post_data['attr_id']) && ($post_data['attr_id'] != -1) )
+		{
+			$qte->get_users_by_user_id($user->data['user_id']);]]></action>
+	</edit>
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ( $mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id']) )
+{
+	$topic_attribute = 0;
+	if ( !empty($post_data['topic_attr_id']) )
+	{
+		$topic_attribute = $post_data['topic_attr_id'];
+	}
+	else if ( $post_data['attr_id'] )
+	{
+		$topic_attribute = $post_data['attr_id'];
+	}
+
+	$post_data['hide_attr'] = unserialize(trim($post_data['hide_attr']));
+	if ( $post_data['hide_attr'] === false )
+	{
+		$post_data['hide_attr'] = array();
+	}
+
+	$qte->attr_select($forum_id, $user->data['user_id'], $topic_attribute, $post_data['hide_attr']);
+
+	$template->assign_var('S_POSTING', true);
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ( $mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id']) )
+{
+	$topic_attribute = 0;
+	if ( !$preview )
+	{
+		if ( !empty($post_data['topic_attr_id']) )
+		{
+			$topic_attribute = $post_data['topic_attr_id'];
+		}
+		else if ( $post_data['attr_id'] )
+		{
+			$topic_attribute = $post_data['attr_id'];
+		}
+	}
+	else
+	{
+		$topic_attribute = $post_data['attr_id'];
+	}
+
+	$post_data['hide_attr'] = unserialize(trim($post_data['hide_attr']));
+	if ( $post_data['hide_attr'] === false )
+	{
+		$post_data['hide_attr'] = array();
+	}
+
+	$qte->attr_select($forum_id, $user->data['user_id'], (int) $topic_attribute, $post_data['hide_attr']);
+
+	$template->assign_var('S_POSTING', true);
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	<edit>
+		<find>// Build custom bbcodes array</find>
+		<action type="before-add"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+if ( ($mode == 'edit') && isset($topic_attribute) && ($post_id == $post_data['topic_first_post_id']) )
+{
+	if ( $preview )
+	{
+		if ( $topic_attribute != $post_data['topic_attr_id'] )
+		{
+			$post_data['topic_attr_id'] = (int) $topic_attribute;
+			$post_data['topic_attr_user'] = (int) $user->data['user_id'];
+			$post_data['topic_attr_time'] = (string) $current_time;
+		}
+	}
+
+	if ( $post_data['topic_attr_id'] != -1 )
+	{
+		$qte->get_users_by_topic_id(array($post_data['topic_id']));
+		$template->assign_vars(array(
+			'S_TOPIC_ATTR' => true,
+			'TOPIC_ATTRIBUTE' => $qte->attr_display($post_data['topic_attr_id'], $post_data['topic_attr_user'], $post_data['topic_attr_time']),
+		));
+	}
+}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	</open>
+	<open src="search.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attr_id )
+		{
+			$sql_where .= (!empty($sql_where) ? ' AND ' : '') . 't.topic_attr_id = ' . $attr_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attr_id )
+		{
+			$sql_where .= (!empty($sql_where) ? ' AND ' : '') . 't.topic_attr_id = ' . (int) $attr_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>		foreach ($rowset as $row)</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		$topic_list = array();
+		foreach ( $rowset as $row )
+		{
+			$topic_list[] = (int) $row['topic_id'];
+		}
+		$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="ucp.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	</open>
+	<open src="viewforum.php">
+	<edit>
+		<remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+	</edit>
+	<edit>
+		<find>	$s_type_switch = 0;</find>
+		<action type="before-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$qte->get_users_by_topic_id($topic_list);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="viewtopic.php">
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+include $phpbb_root_path . 'includes/functions_attributes.' . $phpEx;
+
+// did the user apply an attribute ? so, let's save it !
+$attr_id = request_var('attr_id', 0);
+if ( $attr_id )
+{
+	$qte->attr_apply($attr_id, $topic_id, $forum_id, $topic_data['topic_attr_id']);
+}
+
+// show the selector
+$qte->attr_select($forum_id, $topic_data['topic_poster'], $topic_data['topic_attr_id']);
+
+$tpl_ary = array('S_QTE_FORM' => append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id"));
+if ( !empty($topic_data['topic_attr_id']) )
+{
+	$tpl_ary += array(
+		'S_TOPIC_ATTR' => true,
+		'TOPIC_ATTRIBUTE' => $qte->attr_display($topic_data['topic_attr_id'], $topic_data['topic_attr_user'], $topic_data['topic_attr_time']),
+	);
+}
+$template->assign_vars($tpl_ary);
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+		<action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+// did the user apply an attribute ? so, let's save it !
+$attr_id = request_var('attr_id', 0);
+if ( $attr_id )
+{
+	$qte->attr_apply($attr_id, $topic_id, $forum_id, $topic_data['topic_attr_id']);
+}
+
+// show the selector
+$topic_data['hide_attr'] = unserialize(trim($topic_data['hide_attr']));
+if ( $topic_data['hide_attr'] === false )
+{
+	$topic_data['hide_attr'] = array();
+}
+
+$qte->attr_select($forum_id, $topic_data['topic_poster'], $topic_data['topic_attr_id'], $topic_data['hide_attr']);
+
+$tpl_ary = array('S_QTE_FORM' => append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id"));
+if ( !empty($topic_data['topic_attr_id']) )
+{
+	$qte->get_users_by_topic_id(array($topic_data['topic_id']));
+	$tpl_ary += array(
+		'S_TOPIC_ATTR' => true,
+		'TOPIC_ATTRIBUTE' => $qte->attr_display($topic_data['topic_attr_id'], $topic_data['topic_attr_user'], $topic_data['topic_attr_time']),
+	);
+}
+$template->assign_vars($tpl_ary);
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	</open>
+	<php-installer>db_update.php</php-installer>
+	<diy-instructions lang="en">Run the SQL install file, db_update.php, in your web browser and delete the file upon script completion.</diy-instructions>
+	<diy-instructions lang="fr">Exécutez ensuite le fichier d'installation, intitulé db_update.php, dans votre navigateur Internet puis supprimez-le une fois l'installation effectuée.</diy-instructions>
+</action-group>
+</mod>

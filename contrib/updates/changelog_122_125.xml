@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+<header>
+	<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+	<title lang="en">Changelog from 1.2.2 to 1.2.5</title>
+	<title lang="fr">Migrer de la version 1.2.2 à la version 1.2.5</title>
+	<description lang="en">Aims to update the MOD from 1.2.2 to 1.2.5</description>
+	<description lang="fr">Permet de mettre à jour le MOD de la version 1.2.2 à la version 1.2.5</description>
+	<author-group>
+		<author>
+			<realname>Adrien Bonnel</realname>
+			<username>ABDev</username>
+			<homepage>http://abdev.biz/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Ewan Martin</realname>
+			<username>PastisD</username>
+			<contributions-group>
+				<contributions status="current" from="2008-02-28" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<username>geolim4</username>
+			<homepage>http://geolim4.com/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2013-12-14" position="Developer" />
+			</contributions-group>
+		</author>
+		<author>
+			<username>Jester</username>
+			<homepage>http://jesterstyles.free.fr/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2010-11-30" position="Logo creator" />
+			</contributions-group>
+		</author>
+		<author>
+			<realname>Daniel Chalsèche</realname>
+			<username>Dakin Quelia</username>
+			<homepage>http://www.danielchalseche.fr.cr/</homepage>
+			<contributions-group>
+				<contributions status="current" from="2011-08-27" position="Debugger" />
+			</contributions-group>
+		</author>
+	</author-group>
+	<mod-version>1.2.5</mod-version>
+	<installation>
+		<level>easy</level>
+		<time>300</time>
+		<target-version>3.0.12</target-version>
+	</installation>
+	<history>
+		<entry>
+			<date>2013-12-26</date>
+			<rev-version>1.2.5</rev-version>
+			<changelog lang="en">
+				<change>Geolim4 joined us</change>
+				<change>Fixed many issues in the moderator control panel</change>
+				<change>Fixed the issue on attributes keeping in the posting form</change>
+				<change>Added the attribute to the topic title in the page title</change>
+				<change>Added an attribute permissions copy feature from a forum when creating a new forum</change>
+				<change>Compliance with the new version of the french translation</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>geolim4 nous rejoint</change>
+				<change>Correction de plusieurs erreurs dans le panneau de modération</change>
+				<change>Correction du problème de conservation des attributs dans le formulaire de saisie des messages</change>
+				<change>Ajout de l'attribut au titre du sujet dans le titre de la page</change>
+				<change>Ajout d'une fonction de copie de permissions d'attribut d'un forum lors de la création d'un nouveau forum</change>
+				<change>Mise en conformité par rapport à la nouvelle version de la traduction française</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+			</changelog>
+		</entry>
+	</history>
+	<link-group>
+		<link type="parent" href="../../install.xml" lang="en">Back to install file</link>
+		<link type="contrib" href="changelogs.xml" lang="en">Back to changelogs list</link>
+		<link type="parent" href="../../install.xml" lang="fr">Retourner au fichier d'installation</link>
+		<link type="contrib" href="changelogs.xml" lang="fr">Retourner à la liste des mises à jour</link>
+	</link-group>
+</header>
+<action-group>
+	<copy>
+		<file from="root/adm/style/acp_attributes.html" to="adm/style/acp_attributes.html" />
+		<file from="root/adm/style/acp_attributes.js" to="adm/style/acp_attributes.js" />
+		<file from="root/adm/style/acp_attributes_forums.html" to="adm/style/acp_attributes_forums.html" />
+		<file from="root/adm/style/jquery-1.10.2.min.js" to="adm/style/jquery-1.10.2.min.js" />
+		<file from="root/adm/style/jscolor.js" to="adm/style/jscolor.js" />
+		<file from="root/includes/acp/acp_attributes.php" to="includes/acp/acp_attributes.php" />
+		<file from="root/includes/functions_attributes.php" to="includes/functions_attributes.php" />
+		<file from="root/language/en/mods/info_acp_attributes.php" to="language/en/mods/info_acp_attributes.php" />
+		<file from="root/styles/prosilver/template/attributes.html" to="styles/prosilver/template/attributes.html" />
+		<file from="root/umil/*.*" to="umil/*.*" />
+		<file from="root/db_update.php" to="db_update.php" />
+	</copy>
+	<delete>
+		<file name="adm/style/jquery-1.9.1.min.js" />
+	</delete>
+	<open src="includes/acp/acp_forums.php">
+	<edit>
+		<find>						$message = ($action == 'add') ? $user->lang['FORUM_CREATED'] : $user->lang['FORUM_UPDATED'];</find>
+		<action type="after-add"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+						$from_attr = request_var('from_attr', 0);
+						if ( $action == 'add' && $from_attr )
+						{
+							foreach ( $qte->attr as $attr )
+							{
+								if ( $attr['attr_auths'] )
+								{
+									$attr['attr_auths'] = json_decode($attr['attr_auths'], true);
+									if ( !empty($attr['attr_auths'][0]['forums_ids']) && in_array($from_attr, $attr['attr_auths'][0]['forums_ids']) )
+									{
+										$attr['attr_auths'][0]['forums_ids'][] = $forum_data['forum_id'];
+										$sql_ary = array('attr_auths' => json_encode($attr['attr_auths']));
+
+										$sql = 'UPDATE ' . TOPICS_ATTR_TABLE . '
+											SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+											WHERE attr_id = ' . (int) $attr['attr_id'];
+										$db->sql_query($sql);
+									}
+								}
+							}
+							$cache->destroy('_attr');
+						}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( sizeof($forum_data['hide_attr']) )</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( !empty($forum_data['hide_attr']) )</action>
+	</edit>
+	</open>
+	<open src="includes/functions_posting.php">
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+			// generic fix for mods, which use that function ...
+			$data['attr_id'] = isset($data['attr_id']) ? $data['attr_id'] : -1;
+
+			if ( $data['attr_id'] == -1 )
+			{
+				$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
+			}
+			else if ( $data['attr_id'] == -2 )
+			{
+				$sql = 'SELECT topic_attr_id, topic_attr_user, topic_attr_time
+					FROM ' . TOPICS_TABLE . '
+					WHERE topic_id = ' . (int) $data['topic_id'];
+				$result = $db->sql_query($sql);
+				$attr_row = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+
+				$sql_data[TOPICS_TABLE]['sql'] += array(
+					'topic_attr_id' => $attr_row['topic_attr_id'],
+					'topic_attr_user' => $attr_row['topic_attr_user'],
+					'topic_attr_time' => $attr_row['topic_attr_time'],
+				);
+			}
+			else
+			{
+				$sql_data[TOPICS_TABLE]['sql'] += array(
+					'topic_attr_id' => $data['attr_id'],
+					'topic_attr_user' => (int) $user->data['user_id'],
+					'topic_attr_time' => $current_time,
+				);
+			}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+			// generic fix for mods, which use that function ...
+			$data['attr_id'] = isset($data['attr_id']) ? $data['attr_id'] : -1;
+
+			if ( $data['attr_id'] != -2 )
+			{
+				if ( $data['attr_id'] == -1 )
+				{
+					$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
+				}
+				else
+				{
+					$sql_data[TOPICS_TABLE]['sql'] += array(
+						'topic_attr_id' => $data['attr_id'],
+						'topic_attr_user' => (int) $user->data['user_id'],
+						'topic_attr_time' => $current_time,
+					);
+				}
+			}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+			// ditto ...
+			$data['attr_id'] = isset($data['attr_id']) ? $data['attr_id'] : -1;
+
+			if ( $data['attr_id'] == -1 )
+			{
+				$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
+			}
+			else if ( $data['attr_id'] == -2 )
+			{
+				$sql = 'SELECT topic_attr_id, topic_attr_user, topic_attr_time
+					FROM ' . TOPICS_TABLE . '
+					WHERE topic_id = ' . (int) $data['topic_id'];
+				$result = $db->sql_query($sql);
+				$attr_row = $db->sql_fetchrow($result);
+				$db->sql_freeresult($result);
+
+				$sql_data[TOPICS_TABLE]['sql'] += array(
+					'topic_attr_id' => $attr_row['topic_attr_id'],
+					'topic_attr_user' => $attr_row['topic_attr_user'],
+					'topic_attr_time' => $attr_row['topic_attr_time'],
+				);
+			}
+			else
+			{
+				$sql_data[TOPICS_TABLE]['sql'] += array(
+					'topic_attr_id' => $data['attr_id'],
+					'topic_attr_user' => (int) $user->data['user_id'],
+					'topic_attr_time' => $current_time,
+				);
+			}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+			// ditto ...
+			$data['attr_id'] = isset($data['attr_id']) ? $data['attr_id'] : -1;
+
+			if ( $data['attr_id'] != -2 )
+			{
+				if ( $data['attr_id'] == -1 )
+				{
+					$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
+				}
+				else
+				{
+					$sql_data[TOPICS_TABLE]['sql'] += array(
+						'topic_attr_id' => $data['attr_id'],
+						'topic_attr_user' => (int) $user->data['user_id'],
+						'topic_attr_time' => $current_time,
+					);
+				}
+			}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="styles/prosilver/template/viewtopic_body.html">
+	<edit>
+		<find><![CDATA[<!-- IF postrow.S_TOPIC_ATTR -->]]></find>
+		<inline-edit>
+			<inline-find><![CDATA[<!-- IF postrow.S_TOPIC_ATTR -->]]></inline-find>
+			<inline-action type="replace-with"><![CDATA[<!-- IF postrow.S_TOPIC_ATTR && ON_PAGE eq 1 && postrow.S_FIRST_ROW -->]]></inline-action>
+		</inline-edit>
+	</edit>
+	</open>
+	<open src="posting.php">
+	<edit>
+		<find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$post_data['attr_id'] = request_var('attr_id', 0);
+	if ( !empty($post_data['topic_attr_id']) )
+	{
+		if ( empty($post_data['attr_id']) || ($post_data['attr_id'] == -2) )
+		{
+			$post_data['attr_id'] = $post_data['topic_attr_id'];
+		}
+	}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	$post_data['attr_id'] = request_var('attr_id', 0);
+	if ( $post_data['attr_id'] != -2 )
+	{
+		if ( !empty($post_data['topic_attr_id']) )
+		{
+			if ( empty($post_data['attr_id']) )
+			{
+				$post_data['attr_id'] = $post_data['topic_attr_id'];
+			}
+		}
+	}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	<edit>
+		<find>	$template->assign_var('S_POSTING', true);
+}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+		<action type="replace-with">	$template->assign_vars(array(
+		'S_POSTING' => true,
+		'IS_AUTHOR' => ($post_data['poster_id'] == $user->data['user_id']),
+	));
+}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<open src="viewtopic.php">
+	<edit>
+		<find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( ($topic_data['topic_first_post_id'] == $row['post_id']) && !empty($topic_data['topic_attr_id']) )]]></find>
+		<action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( !empty($topic_data['topic_attr_id']) )</action>
+	</edit>
+	<edit>
+		<find>// Output the page</find>
+		<action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+$attribute_title = $qte->attr_title($topic_data['topic_attr_id'], $topic_data['topic_attr_user'], $topic_data['topic_attr_time']);
+$topic_data['topic_title'] = $attribute_title . ' ' . $topic_data['topic_title'];
+//-- fin mod : quick title edition ---------------------------------------------</action>
+	</edit>
+	</open>
+	<php-installer>db_update.php</php-installer>
+	<diy-instructions lang="en">Run the SQL install file, db_update.php, in your web browser and delete the file upon script completion.</diy-instructions>
+	<diy-instructions lang="fr">Exécutez ensuite le fichier d'installation, intitulé db_update.php, dans votre navigateur Internet puis supprimez-le une fois l'installation effectuée.</diy-instructions>
+</action-group>
+</mod>

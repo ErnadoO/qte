@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en">Changes for "subsilver2" style</title>
+    <title lang="fr">Installation pour le style "subsilver2"</title>
+    <description lang="en">Allows to use the MOD on "subsilver2" style and its derivates</description>
+    <description lang="fr">Permet d'utiliser le MOD sur le style "subsilver2" et ses dérivés</description>
+    <author-group>
+			<author>
+        <realname>Adrien Bonnel</realname>
+        <username>ABDev</username>
+        <homepage>http://abdev.biz/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Ewan Martin</realname>
+				<username>PastisD</username>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<username>geolim4</username>
+				<homepage>http://geolim4.com/</homepage>
+				<contributions-group>
+					<contributions status="current" from="2013-12-14" position="Developer" />
+				</contributions-group>
+			</author>
+			<author>
+				<username>Jester</username>
+				<homepage>http://jesterstyles.free.fr/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2010-11-30" position="Logo creator"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Daniel Chalsèche</realname>
+				<username>Dakin Quelia</username>
+				<homepage>http://www.danielchalseche.fr.cr/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2011-08-27" position="Debugger"/>
+     		</contributions-group>
+			</author>
+    </author-group>
+		<mod-version>1.2.5</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>600</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+    <history>
+		<entry>
+			<date>2013-12-26</date>
+			<rev-version>1.2.5</rev-version>
+			<changelog lang="en">
+				<change>Geolim4 joined us</change>
+				<change>Fixed many issues in the moderator control panel</change>
+				<change>Fixed the issue on attributes keeping in the posting form</change>
+				<change>Added the attribute to the topic title in the page title</change>
+				<change>Added an attribute permissions copy feature from a forum when creating a new forum</change>
+				<change>Compliance with the new version of the french translation</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>geolim4 nous rejoint</change>
+				<change>Correction de plusieurs erreurs dans le panneau de modération</change>
+				<change>Correction du problème de conservation des attributs dans le formulaire de saisie des messages</change>
+				<change>Ajout de l'attribut au titre du sujet dans le titre de la page</change>
+				<change>Ajout d'une fonction de copie de permissions d'attribut d'un forum lors de la création d'un nouveau forum</change>
+				<change>Mise en conformité par rapport à la nouvelle version de la traduction française</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+			</changelog>
+		</entry>
+		<entry>
+			<date>2013-05-01</date>
+			<rev-version>1.2.2</rev-version>
+			<changelog lang="en">
+				<change>Simplified the most complex code parts</change>
+				<change>Fixed uninstall issues</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>Simplification des parties de code les plus complexes</change>
+				<change>Correction d'erreurs de désinstallation</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+			</changelog>
+		</entry>
+		<entry>
+			<date>2012-10-20</date>
+			<rev-version>1.2.1</rev-version>
+			<changelog lang="en">
+				<change>Fixed found issues when validting</change>
+				<change>Updated jQuery library</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>Correction des erreurs trouvées lors de la validation</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+			</changelog>
+		</entry>
+		<entry>
+			<date>2012-09-02</date>
+			<rev-version>1.2.0</rev-version>
+			<changelog lang="en">
+				<change>Optimized the SQL queries for big boards</change>
+				<change>Revised the permissions system</change>
+				<change>Possibility to copy the permissions of another attribute</change>
+				<change>Possibility to define a default attribute per forum, whatever the user level</change>
+				<change>Possibility to prevent to remove topic attributes per forum, as the selected groups</change>
+				<change>Fixed an issue when editing the imagesets</change>
+				<change>Fixed an ID issue on the tables when using the extended permissions system</change>
+				<change>Fixed and improved some language keys</change>
+				<change>Fixed the loss of the choice when previewing a topic</change>
+				<change>Added the attribute display when editing a first post, if it has one, and in the user activity on the main front of the user control panel</change>
+				<change>Removed the restriction of the attributs displaying in the search and sort functions, an user must be able to search and/or to sort as the attribute of his choice when he sees it</change>
+				<change>Updated jQuery library</change>
+				<change>Updated JSColor element</change>
+				<change>Light code reduction and installation</change>
+				<change>Removed the add-ons from the main archive</change>
+			</changelog>
+			<changelog lang="fr">
+				<change>Optimisation des requêtes SQL pour les gros forums</change>
+				<change>Révision du système de permissions</change>
+				<change>Possibilité de copier les permissions d'un attribut existant</change>
+				<change>Possibilité de définir un attribut par défaut par forum, quel que soit le niveau de permissions de l'utilisateur</change>
+				<change>Possibilité d'empêcher la suppression d'un attribut par forum, selon les groupes sélectionnés</change>
+				<change>Correction d'un message d'erreur pouvant apparaître lors de l'édition des packs d'images</change>
+				<change>Correction d'un problème d'ID sur les tableaux lors de l'utilisation étendue des permissions</change>
+				<change>Corrections et améliorations de certaines clés de langues</change>
+				<change>Correction de la perte du choix lors de la prévisualisation d'un sujet</change>
+				<change>Ajout de l'affichage de l'attribut lors de l'édition du premier message, si celui-ci en possède un, ainsi que dans l'activité de l'utilisateur sur la page principale du panneau de l'utilisateur</change>
+				<change>Suppression de la restriction de l'affichage des attributs dans les fonctions de recherche et de tri, un utilisateur doit pouvoir rechercher et/ou trier selon l'attribut de son choix dès lors que ce dernier lui est affiché</change>
+				<change>Mise à jour de la bibliothèque jQuery</change>
+				<change>Mise à jour de l'élément JSColor</change>
+				<change>Légères simplifications de code et d'installation</change>
+				<change>Retrait des add-ons de l'archive principale</change>
+			</changelog>
+		</entry>
+      <entry>
+        <date>2012-06-15</date>
+        <rev-version>1.1.1</rev-version>
+        <changelog lang="en">
+          <change>Added an option which allows to keep the attribute, if there is one, when editing the first post</change>
+					<change>Fixed the pagination when an attribute is used for the sort in a forum</change>
+					<change>Attributes are now correctly applied on the shadow topics</change>
+					<change>Added the “Support Toolkit” fix</change>
+					<change>Updated jQuery library</change>
+					<change>Updated JSColor element</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Ajout d'une option qui permet de conserver l'attribut, s'il y en a un, lors de l'édition du premier message</change>
+					<change>Correction de la pagination quand un attribut est utilisé pour le tri dans un forum</change>
+					<change>Les attributs sont maintenant correctement appliqués sur les sujet-traceurs</change>
+					<change>Ajout du correctif pour “Support Toolkit”</change>
+					<change>Mise à jour de la bibliothèque jQuery</change>
+					<change>Mise à jour de l'élément JSColor</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2011-08-26</date>
+        <rev-version>1.1.0</rev-version>
+        <changelog lang="en">
+          <change>Updated jQuery library</change>
+					<change>Setting up a generic fix for the submit_post() function</change>
+					<change>Fixed a mistake when topics merging</change>
+					<change>Fixed a displaying mistake of the language keys in the moderation logs</change>
+					<change>Some language keys were bad at spelling</change>
+					<change>Some simplifications and optimizations of code, due to the alter_block_array() method</change>
+					<change>Added a sort feature in the forums</change>
+					<change>Added the attributes selector in the topics splitting panel</change>
+					<change>The attributes selector is now hidden in the topics merging panel</change>
+					<change>Reinforcement of the security on many points</change>
+					<change>Complete rewriting of the administration file</change>
+					<change>Improved checkout of the usage of the %mod% and %date% arguments</change>
+					<change>Added a column in the administration, which displays the usage rate of each attribute</change>
+					<change>Replaced the phpBB's colour picker by JSColor</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Mise à jour de la bibliothèque jQuery</change>
+					<change>Mise en place d'un correctif générique pour la fonction submit_post()</change>
+					<change>Correction d'une erreur lors de la fusion de sujets</change>
+					<change>Erreur d'affichage des clés de langues dans les journaux de modération</change>
+					<change>Quelques clés de langue comportaient des erreurs d'orthographe</change>
+					<change>Quelques simplications et optimisations de code, grâce à la méthode alter_block_array()</change>
+					<change>Ajout d'une fonctionnalité de tri dans les forums</change>
+					<change>Ajout du sélecteur d'attributs dans le panneau de division des sujets</change>
+					<change>Le sélecteur d'attributs est désormais masqué dans le panneau de fusion des sujets</change>
+					<change>Renforcement de la sécurité à plusieurs niveaux</change>
+					<change>Réécriture complète du fichier d'administration</change>
+					<change>Vérification améliorée de l'utilisation des arguments %mod% et %date%</change>
+					<change>Ajout d'une colonne dans l'administration, affichant le taux d'utilisation de chaque attribut</change>
+					<change>Remplacement de la palette de couleurs de phpBB par JSColor</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-12</date>
+        <rev-version>1.0.0</rev-version>
+        <changelog lang="en">
+          <change>MOD submitted to validation</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>MOD soumis à la validation</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-11</date>
+        <rev-version>1.0.0 RC6</rev-version>
+        <changelog lang="en">
+          <change>Sixth public release candidate</change>
+          <change>Fixed issues for validation</change>
+          <change>Added the possibility to force attributes application per forum via a setting</change>
+          <change>Fixed an issue if Oracle database system is used</change>
+          <change>Successfully tested on the following database systems : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird and MS SQL Server 2008 R2</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Sixième version publique admissible</change>
+          <change>Correction d'erreurs pour la validation</change>
+          <change>Possibilité de forcer l'application d'attributs par forum via un réglage</change>
+          <change>Correction d'une erreur si le système de base de données Oracle est utilisé</change>
+          <change>Fonctionne sur les systèmes de base de données suivants : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird et MS SQL Server 2008 R2</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-03</date>
+        <rev-version>1.0.0 RC5</rev-version>
+        <changelog lang="en">
+          <change>Fifth public release candidate</change>
+          <change>Added the search feature</change>
+					<change>Changed all files headers for validation</change>
+					<change>Minor fixes</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Cinquième version publique admissible</change>
+          <change>Ajout de la fonction de recherche</change>
+					<change>Modification de toutes les entêtes des fichiers pour la validation</change>
+					<change>Corrections mineurs</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-01</date>
+        <rev-version>1.0.0 RC4</rev-version>
+        <changelog lang="en">
+          <change>Fourth public release candidate</change>
+					<change>Revized AutoMOD compatibility</change>
+					<change>New permissions manager</change>
+					<change>Minor fixes</change>
+					<change>Added a comment field in order to differentiate the attributes, if some have the same name</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Quatrième version publique admissible</change>
+					<change>Révision de la compatibilité AutoMOD</change>
+					<change>Nouveau gestionnaire de permissions</change>
+					<change>Corrections mineurs</change>
+					<change>Ajout d'un champ de commentaire afin de différencier les attributs, si certains ont le même nom</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-11-23</date>
+        <rev-version>1.0.0 RC3</rev-version>
+        <changelog lang="en">
+          <change>Third public release candidate</change>
+					<change>General update of the MOD, there are too changes to be listed</change>
+          <change>MODX updated</change>
+          <change>Simplified installation through UMIL</change>
+          <change>AutoMOD compliant</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Troisième version publique admissible</change>
+					<change>Mise à jour générale du MOD, il y a trop de changements pour pouvoir tout lister</change>
+          <change>Mise à jour de MODX</change>
+          <change>Installation simplifiée grâce à UMIL</change>
+          <change>Compatibilité avec AutoMOD</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-05-04</date>
+        <rev-version>1.0.0 RC2</rev-version>
+        <changelog lang="en">
+          <change>Second public release candidate</change>
+          <change>Added: new attributes permissions manager for each forum and each level</change>
+          <change>Fixed: mistake on attributes display from the search pages</change>
+          <change>Fixed: the attributes displayed on first post of each page</change>
+          <change>Fixed: lots of mistakes ...</change>
+          <change>Revized: installation procedure</change>
+          <change>Revized: installation procedure for "subsilver2" style</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Deuxième version publique admissible</change>
+          <change>Ajouté: nouveau gestionnaire de permissions des attributs pour chaque forum et chaque niveau</change>
+          <change>Corrigé: erreur d'affichage sur les attributs depuis les résultats de recherche</change>
+          <change>Corrigé: les attributs s'affichaient sur le premier message de chaque page</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+          <change>Revu: procédure d'installation</change>
+          <change>Revu: procédure d'installation pour le style "subsilver2"</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-27</date>
+        <rev-version>1.0.0 RC1</rev-version>
+        <changelog lang="en">
+          <change>First public release candidate</change>
+          <change>Addded: "subsilver2" style support</change>
+          <change>Fixed: attributes can now be applied from the moderator control panel</change>
+          <change>Fixed: attribute was lost when it was changed from the posting editor</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version publique admissible</change>
+          <change>Ajouté: support du style "subsilver2"</change>
+          <change>Corrigé: les attributs peuvent maintenant être appliqués depuis le panneau de modération</change>
+          <change>Corrigé: l'attribut était perdu si celui-ci étant changé depuis l'éditeur de saisie des messages</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-12</date>
+        <rev-version>1.0.0 Beta 2</rev-version>
+        <changelog lang="en">
+          <change>Second release (private)</change>
+          <change>Fixed: users weren't allowed to apply attributes</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Seconde version (privée)</change>
+          <change>Corrigé: les utilisateurs n'étaient pas autorisés à appliquer des attributs</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-02-28</date>
+        <rev-version>1.0.0 Beta 1</rev-version>
+        <changelog lang="en">
+          <change>First release (private)</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version (privée)</change>
+        </changelog>
+      </entry>
+    </history>
+		<link-group>
+			<link type="parent" href="../../install.xml" lang="en">"Quick Title Edition" installation file</link>
+			<link type="parent" href="../../install.xml" lang="fr">Fichier d'installation du MOD "Quick Title Edition"</link>
+		</link-group>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/styles/subsilver2/imageset/icon_topic_cancel.gif" to="styles/subsilver2/imageset/icon_topic_cancel.gif" />
+			<file from="root/styles/subsilver2/imageset/icon_topic_solved.gif" to="styles/subsilver2/imageset/icon_topic_solved.gif" />
+			<file from="root/styles/subsilver2/template/attributes.html" to="styles/subsilver2/template/attributes.html" />
+		</copy>
+		<open src="styles/subsilver2/imageset/imageset.cfg">
+			<edit>
+				<find><![CDATA[img_icon_topic_unapproved =]]></find>
+				<action type="after-add"><![CDATA[img_icon_topic_cancel = icon_topic_cancel.gif*16*16
+img_icon_topic_solved = icon_topic_solved.gif*16*16]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/mcp_forum.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF topicrow.S_TOPIC_ATTR -->{topicrow.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[	<td class="cat" colspan="6" align="{S_CONTENT_FLOW_END}">]]></find>
+				<action type="replace-with"><![CDATA[	<td class="cat" colspan="6">
+		<table width="100%" cellspacing="0">
+		<tr>
+			<!-- INCLUDE attributes.html -->
+			<td align="{S_CONTENT_FLOW_END}" nowrap="nowrap">]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			<input class="btnmain" type="submit" value="{L_SUBMIT}" />]]></find>
+				<action type="after-add"><![CDATA[			</td>
+		</tr>
+		</table>]]></action>
+			</edit>
+		</open>
+    <open src="styles/subsilver2/template/mcp_queue.html">
+      <edit>
+        <find><![CDATA[<p class="topictitle">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<p class="topictitle">]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- IF postrow.S_TOPIC_ATTR -->{postrow.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+      </edit>
+    </open>
+		<open src="styles/subsilver2/template/mcp_topic.html">
+			<edit>
+				<find><![CDATA[	<tr>
+		<td class="row1" nowrap="nowrap"><span class="gen">{L_SPLIT_FORUM}</span></td>]]></find>
+				<action type="before-add"><![CDATA[	<!-- INCLUDE attributes.html -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[{postrow.POST_SUBJECT}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{postrow.POST_SUBJECT}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF postrow.S_TOPIC_ATTR -->{postrow.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/posting_body.html">
+			<edit>
+				<find><![CDATA[<!-- IF TOPIC_TITLE -->]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<!-- IF TOPIC_TITLE -->]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- IF S_TOPIC_ATTR --><span class="titles">{TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<tr>
+	<td class="row1" valign="top">
+	<!-- IF S_SMILIES_ALLOWED -->]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE attributes.html -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/posting_preview.html">
+			<edit>
+				<find><![CDATA[{PREVIEW_SUBJECT}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{PREVIEW_SUBJECT}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF S_TOPIC_ATTR -->{TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+    <open src="styles/subsilver2/template/search_body.html">
+      <edit>
+        <find><![CDATA[	<tr>
+		<td class="row1" colspan="2"><b class="genmed">{L_SEARCH_FORUMS}: </b><br /><span class="gensmall">{L_SEARCH_FORUMS_EXPLAIN}</span></td>]]></find>
+        <action type="before-add"><![CDATA[	<!-- INCLUDE attributes.html -->]]></action>
+      </edit>
+    </open>
+		<open src="styles/subsilver2/template/search_results.html">
+			<edit>
+				<find><![CDATA[{searchresults.ATTACH_ICON_IMG}]]></find>
+				<action type="before-add"><![CDATA[				<!-- IF searchresults.S_TOPIC_ATTR -->{searchresults.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a href="{searchresults.U_VIEW_TOPIC}">]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF searchresults.S_TOPIC_ATTR -->{searchresults.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_main_bookmarks.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF topicrow.S_TOPIC_ATTR --><span class="gen">{topicrow.TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_main_front.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF topicrow.S_TOPIC_ATTR --><span class="gen">{topicrow.TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<b><a class="gen" href="{U_ACTIVE_TOPIC}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<b><a class="gen" href="{U_ACTIVE_TOPIC}">]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF S_TOPIC_ATTR -->{TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/ucp_main_subscribed.html">
+			<edit>
+				<find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{topicrow.ATTACH_ICON_IMG}]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF topicrow.S_TOPIC_ATTR --><span class="gen">{topicrow.TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/viewforum_body.html">
+			<edit>
+				<find><![CDATA[<!-- IF topicrow.S_UNREAD_TOPIC -->]]></find>
+				<action type="after-add"><![CDATA[				<!-- IF topicrow.S_TOPIC_ATTR --><span class="gen">{topicrow.TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[<!-- IF topicrow.S_UNREAD_TOPIC -->]]></find>
+				<action type="after-add"><![CDATA[					<!-- IF topicrow.S_TOPIC_ATTR --><span class="gen">{topicrow.TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[{S_SELECT_SORT_DAYS}]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[{S_SELECT_SORT_DAYS}]]></inline-find>
+					<inline-action type="after-add"><![CDATA[<!-- INCLUDE attributes.html -->]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[<a class="titles" href="{U_VIEW_TOPIC}">]]></find>
+				<inline-edit>
+					<inline-find><![CDATA[<a class="titles" href="{U_VIEW_TOPIC}">]]></inline-find>
+					<inline-action type="before-add"><![CDATA[<!-- IF S_TOPIC_ATTR --><span class="titles">{TOPIC_ATTRIBUTE}</span> <!-- ENDIF -->]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<a href="#p{postrow.POST_ID}">]]></find>
+        <inline-edit>
+            <inline-find><![CDATA[<a href="#p{postrow.POST_ID}">]]></inline-find>
+            <inline-action type="before-add"><![CDATA[<!-- IF postrow.S_TOPIC_ATTR && ON_PAGE eq 1 && postrow.S_FIRST_ROW -->{postrow.TOPIC_ATTRIBUTE} <!-- ENDIF -->]]></inline-action>
+        </inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<br clear="all" />
+
+<table width="100%" cellspacing="0">
+<tr>
+	<td><!-- IF S_DISPLAY_SEARCHBOX -->]]></find>
+				<action type="before-add"><![CDATA[<!-- INCLUDE attributes.html -->]]></action>
+			</edit>
+		</open>
+		<open src="styles/subsilver2/theme/stylesheet.css">
+			<edit>
+				<find><![CDATA[.username-coloured {
+	font-weight: bold;
+}]]></find>
+				<action type="after-add"><![CDATA[/* Quick Title Edition
+ --------------------- */
+.qte_solved { color: #006600; font-weight: bold; }
+.qte_cancelled { color: #cc0000; font-weight: bold; }]]></action>
+			</edit>
+		</open>
+		<diy-instructions lang="en">Make sure all files have been uploaded to the proper locations. Refresh your templates and imagesets style.</diy-instructions>
+		<diy-instructions lang="fr">Assurez-vous que tous les fichiers ont bien été transférés dans les bons emplacements. Rafraîchissez les templates et les packs d'images de votre style.</diy-instructions>
+	</action-group>
+</mod>

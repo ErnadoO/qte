@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+  <header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en">Changelog from 1.0.0 RC5 to 1.0.0 RC6</title>
+    <title lang="fr">Migrer de la version 1.0.0 RC5 à la version 1.0.0 RC6</title>
+    <description lang="en">Allows to update the MOD from 1.0.0 RC5 to 1.0.0 RC6</description>
+    <description lang="fr">Permet de mettre à jour le MOD de la version 1.0.0 RC5 à la version 1.0.0 RC6</description>
+    <author-group>
+			<author>
+        <realname>Adrien Bonnel</realname>
+        <username>ABDev</username>
+        <homepage>http://abdev.biz/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Ewan Martin</realname>
+				<username>PastisD</username>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<username>Jester</username>
+				<homepage>http://jesterstyles.free.fr/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2010-11-30" position="Logo creator"/>
+     		</contributions-group>
+			</author>
+    </author-group>
+    <mod-version>1.0.0 RC6</mod-version>
+    <installation>
+      <level>easy</level>
+      <time>600</time>
+      <target-version>3.0.12</target-version>
+    </installation>
+    <history>
+      <entry>
+        <date>2010-12-11</date>
+        <rev-version>1.0.0 RC6</rev-version>
+        <changelog lang="en">
+          <change>Sixth public release candidate</change>
+          <change>Fixed issues for validation</change>
+          <change>Added the possibility to force attributes application per forum via a setting</change>
+          <change>Added an alternative solution if your webhost has installed a PHP version lower than 5.2.0 version</change>
+          <change>Fixed an issue if Oracle database system is used</change>
+          <change>Successfully tested on the following database systems : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird and MS SQL Server 2008 R2</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Sixième version publique admissible</change>
+          <change>Correction d'erreurs pour la validation</change>
+          <change>Possibilité de forcer l'application d'attributs par forum via un réglage</change>
+          <change>Ajout d'une solution alternative dans le cas où votre hébergeur a installé une version de PHP inférieure à la version 5.2.0</change>
+          <change>Correction d'une erreur si le système de base de données Oracle est utilisé</change>
+          <change>Fonctionne sur les systèmes de base de données suivants : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird et MS SQL Server 2008 R2</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-03</date>
+        <rev-version>1.0.0 RC5</rev-version>
+        <changelog lang="en">
+          <change>Fifth public release candidate</change>
+          <change>Added the search feature</change>
+					<change>Changed all files headers for validation</change>
+					<change>Minor fixes</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Cinquième version publique admissible</change>
+          <change>Ajout de la fonction de recherche</change>
+					<change>Modification de toutes les entêtes des fichiers pour la validation</change>
+					<change>Corrections mineurs</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-01</date>
+        <rev-version>1.0.0 RC4</rev-version>
+        <changelog lang="en">
+          <change>Fourth public release candidate</change>
+					<change>Revized AutoMOD compatibility</change>
+					<change>New permissions manager</change>
+					<change>Minor fixes</change>
+					<change>Added a comment field in order to differentiate the attributes, if some have the same name</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Quatrième version publique admissible</change>
+					<change>Révision de la compatibilité AutoMOD</change>
+					<change>Nouveau gestionnaire de permissions</change>
+					<change>Corrections mineurs</change>
+					<change>Ajout d'un champ de commentaire afin de différencier les attributs, si certains ont le même nom</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-11-23</date>
+        <rev-version>1.0.0 RC3</rev-version>
+        <changelog lang="en">
+          <change>Third public release candidate</change>
+					<change>General update of the MOD, there are too changes to be listed</change>
+          <change>MODX updated</change>
+          <change>Simplified installation through UMIL</change>
+          <change>AutoMOD compliant</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Troisième version publique admissible</change>
+					<change>Mise à jour générale du MOD, il y a trop de changements pour pouvoir tout lister</change>
+          <change>Mise à jour de MODX</change>
+          <change>Installation simplifiée grâce à UMIL</change>
+          <change>Compatibilité avec AutoMOD</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-05-04</date>
+        <rev-version>1.0.0 RC2</rev-version>
+        <changelog lang="en">
+          <change>Second public release candidate</change>
+          <change>Added: new attributes permissions manager for each forum and each level</change>
+          <change>Fixed: mistake on attributes display from the search pages</change>
+          <change>Fixed: the attributes displayed on first post of each page</change>
+          <change>Fixed: lots of mistakes ...</change>
+          <change>Revized: installation procedure</change>
+          <change>Revized: installation procedure for "subsilver2" style</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Deuxième version publique admissible</change>
+          <change>Ajouté: nouveau gestionnaire de permissions des attributs pour chaque forum et chaque niveau</change>
+          <change>Corrigé: erreur d'affichage sur les attributs depuis les résultats de recherche</change>
+          <change>Corrigé: les attributs s'affichaient sur le premier message de chaque page</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+          <change>Revu: procédure d'installation</change>
+          <change>Revu: procédure d'installation pour le style "subsilver2"</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-27</date>
+        <rev-version>1.0.0 RC1</rev-version>
+        <changelog lang="en">
+          <change>First public release candidate</change>
+          <change>Addded: "subsilver2" style support</change>
+          <change>Fixed: attributes can now be applied from the moderator control panel</change>
+          <change>Fixed: attribute was lost when it was changed from the posting editor</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version publique admissible</change>
+          <change>Ajouté: support du style "subsilver2"</change>
+          <change>Corrigé: les attributs peuvent maintenant être appliqués depuis le panneau de modération</change>
+          <change>Corrigé: l'attribut était perdu si celui-ci étant changé depuis l'éditeur de saisie des messages</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-12</date>
+        <rev-version>1.0.0 Beta 2</rev-version>
+        <changelog lang="en">
+          <change>Second release (private)</change>
+          <change>Fixed: users weren't allowed to apply attributes</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Seconde version (privée)</change>
+          <change>Corrigé: les utilisateurs n'étaient pas autorisés à appliquer des attributs</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-02-28</date>
+        <rev-version>1.0.0 Beta 1</rev-version>
+        <changelog lang="en">
+          <change>First release (private)</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version (privée)</change>
+        </changelog>
+      </entry>
+    </history>
+		<link-group>
+			<link type="parent" href="../../install.xml" lang="en">"Quick Title Edition" installation file</link>
+			<link type="parent" href="../../install.xml" lang="fr">Fichier d'installation du MOD "Quick Title Edition"</link>
+		</link-group>
+  </header>
+  <action-group>
+		<copy>
+			<file from="root/adm/style/acp_attributes.html" to="adm/style/acp_attributes.html" />
+			<file from="root/includes/acp/acp_attributes.php" to="includes/acp/acp_attributes.php" />
+			<file from="root/language/en/mods/attributes.php" to="language/en/mods/attributes.php" />
+			<file from="root/language/en/mods/info_acp_attributes.php" to="language/en/mods/info_acp_attributes.php" />
+			<file from="root/umil/*.*" to="umil/*.*" />
+			<file from="root/db_update.php" to="db_update.php" />
+		</copy>
+    <open src="adm/style/acp_forums.html">
+      <edit>
+        <find><![CDATA[		<dl>
+			<dt><label for="display_recent">{L_ENABLE_RECENT}:</label><br /><span>{L_ENABLE_RECENT_EXPLAIN}</span></dt>]]></find>
+        <action type="before-add"><![CDATA[		<dl>
+			<dt><label for="force_attr">{L_QTE_FORCE_USERS}:</label><br /><span>{L_QTE_FORCE_USERS_EXPLAIN}</span></dt>
+			<dd><label><input type="radio" class="radio" name="force_attr" value="1"<!-- IF S_FORCE_ATTR --> id="force_attr" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+				<label><input type="radio" class="radio" name="force_attr" value="0"<!-- IF not S_FORCE_ATTR --> id="force_attr" checked="checked"<!-- ENDIF --> /> {L_NO}</label></dd>
+		</dl>]]></action>
+      </edit>
+    </open>
+    <open src="includes/acp/acp_board.php">
+      <edit>
+        <remove>//-- mod : quick title edition -------------------------------------------------
+//-- add
+						'qte_force_users' => array('lang' => 'QTE_FORCE_USERS', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+//-- fin mod : quick title edition ---------------------------------------------</remove>
+      </edit>
+    </open>
+    <open src="includes/acp/acp_forums.php">
+      <edit>
+        <find>						'forum_password_unset'	=> request_var('forum_password_unset', false),
+					);</find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+					$forum_data += array('force_attr' => request_var('force_attr', false));
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>							'forum_password_confirm'=> '',
+						);</find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+						$forum_data += array('force_attr' => false);
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>					'S_DESC_URLS_CHECKED'		=> ($forum_desc_data['allow_urls']) ? true : false,</find>
+        <action type="after-add">//-- mod : quick title edition -------------------------------------------------
+//-- add
+					'S_FORCE_ATTR' => $forum_data['force_attr'] ? true : false,
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+    </open>
+    <open src="includes/search/fulltext_mysql.php">
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = ''
+//-- modify</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</action>
+      </edit>
+      <edit>
+        <find>function keyword_search(</find>
+				<inline-edit>
+					<inline-find>, $attribute_id = ''</inline-find>
+					<inline-action type="replace-with">, $attribute_id = 0</inline-action>
+				</inline-edit>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_where_options .= ' AND t.topic_attr_id = ' . $attribute_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_where_options .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = ''
+//-- modify</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</action>
+      </edit>
+      <edit>
+        <find>function author_search(</find>
+				<inline-edit>
+					<inline-find>, $attribute_id = ''</inline-find>
+					<inline-action type="replace-with">, $attribute_id = 0</inline-action>
+				</inline-edit>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_author .= ' AND t.topic_attr_id = ' . $attribute_id;
+
+			$firstpost_only = true;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_author .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+
+			$firstpost_only = true;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )
+		{
+			return 0;
+		}
+
+		// generate a search_key from all the options to identify the results
+		$search_key = md5(implode('#', array(
+			'',
+			'topics',
+			'',
+			'',
+			'',
+			$sort_days,
+			$sort_key,
+			'',
+			implode(',', $ex_fid_ary),
+			implode(',', $m_approve_fid_ary),
+			'',
+			'',
+		)));
+
+		// try reading the results from cache
+		$total_results = 0;
+		if ( $this->obtain_ids($search_key, $total_results, $id_ary, $start, $per_page, $sort_dir) == SEARCH_RESULT_IN_CACHE )
+		{
+			return $total_results;
+		}
+
+		$id_ary = array();
+
+		// create some display specific sql strings
+		$sql_attribute = 't.topic_attr_id = ' . $attribute_id;
+		$sql_fora = sizeof($ex_fid_ary) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '';
+		$sql_time = $sort_days ? ' AND p.post_time >= ' . (time() - ($sort_days * 86400)) : '';
+
+		// build sql strings for sorting
+		$sql_sort = $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+		$sql_sort_table = $sql_sort_join = '';
+		switch ( $sql_sort[0] )
+		{
+			case 'u':
+				$sql_sort_table = USERS_TABLE . ' u, ';
+				$sql_sort_join = ' AND u.user_id = p.poster_id ';
+			break;
+
+			case 'f':
+				$sql_sort_table = FORUMS_TABLE . ' f, ';
+				$sql_sort_join = ' AND f.forum_id = p.forum_id ';
+			break;
+		}
+
+		if ( !sizeof($m_approve_fid_ary) )
+		{
+			$m_approve_fid_sql = ' AND p.post_approved = 1';
+		}
+		else if ( $m_approve_fid_ary == array(-1) )
+		{
+			$m_approve_fid_sql = '';
+		}
+		else
+		{
+			$m_approve_fid_sql = ' AND (p.post_approved = 1 OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) . ')';
+		}
+
+		// if the cache was completely empty count the results
+		$calc_results = $total_results ? '' : 'SQL_CALC_FOUND_ROWS ';
+
+		$sql = "SELECT {$calc_results}t.topic_id
+			FROM " . $sql_sort_table . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+			WHERE $sql_attribute
+				$m_approve_fid_sql
+				$sql_fora
+				AND t.topic_id = p.topic_id
+				$sql_sort_join
+				$sql_time
+			GROUP BY t.topic_id
+			ORDER BY $sql_sort";
+
+		// only read one block of posts from the db and then cache it
+		$result = $db->sql_query_limit($sql, $config['search_block_size'], $start);
+		while ( $row = $db->sql_fetchrow($result) )
+		{
+			$id_ary[] = (int) $row['topic_id'];
+		}
+		$db->sql_freeresult($result);
+
+		if ( !$total_results )
+		{
+			$sql = 'SELECT FOUND_ROWS() as total_results';
+			$result = $db->sql_query($sql);
+			$total_results = (int) $db->sql_fetchfield('total_results');
+			$db->sql_freeresult($result);
+
+			if ( !$total_results )
+			{
+				return false;
+			}
+		}
+
+		if ( sizeof($id_ary) )
+		{
+			$id_ary = array_slice($id_ary, 0, $per_page);
+
+			return $total_results;
+		}
+
+		return false;
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+        <action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )
+		{
+			return 0;
+		}
+
+		// init var and ary
+		$total_results = 0;
+		$id_ary = array();
+
+		// create some display specific sql strings
+		$sql_attribute = 't.topic_attr_id = ' . (int) $attribute_id;
+		$sql_fora = sizeof($ex_fid_ary) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '';
+		$sql_time = $sort_days ? ' AND p.post_time >= ' . (time() - ($sort_days * 86400)) : '';
+
+		// build sql strings for sorting
+		$sql_sort = $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+		$sql_sort_table = $sql_sort_join = '';
+		switch ( $sql_sort[0] )
+		{
+			case 'u':
+				$sql_sort_table = USERS_TABLE . ' u, ';
+				$sql_sort_join = ' AND u.user_id = p.poster_id ';
+			break;
+
+			case 'f':
+				$sql_sort_table = FORUMS_TABLE . ' f, ';
+				$sql_sort_join = ' AND f.forum_id = p.forum_id ';
+			break;
+		}
+
+		if ( !sizeof($m_approve_fid_ary) )
+		{
+			$m_approve_fid_sql = ' AND p.post_approved = 1';
+		}
+		else if ( $m_approve_fid_ary == array(-1) )
+		{
+			$m_approve_fid_sql = '';
+		}
+		else
+		{
+			$m_approve_fid_sql = ' AND (p.post_approved = 1 OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) . ')';
+		}
+
+		// if the cache was completely empty count the results
+		$calc_results = $total_results ? '' : 'SQL_CALC_FOUND_ROWS ';
+
+		$sql = "SELECT {$calc_results}t.topic_id
+			FROM " . $sql_sort_table . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+			WHERE $sql_attribute
+				$m_approve_fid_sql
+				$sql_fora
+				AND t.topic_id = p.topic_id
+				$sql_sort_join
+				$sql_time
+			GROUP BY t.topic_id
+			ORDER BY $sql_sort";
+
+		// only read one block of posts from the db and then cache it
+		$result = $db->sql_query_limit($sql, $config['search_block_size'], $start);
+		while ( $row = $db->sql_fetchrow($result) )
+		{
+			$id_ary[] = (int) $row['topic_id'];
+		}
+		$db->sql_freeresult($result);
+
+		if ( !$total_results )
+		{
+			$sql = 'SELECT FOUND_ROWS() as total_results';
+			$result = $db->sql_query($sql);
+			$total_results = (int) $db->sql_fetchfield('total_results');
+			$db->sql_freeresult($result);
+
+			if ( !$total_results )
+			{
+				return false;
+			}
+		}
+
+		if ( sizeof($id_ary) )
+		{
+			$id_ary = array_slice($id_ary, 0, $per_page);
+
+			return $total_results;
+		}
+
+		return false;
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+      </edit>
+    </open>
+    <open src="includes/search/fulltext_native.php">
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = ''
+//-- modify</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</action>
+      </edit>
+      <edit>
+        <find>function keyword_search(</find>
+				<inline-edit>
+					<inline-find>, $attribute_id = ''</inline-find>
+					<inline-action type="replace-with">, $attribute_id = 0</inline-action>
+				</inline-edit>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_where[] = 't.topic_attr_id = ' . $attribute_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_where[] = 't.topic_attr_id = ' . (int) $attribute_id;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = ''
+//-- modify</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+// here we added
+//	, $attribute_id = 0
+//-- modify</action>
+      </edit>
+      <edit>
+        <find>function author_search(</find>
+				<inline-edit>
+					<inline-find>, $attribute_id = ''</inline-find>
+					<inline-action type="replace-with">, $attribute_id = 0</inline-action>
+				</inline-edit>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_author .= ' AND t.topic_attr_id = ' . $attribute_id;
+
+			$firstpost_only = true;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+		if ( $attribute_id )
+		{
+			$sql_author .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+
+			$firstpost_only = true;
+		}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find>//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</find>
+        <action type="replace-with">//-- mod : quick title edition -------------------------------------------------
+//-- add
+				if ( $attribute_id )
+				{
+					$sql_sort_join .= ' AND t.topic_attr_id = ' . (int) $attribute_id;
+				}
+//-- fin mod : quick title edition ---------------------------------------------</action>
+      </edit>
+      <edit>
+        <find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )
+		{
+			return 0;
+		}
+
+		// generate a search_key from all the options to identify the results
+		$search_key = md5(implode('#', array(
+			'',
+			'topics',
+			'',
+			'',
+			'',
+			$sort_days,
+			$sort_key,
+			'',
+			implode(',', $ex_fid_ary),
+			implode(',', $m_approve_fid_ary),
+			'',
+			'',
+		)));
+
+		// try reading the results from cache
+		$total_results = 0;
+		if ( $this->obtain_ids($search_key, $total_results, $id_ary, $start, $per_page, $sort_dir) == SEARCH_RESULT_IN_CACHE )
+		{
+			return $total_results;
+		}
+
+		$id_ary = array();
+
+		// create some display specific sql strings
+		$sql_attribute = 't.topic_attr_id = ' . $attribute_id;
+		$sql_fora = sizeof($ex_fid_ary) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '';
+		$sql_time = $sort_days ? ' AND p.post_time >= ' . (time() - ($sort_days * 86400)) : '';
+
+		// build sql strings for sorting
+		$sql_sort = $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+		$sql_sort_table = $sql_sort_join = '';
+		switch ( $sql_sort[0] )
+		{
+			case 'u':
+				$sql_sort_table = USERS_TABLE . ' u, ';
+				$sql_sort_join = ' AND u.user_id = p.poster_id ';
+			break;
+
+			case 'f':
+				$sql_sort_table = FORUMS_TABLE . ' f, ';
+				$sql_sort_join = ' AND f.forum_id = p.forum_id ';
+			break;
+		}
+
+		if ( !sizeof($m_approve_fid_ary) )
+		{
+			$m_approve_fid_sql = ' AND p.post_approved = 1';
+		}
+		else if ( $m_approve_fid_ary == array(-1) )
+		{
+			$m_approve_fid_sql = '';
+		}
+		else
+		{
+			$m_approve_fid_sql = ' AND (p.post_approved = 1 OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) . ')';
+		}
+
+		$is_mysql = false;
+
+		// if the cache was completely empty count the results
+		if ( !$total_results )
+		{
+			switch ( $db->sql_layer )
+			{
+				case 'mysql4':
+				case 'mysqli':
+					$is_mysql = true;
+				break;
+
+				default:
+
+					if ( $db->sql_layer == 'sqlite' )
+					{
+						$sql = 'SELECT COUNT(topic_id) as total_results
+							FROM (SELECT DISTINCT t.topic_id';
+					}
+					else
+					{
+						$sql = 'SELECT COUNT(DISTINCT t.topic_id) as total_results';
+					}
+
+					$sql .= ' FROM ' . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+						WHERE $sql_attribute
+							$m_approve_fid_sql
+							$sql_fora
+							AND t.topic_id = p.topic_id
+							$sql_time" . (($db->sql_layer == 'sqlite') ? ')' : '');
+					$result = $db->sql_query($sql);
+
+					$total_results = (int) $db->sql_fetchfield('total_results');
+					$db->sql_freeresult($result);
+
+					if ( !$total_results )
+					{
+						return false;
+					}
+
+				break;
+			}
+		}
+
+		$sql = "SELECT t.topic_id
+			FROM " . $sql_sort_table . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+			WHERE $sql_attribute
+				$m_approve_fid_sql
+				$sql_fora
+				AND t.topic_id = p.topic_id
+				$sql_sort_join
+				$sql_time
+			GROUP BY t.topic_id, " . $sort_by_sql[$sort_key] . '
+			ORDER BY ' . $sql_sort;
+
+		// only read one block of posts from the db and then cache it
+		$result = $db->sql_query_limit($sql, $config['search_block_size'], $start);
+		while ( $row = $db->sql_fetchrow($result) )
+		{
+			$id_ary[] = (int) $row['topic_id'];
+		}
+		$db->sql_freeresult($result);
+
+		if ( !$total_results && $is_mysql )
+		{
+			// count rows for the executed queries
+			$sql = str_replace('SELECT t.topic_id', 'SELECT DISTINCT SQL_CALC_FOUND_ROWS p.post_id', $sql);
+			$db->sql_query($sql);
+			$db->sql_freeresult($result);
+
+			$sql = 'SELECT FOUND_ROWS() as total_results';
+			$result = $db->sql_query($sql);
+			$total_results = (int) $db->sql_fetchfield('total_results');
+			$db->sql_freeresult($result);
+
+			if ( !$total_results )
+			{
+				return false;
+			}
+		}
+
+		if ( sizeof($id_ary) )
+		{
+			$id_ary = array_slice($id_ary, 0, $per_page);
+
+			return $total_results;
+		}
+
+		return false;
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></find>
+        <action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	function attribute_search($sort_by_sql, $sort_key, $sort_dir, $sort_days, $ex_fid_ary, $m_approve_fid_ary, $attribute_id, &$id_ary, $start, $per_page)
+	{
+		global $config, $db;
+
+		if ( !$attribute_id )
+		{
+			return 0;
+		}
+
+		// init var and ary
+		$total_results = 0;
+		$id_ary = array();
+
+		// create some display specific sql strings
+		$sql_attribute = 't.topic_attr_id = ' . (int) $attribute_id;
+		$sql_fora = sizeof($ex_fid_ary) ? ' AND ' . $db->sql_in_set('p.forum_id', $ex_fid_ary, true) : '';
+		$sql_time = $sort_days ? ' AND p.post_time >= ' . (time() - ($sort_days * 86400)) : '';
+
+		// build sql strings for sorting
+		$sql_sort = $sort_by_sql[$sort_key] . (($sort_dir == 'a') ? ' ASC' : ' DESC');
+		$sql_sort_table = $sql_sort_join = '';
+		switch ( $sql_sort[0] )
+		{
+			case 'u':
+				$sql_sort_table = USERS_TABLE . ' u, ';
+				$sql_sort_join = ' AND u.user_id = p.poster_id ';
+			break;
+
+			case 'f':
+				$sql_sort_table = FORUMS_TABLE . ' f, ';
+				$sql_sort_join = ' AND f.forum_id = p.forum_id ';
+			break;
+		}
+
+		if ( !sizeof($m_approve_fid_ary) )
+		{
+			$m_approve_fid_sql = ' AND p.post_approved = 1';
+		}
+		else if ( $m_approve_fid_ary == array(-1) )
+		{
+			$m_approve_fid_sql = '';
+		}
+		else
+		{
+			$m_approve_fid_sql = ' AND (p.post_approved = 1 OR ' . $db->sql_in_set('p.forum_id', $m_approve_fid_ary, true) . ')';
+		}
+
+		$is_mysql = false;
+
+		// if the cache was completely empty count the results
+		if ( !$total_results )
+		{
+			switch ( $db->sql_layer )
+			{
+				case 'mysql4':
+				case 'mysqli':
+					$is_mysql = true;
+				break;
+
+				default:
+
+					if ( $db->sql_layer == 'sqlite' )
+					{
+						$sql = 'SELECT COUNT(topic_id) as total_results
+							FROM (SELECT DISTINCT t.topic_id';
+					}
+					else
+					{
+						$sql = 'SELECT COUNT(DISTINCT t.topic_id) as total_results';
+					}
+
+					$sql .= ' FROM ' . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+						WHERE $sql_attribute
+							$m_approve_fid_sql
+							$sql_fora
+							AND t.topic_id = p.topic_id
+							$sql_time" . (($db->sql_layer == 'sqlite') ? ')' : '');
+					$result = $db->sql_query($sql);
+
+					$total_results = (int) $db->sql_fetchfield('total_results');
+					$db->sql_freeresult($result);
+
+					if ( !$total_results )
+					{
+						return false;
+					}
+
+				break;
+			}
+		}
+
+		$sql = "SELECT t.topic_id
+			FROM " . $sql_sort_table . TOPICS_TABLE . ' t, ' . POSTS_TABLE . " p
+			WHERE $sql_attribute
+				$m_approve_fid_sql
+				$sql_fora
+				AND t.topic_id = p.topic_id
+				$sql_sort_join
+				$sql_time
+			GROUP BY t.topic_id, " . $sort_by_sql[$sort_key] . '
+			ORDER BY ' . $sql_sort;
+
+		// only read one block of posts from the db and then cache it
+		$result = $db->sql_query_limit($sql, $config['search_block_size'], $start);
+		while ( $row = $db->sql_fetchrow($result) )
+		{
+			$id_ary[] = (int) $row['topic_id'];
+		}
+		$db->sql_freeresult($result);
+
+		if ( !$total_results && $is_mysql )
+		{
+			// count rows for the executed queries
+			$sql = str_replace('SELECT t.topic_id', 'SELECT DISTINCT SQL_CALC_FOUND_ROWS p.post_id', $sql);
+			$db->sql_query($sql);
+			$db->sql_freeresult($result);
+
+			$sql = 'SELECT FOUND_ROWS() as total_results';
+			$result = $db->sql_query($sql);
+			$total_results = (int) $db->sql_fetchfield('total_results');
+			$db->sql_freeresult($result);
+
+			if ( !$total_results )
+			{
+				return false;
+			}
+		}
+
+		if ( sizeof($id_ary) )
+		{
+			$id_ary = array_slice($id_ary, 0, $per_page);
+
+			return $total_results;
+		}
+
+		return false;
+	}
+//-- fin mod : quick title edition ---------------------------------------------]]></action>
+      </edit>
+    </open>
+		<open src="posting.php">
+      <edit>
+        <find><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( !$preview && !$refresh && ($post_data['attr_id'] == -1) && $config['qte_force_users'] && ($mode == 'post' || ($mode == 'edit' && $post_data['topic_first_post_id'] == $post_id)) )]]></find>
+        <action type="replace-with"><![CDATA[//-- mod : quick title edition -------------------------------------------------
+//-- add
+	if ( !$preview && !$refresh && ($post_data['attr_id'] == -1) && $post_data['force_attr'] && ($mode == 'post' || ($mode == 'edit' && $post_data['topic_first_post_id'] == $post_id)) )]]></action>
+      </edit>
+    </open>
+    <php-installer>db_update.php</php-installer>
+		<diy-instructions lang="en">Run the SQL install file, db_update.php, in your web browser and delete the file upon script completion. Clear your cache from the administration control panel.</diy-instructions>
+		<diy-instructions lang="fr">Exécutez ensuite le fichier d'installation, intitulé db_update.php, dans votre navigateur Internet puis supprimez-le une fois l'installation effectuée. Enfin, purgez votre cache depuis le panneau d'administration.</diy-instructions>
+  </action-group>
+</mod>

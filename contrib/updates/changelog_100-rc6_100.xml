@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+  <header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en">Changelog from 1.0.0 RC6 to 1.0.0</title>
+    <title lang="fr">Migrer de la version 1.0.0 RC6 à la version 1.0.0</title>
+    <description lang="en">Allows to update the MOD from 1.0.0 RC6 to 1.0.0</description>
+    <description lang="fr">Permet de mettre à jour le MOD de la version 1.0.0 RC6 à la version 1.0.0</description>
+    <author-group>
+			<author>
+        <realname>Adrien Bonnel</realname>
+        <username>ABDev</username>
+        <homepage>http://abdev.biz/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<realname>Ewan Martin</realname>
+				<username>PastisD</username>
+     		<contributions-group>
+     		  <contributions status="current" from="2008-02-28" position="Developer"/>
+     		</contributions-group>
+			</author>
+			<author>
+				<username>Jester</username>
+				<homepage>http://jesterstyles.free.fr/</homepage>
+     		<contributions-group>
+     		  <contributions status="current" from="2010-11-30" position="Logo creator"/>
+     		</contributions-group>
+			</author>
+    </author-group>
+    <mod-version>1.0.0</mod-version>
+    <installation>
+      <level>easy</level>
+      <time>600</time>
+      <target-version>3.0.12</target-version>
+    </installation>
+    <history>
+      <entry>
+        <date>2010-12-12</date>
+        <rev-version>1.0.0</rev-version>
+        <changelog lang="en">
+          <change>MOD submitted to validation</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>MOD soumis à la validation</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-11</date>
+        <rev-version>1.0.0 RC6</rev-version>
+        <changelog lang="en">
+          <change>Sixth public release candidate</change>
+          <change>Fixed issues for validation</change>
+          <change>Added the possibility to force attributes application per forum via a setting</change>
+          <change>Fixed an issue if Oracle database system is used</change>
+          <change>Successfully tested on the following database systems : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird and MS SQL Server 2008 R2</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Sixième version publique admissible</change>
+          <change>Correction d'erreurs pour la validation</change>
+          <change>Possibilité de forcer l'application d'attributs par forum via un réglage</change>
+          <change>Correction d'une erreur si le système de base de données Oracle est utilisé</change>
+          <change>Fonctionne sur les systèmes de base de données suivants : MySQL, MySQLi, PostgreSQL, Oracle, SQLite, Firebird et MS SQL Server 2008 R2</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-03</date>
+        <rev-version>1.0.0 RC5</rev-version>
+        <changelog lang="en">
+          <change>Fifth public release candidate</change>
+          <change>Added the search feature</change>
+					<change>Changed all files headers for validation</change>
+					<change>Minor fixes</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Cinquième version publique admissible</change>
+          <change>Ajout de la fonction de recherche</change>
+					<change>Modification de toutes les entêtes des fichiers pour la validation</change>
+					<change>Corrections mineurs</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-12-01</date>
+        <rev-version>1.0.0 RC4</rev-version>
+        <changelog lang="en">
+          <change>Fourth public release candidate</change>
+					<change>Revized AutoMOD compatibility</change>
+					<change>New permissions manager</change>
+					<change>Minor fixes</change>
+					<change>Added a comment field in order to differentiate the attributes, if some have the same name</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Quatrième version publique admissible</change>
+					<change>Révision de la compatibilité AutoMOD</change>
+					<change>Nouveau gestionnaire de permissions</change>
+					<change>Corrections mineurs</change>
+					<change>Ajout d'un champ de commentaire afin de différencier les attributs, si certains ont le même nom</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2010-11-23</date>
+        <rev-version>1.0.0 RC3</rev-version>
+        <changelog lang="en">
+          <change>Third public release candidate</change>
+					<change>General update of the MOD, there are too changes to be listed</change>
+          <change>MODX updated</change>
+          <change>Simplified installation through UMIL</change>
+          <change>AutoMOD compliant</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Troisième version publique admissible</change>
+					<change>Mise à jour générale du MOD, il y a trop de changements pour pouvoir tout lister</change>
+          <change>Mise à jour de MODX</change>
+          <change>Installation simplifiée grâce à UMIL</change>
+          <change>Compatibilité avec AutoMOD</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-05-04</date>
+        <rev-version>1.0.0 RC2</rev-version>
+        <changelog lang="en">
+          <change>Second public release candidate</change>
+          <change>Added: new attributes permissions manager for each forum and each level</change>
+          <change>Fixed: mistake on attributes display from the search pages</change>
+          <change>Fixed: the attributes displayed on first post of each page</change>
+          <change>Fixed: lots of mistakes ...</change>
+          <change>Revized: installation procedure</change>
+          <change>Revized: installation procedure for "subsilver2" style</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Deuxième version publique admissible</change>
+          <change>Ajouté: nouveau gestionnaire de permissions des attributs pour chaque forum et chaque niveau</change>
+          <change>Corrigé: erreur d'affichage sur les attributs depuis les résultats de recherche</change>
+          <change>Corrigé: les attributs s'affichaient sur le premier message de chaque page</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+          <change>Revu: procédure d'installation</change>
+          <change>Revu: procédure d'installation pour le style "subsilver2"</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-27</date>
+        <rev-version>1.0.0 RC1</rev-version>
+        <changelog lang="en">
+          <change>First public release candidate</change>
+          <change>Addded: "subsilver2" style support</change>
+          <change>Fixed: attributes can now be applied from the moderator control panel</change>
+          <change>Fixed: attribute was lost when it was changed from the posting editor</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version publique admissible</change>
+          <change>Ajouté: support du style "subsilver2"</change>
+          <change>Corrigé: les attributs peuvent maintenant être appliqués depuis le panneau de modération</change>
+          <change>Corrigé: l'attribut était perdu si celui-ci étant changé depuis l'éditeur de saisie des messages</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-04-12</date>
+        <rev-version>1.0.0 Beta 2</rev-version>
+        <changelog lang="en">
+          <change>Second release (private)</change>
+          <change>Fixed: users weren't allowed to apply attributes</change>
+          <change>Fixed: lots of mistakes ...</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Seconde version (privée)</change>
+          <change>Corrigé: les utilisateurs n'étaient pas autorisés à appliquer des attributs</change>
+          <change>Corrigé: plusieurs autres erreurs ...</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2008-02-28</date>
+        <rev-version>1.0.0 Beta 1</rev-version>
+        <changelog lang="en">
+          <change>First release (private)</change>
+        </changelog>
+        <changelog lang="fr">
+          <change>Première version (privée)</change>
+        </changelog>
+      </entry>
+    </history>
+		<link-group>
+			<link type="parent" href="../../install.xml" lang="en">"Quick Title Edition" installation file</link>
+			<link type="parent" href="../../install.xml" lang="fr">Fichier d'installation du MOD "Quick Title Edition"</link>
+		</link-group>
+  </header>
+  <action-group>
+		<copy>
+			<file from="root/umil/*.*" to="umil/*.*" />
+			<file from="root/db_update.php" to="db_update.php" />
+		</copy>
+    <php-installer>db_update.php</php-installer>
+		<diy-instructions lang="en">Run the SQL install file, db_update.php, in your web browser and delete the file upon script completion.</diy-instructions>
+		<diy-instructions lang="fr">Exécutez ensuite le fichier d'installation, intitulé db_update.php, dans votre navigateur Internet puis supprimez-le une fois l'installation effectuée.</diy-instructions>
+  </action-group>
+</mod>

@@ -1,0 +1,21 @@
+<!-- BEGIN auths_row -->
+<fieldset class="auths">
+<legend>{L_QTE_PERMISSIONS}</legend>
+<div style="position: absolute; right: 20px;">
+	<a class="auths_add" href="javascript:void(0);">{ICON_ATTR_AUTH_ADD}</a>
+	<div class="auth_remove" style="display:none;"><a href="javascript:void(0);">{ICON_ATTR_AUTH_REMOVE}</a></div>
+</div>
+<dl>
+	<dt><label for="allowed_forums_{auths_row.OFFSET}">{L_QTE_ALLOWED_FORUMS}:</label><br /><span>{L_QTE_ALLOWED_FORUMS_EXPLAIN}</span></dt>
+	<dd><select id="allowed_forums_{auths_row.OFFSET}" name="attr_auths[{auths_row.OFFSET}][forums_ids][]" multiple="multiple" size="8">{auths_row.S_FORUM_ID_OPTIONS}</select></dd>
+</dl>
+<dl>
+	<dt><label for="allowed_groups_{auths_row.OFFSET}">{L_QTE_ALLOWED_GROUPS}:</label><br /><span>{L_QTE_ALLOWED_GROUPS_EXPLAIN}</span></dt>
+	<dd><select id="allowed_groups_{auths_row.OFFSET}" name="attr_auths[{auths_row.OFFSET}][groups_ids][]" multiple="multiple" size="8">{auths_row.S_GROUP_ID_OPTIONS}</select></dd>
+</dl>
+<dl>
+	<dt><label for="allowed_author_{auths_row.OFFSET}">{L_QTE_ALLOWED_AUTHOR}:</label><br /><span>{L_QTE_ALLOWED_AUTHOR_EXPLAIN}</span></dt>
+	<dd><input id="allowed_author_{auths_row.OFFSET}" type="checkbox" class="radio" name="attr_auths[{auths_row.OFFSET}][author]"<!-- IF auths_row.S_AUTHOR --> checked="checked"<!-- ENDIF --> /></dd>
+</dl>
+</fieldset>
+<!-- END auths_row -->
