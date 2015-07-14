@@ -15,7 +15,11 @@ services:
     abdev.qte.listener:
         class: abdev\qte\event\listener
         arguments:
-            - @controller.helper
+            - @request
+            - @cache.driver
+            - @dbal.conn
             - @template
+            - @abdev.qte
+            - %core.table_prefix%
         tags:
             - { name: event.listener }

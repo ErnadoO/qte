@@ -149,7 +149,7 @@ class main_module
 						else
 						{
 							$sql = 'SELECT MAX(right_id) AS right_id
-								FROM ' . $table_prefix . 'attributes';
+								FROM ' . $table_prefix . 'topics_attr';
 							$result = $db->sql_query($sql);
 							$right_id = (int) $db->sql_fetchfield('right_id');
 							$db->sql_freeresult($result);
@@ -157,7 +157,7 @@ class main_module
 							$sql_ary['left_id'] = ($right_id + 1);
 							$sql_ary['right_id'] = ($right_id + 2);
 
-							$sql = 'INSERT INTO ' . $table_prefix . 'attributes ' . $db->sql_build_array('INSERT', $sql_ary);
+							$sql = 'INSERT INTO ' . $table_prefix . 'topics_attr ' . $db->sql_build_array('INSERT', $sql_ary);
 							$db->sql_query($sql);
 
 							$message = 'ADDED';
