@@ -20,6 +20,5 @@ if ( empty($lang) || !is_array($lang) )
 }
 
 $lang = array_merge($lang, array(
-	// @TODO : Traduire.
-	'ACL_A_ATTR_MANAGE' => 'Peut gérer les attributs de sujet',
+	'ACL_A_ATTR_MANAGE' => 'Can manage topic attributes',
 ));
