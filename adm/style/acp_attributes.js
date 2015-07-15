@@ -14,7 +14,7 @@ qte.show_hide_remove_link =  function() {
 	} else {
 		$('.auth_remove').hide();
 	}
-}
+};
 	
 qte.nb = 0;
 
@@ -28,7 +28,6 @@ $(document).ready(function() {
 
 	$(document).on('click', '.auths_add', function() {
 		var clone = $('#acp_attributes fieldset:last').prev().clone().removeAttr("style");
-		var count = $('#acp_attributes fieldset.auths').length;
 
 		$('select[id^=allowed_forums]', $(clone)).attr('name', "attr_auths[" + qte.nb + "][forums_ids][]");
 		$('select[id^=allowed_groups]', $(clone)).attr('name', "attr_auths[" + qte.nb + "][groups_ids][]");
