@@ -1,0 +1,12 @@
+<form method="post" action="{S_QTE_FORM}">
+	<fieldset class="attribute">
+		<label>{L_QTE_ATTRIBUTES}:</label>
+		<select name="attr_id">
+			<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->" style="padding-left:0px; font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
+			<!-- BEGIN row -->
+			<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+			<!-- END row -->
+		</select>
+		<input class="button2" type="submit" value="{L_GO}" />
+	</fieldset>
+</form>

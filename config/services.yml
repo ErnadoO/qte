@@ -20,6 +20,8 @@ services:
             - @dbal.conn
             - @template
             - @abdev.qte
+            - %core.root_path%
+            - %core.php_ext%
             - %core.table_prefix%
         tags:
             - { name: event.listener }

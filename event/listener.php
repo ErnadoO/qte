@@ -28,13 +28,19 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
+	/** @var string */
+	protected $root_path;
+
+	/** @var string */
+	protected $php_ext;
+
 	/** @var \abdev\qte\qte */
 	protected $qte;
 
 	/** @var string */
 	protected $table_prefix;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \abdev\qte\qte $qte, $table_prefix)
+	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \abdev\qte\qte $qte, $root_path, $php_ext, $table_prefix)
 	{
 		$this->request = $request;
 		$this->cache = $cache;
@@ -42,6 +48,8 @@ class listener implements EventSubscriberInterface
 		$this->template = $template;
 		$this->qte = $qte;
 
+		$this->root_path = $root_path;
+		$this->php_ext = $php_ext;
 		$this->table_prefix = $table_prefix;
 	}
 
@@ -54,6 +62,10 @@ class listener implements EventSubscriberInterface
 			'core.acp_manage_forums_display_form' => 'acp_manage_forums_display_form_complement',
 			'core.acp_manage_forums_validate_data' => 'acp_manage_forums_validate_data_complement',
 			'core.acp_manage_forums_update_data_after' => 'acp_manage_forums_update_data_after_complement',
+
+			'core.viewtopic_assign_template_vars_before' => 'viewtopic_assign_template_vars_before_complement',
+			'core.viewtopic_modify_post_row' => 'viewtopic_modify_post_row_complement',
+			'core.viewtopic_modify_page_title' => 'viewtopic_modify_page_title_complement',
 
 			'core.delete_user_after' => 'delete_user_attributes',
 		);
@@ -158,6 +170,53 @@ class listener implements EventSubscriberInterface
 				$this->cache->destroy('_attr');
 			}
 		}
+	}
+
+	public function viewtopic_assign_template_vars_before_complement($event)
+	{
+		// did the user apply an attribute ? so, let's save it !
+		$attr_id = $this->request->variable('attr_id', 0);
+		if ($attr_id)
+		{
+			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id']);
+		}
+
+		// show the selector
+		$hide_attr = unserialize(trim($event['topic_data']['hide_attr']));
+		if ($hide_attr === false)
+		{
+			$hide_attr = array();
+		}
+
+		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], $event['topic_data']['topic_attr_id'], $hide_attr);
+
+		$tpl_ary = array('S_QTE_FORM' => append_sid("{$this->root_path}viewtopic.{$this->php_ext}", "f={$event['forum_id']}&amp;t={$event['topic_id']}"));
+		if (!empty($topic_data['topic_attr_id']))
+		{
+			$this->qte->get_users_by_topic_id(array($event['topic_data']['topic_id']));
+			$tpl_ary += array(
+				'S_TOPIC_ATTR' => true,
+				'TOPIC_ATTRIBUTE' => $this->qte->attr_display($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']),
+			);
+		}
+		$this->template->assign_vars($tpl_ary);
+	}
+
+	public function viewtopic_modify_post_row_complement($event)
+	{
+		if (!empty($event['topic_data']['topic_attr_id']))
+		{
+			$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']));
+		}
+	}
+
+	public function viewtopic_modify_page_title_complement($event)
+	{
+		$attribute_title = $this->qte->attr_title($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']);
+
+		$topic_data = $event['topic_data'];
+		$topic_data['topic_title'] = $attribute_title . ' ' . $event['topic_data']['topic_title'];
+		$event['topic_data'] = $topic_data;
 	}
 
 	public function delete_user_attributes($event)
