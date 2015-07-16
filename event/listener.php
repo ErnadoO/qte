@@ -144,14 +144,16 @@ class listener implements EventSubscriberInterface
 
 	public function acp_manage_forums_validate_data_complement($event)
 	{
-		if ( !empty($event['forum_data']['hide_attr']) )
+		$forum_data = $event['forum_data'];
+		if (!empty($forum_data['hide_attr']))
 		{
-			$event['forum_data']['hide_attr'] = serialize($event['forum_data']['hide_attr']);
+			$forum_data['hide_attr'] = serialize($event['forum_data']['hide_attr']);
 		}
 		else
 		{
-			$event['forum_data']['hide_attr'] = '';
+			$forum_data['hide_attr'] = '';
 		}
+		$event['forum_data'] = $forum_data;
 	}
 
 	public function acp_manage_forums_update_data_after_complement($event)

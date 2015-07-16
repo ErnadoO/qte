@@ -289,7 +289,7 @@ class main_module
 					}
 
 					$sql = 'SELECT attr_name
-						FROM ' . $table_prefix . 'attributes
+						FROM ' . $table_prefix . 'topics_attr
 						WHERE attr_id = ' . (int) $attr_id;
 					$result = $db->sql_query($sql);
 					$attr_name = (string) $db->sql_fetchfield('attr_name');
@@ -297,7 +297,7 @@ class main_module
 
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_ATTRIBUTE_REMOVED', time(), array($attr_name));
 
-					$sql = 'DELETE FROM ' . $table_prefix . 'attributes
+					$sql = 'DELETE FROM ' . $table_prefix . 'topics_attr
 						WHERE attr_id = ' . (int) $attr_id;
 					$db->sql_query($sql);
 
