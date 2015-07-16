@@ -100,7 +100,7 @@
 		<input class="button2" name="add" type="submit" value="{L_QTE_ADD}" />
 	</p>
 
-	<table cellspacing="1">
+	<table class="table1 zebra-table responsive">
 	<thead>
 	<tr>
 		<th>{L_QTE_ATTRIBUTE}</th>
@@ -113,7 +113,7 @@
 	</thead>
 	<tbody>
 	<!-- BEGIN row -->
-	<!-- IF row.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2"><!-- ENDIF -->
+	<tr>
 		<td style="text-align:center;"><!-- IF row.S_IMAGE -->{row.QTE_IMG}<!-- ELSE --><span style="color:#{row.QTE_COLOUR}; font-weight: bold;">{row.QTE_TXT}</span><!-- ENDIF --></td>
 		<td style="text-align:left; width:200px;"><!-- IF row.S_DESC -->{row.QTE_DESC}<!-- ELSE --><span style="font-style:italic;">{L_QTE_NONE}</span><!-- ENDIF --></td>
 		<td style="text-align:center; width:180px;"><!-- IF row.S_COLOUR --><strong style="color:#{row.QTE_COLOUR};">{row.QTE_COLOUR}</strong><!-- ELSE --><!-- IF row.S_CSS -->{L_QTE_CSS}<!-- ELSE --><span style="font-style:italic;">{L_QTE_NONE}</span><!-- ENDIF --><!-- ENDIF --></td>
