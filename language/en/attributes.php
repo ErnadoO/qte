@@ -1,11 +1,14 @@
 <?php
-//
-//	file: language/en/mods/attributes.php
-//	author: abdev
-//	begin: 05/03/2008
-//	version: 0.1.7 - 08/12/2012
-//	licence: http://opensource.org/licenses/gpl-license.php GNU Public License
-//
+/**
+ *
+ * @package Quick Title Edition Extension
+ * @copyright (c) 2015 ABDev
+ * @copyright (c) 2015 PastisD
+ * @copyright (c) 2015 Geolim4 <http://geolim4.com>
+ * @copyright (c) 2015 Zoddo <zoddo.ino@gmail.com>
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
 
 // ignore
 if ( !defined('IN_PHPBB') )

@@ -1,13 +1,15 @@
 <?php
-//
-//	file: abdev/qte/acp/main_info.php
-//	author: abdev
-//	begin: 02/28/2008
-//	version: 0.0.5 - 08/18/2014
-//	licence: GNU General Public License, version 2 (GPL-2.0)
-//
+/**
+ *
+ * @package Quick Title Edition Extension
+ * @copyright (c) 2015 ABDev
+ * @copyright (c) 2015 PastisD
+ * @copyright (c) 2015 Geolim4 <http://geolim4.com>
+ * @copyright (c) 2015 Zoddo <zoddo.ino@gmail.com>
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
 
-// essential
 namespace abdev\qte\acp;
 
 class main_info
