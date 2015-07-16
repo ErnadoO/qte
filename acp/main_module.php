@@ -24,8 +24,10 @@ class main_module
 	{
 		/** @var \phpbb\request\request $request */
 		/** @var \phpbb\log\log $phpbb_log */
-		global $phpbb_container, $db, $user, $phpbb_log, $template, $cache, $request, $table_prefix, $phpbb_admin_path;
+		global $phpbb_container, $db, $user, $phpbb_log, $template, $cache, $request, $table_prefix, $phpbb_root_path;
 		$this->qte = $phpbb_container->get('abdev.qte');
+
+		$ext_root_path = $phpbb_root_path . 'ext/abdev/qte/';
 
 		$action = $request->variable('action', '');
 		$submit = $request->is_set_post('submit');
@@ -234,8 +236,8 @@ class main_module
 					'S_TEXT' => $attr_type_state ? true : false,
 					'S_USER_COLOUR' => $attr_user_colour_state ? true : false,
 
-					'ICON_ATTR_AUTH_ADD' => '<img src="' . $phpbb_admin_path . 'images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
-					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $phpbb_admin_path . 'images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
+					'ICON_ATTR_AUTH_ADD' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
+					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
 				));
 
 				return;
@@ -248,8 +250,8 @@ class main_module
 				$this->add_auths($set_permissions['attr_auths']);
 
 				$template->assign_vars(array(
-					'ICON_ATTR_AUTH_ADD' => '<img src="' . $phpbb_admin_path . 'images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
-					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $phpbb_admin_path . 'images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
+					'ICON_ATTR_AUTH_ADD' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
+					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
 				));
 				$this->tpl_name = 'acp_attributes_auths';
 
@@ -429,7 +431,7 @@ class main_module
 		}
 
 		return array('attr' => $attr, 'attr_auths' => $attr_auths);
- 	}
+	}
 
 	protected function add_auths($attr_auths)
 	{
