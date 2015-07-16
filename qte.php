@@ -582,7 +582,8 @@ class qte
 		meta_refresh(3, $meta_url);
 
 		// load language
-		$this->user->add_lang(array('posting', 'mods/attributes'));
+		$this->user->add_lang('posting');
+		$this->user->add_lang_ext('abdev/qte', 'attributes');
 
 		$message = $this->user->lang['QTE_ATTRIBUTE_' . ($attribute_id == -1 ? 'REMOVED' : (empty($topic_attribute) ? 'ADDED' : 'UPDATED'))] . '<br /><br />' . sprintf($this->user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
 		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$this->root_path}viewforum.$this->php_ext", 'f=' . $forum_id) . '">', '</a>');
