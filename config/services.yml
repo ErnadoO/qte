@@ -19,6 +19,7 @@ services:
             - @cache.driver
             - @dbal.conn
             - @template
+            - @user
             - @abdev.qte
             - %core.root_path%
             - %core.php_ext%
