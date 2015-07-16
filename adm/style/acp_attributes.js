@@ -1,10 +1,13 @@
-//
-//	file: adm/style/acp_attributes.js
-//	author: pastisd
-//	begin: 11/29/2010
-//	version: 0.0.8 - 07/21/2013
-//	licence: http://opensource.org/licenses/gpl-license.php GNU Public License
-//
+/**
+ *
+ * @package Quick Title Edition Extension
+ * @copyright (c) 2015 ABDev
+ * @copyright (c) 2015 PastisD
+ * @copyright (c) 2015 Geolim4 <http://geolim4.com>
+ * @copyright (c) 2015 Zoddo <zoddo.ino@gmail.com>
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
 
 var qte = {};
 
@@ -62,7 +65,7 @@ $(document).ready(function() {
 	qte.show_hide_remove_link();
 
 	$('input[name=set_permissions]').click( function() {
-		$.post( qte_u_ajax,
+		$.post( qte.u_ajax,
 		{ 'action' : 'set_permissions', 'attr_auth_id' : $('select[name=attr_auth_id]').val() },
 		function( data ) {
 			$('fieldset.auths').remove();
@@ -71,4 +74,6 @@ $(document).ready(function() {
 		});
 	});
 
+	// Set somes vars
+	qte.u_ajax = qte_u_ajax;
 });
