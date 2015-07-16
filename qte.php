@@ -141,6 +141,23 @@ class qte
 		$this->db->sql_freeresult();
 	}
 
+	public function get_attr_name_by_id($attr_id)
+	{
+		$sql = 'SELECT attr_name
+			FROM ' . $this->table_prefix . 'topics_attr
+			WHERE attr_id = ' . (int) $attr_id;
+		$result = $this->db->sql_query($sql);
+		$attr_name = (string) $this->db->sql_fetchfield('attr_name');
+		$this->db->sql_freeresult($result);
+
+		if (empty($attr_name))
+		{
+			return;
+		}
+
+		return $attr_name;
+	}
+
 	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr)
 	{
 		// include that file !
@@ -471,7 +488,7 @@ class qte
 		}
 		unset($attr_id, $attr_row);
 
-		if ( $show_select )
+		if ($show_select)
 		{
 			$this->template->assign_var('S_QTE_SELECT', true);
 		}
@@ -479,16 +496,16 @@ class qte
 
 	public function attr_display($attribute_id = 0, $user_id = 0, $timestamp = 0)
 	{
-		if ( empty($attribute_id) || empty($user_id) || empty($timestamp) )
+		if (empty($attribute_id) || empty($user_id) || empty($timestamp))
 		{
 			return false;
 		}
 
-		if ( isset($this->attr[$attribute_id]) )
+		if (isset($this->attr[$attribute_id]))
 		{
 			$attribute_colour = $this->attr_colour($this->attr[$attribute_id]['attr_name'], $this->attr[$attribute_id]['attr_colour']);
 
-			if ( isset($this->name[$user_id]['user_id']) )
+			if (isset($this->name[$user_id]['user_id']))
 			{
 				$attribute_username = get_username_string(($this->attr[$attribute_id]['attr_user_colour'] ? 'no_profile' : 'username'), $this->name[$user_id]['user_id'], $this->name[$user_id]['username'], $this->name[$user_id]['user_colour']);
 			}
@@ -507,12 +524,12 @@ class qte
 
 	public function attr_title($attribute_id = 0, $user_id = 0, $timestamp = 0)
 	{
-		if ( empty($attribute_id) || empty($user_id) || empty($timestamp) )
+		if (empty($attribute_id) || empty($user_id) || empty($timestamp))
 		{
 			return false;
 		}
 
-		if ( isset($this->attr[$attribute_id]) )
+		if (isset($this->attr[$attribute_id]))
 		{
 			if ( isset($this->name[$user_id]['user_id']) )
 			{
@@ -533,7 +550,7 @@ class qte
 
 	public function attr_apply($attribute_id = 0, $topic_id = 0, $forum_id = 0, $topic_attribute = '')
 	{
-		if ( empty($topic_id) || empty($forum_id) || empty($attribute_id) )
+		if (empty($topic_id) || empty($forum_id) || empty($attribute_id))
 		{
 			return;
 		}
@@ -541,7 +558,7 @@ class qte
 		// time !
 		$current_time = time();
 
-		if ( $attribute_id == -1 )
+		if ($attribute_id == -1)
 		{
 			$fields = array(
 				'topic_attr_id' => 0,
@@ -570,7 +587,7 @@ class qte
 		$shadow_topic_id = (int) $this->db->sql_fetchfield('topic_id');
 		$this->db->sql_freeresult($result);
 
-		if ( !empty($shadow_topic_id) )
+		if (!empty($shadow_topic_id))
 		{
 			$sql = 'UPDATE ' . TOPICS_TABLE . '
 				SET ' . $this->db->sql_build_array('UPDATE', $fields) . '
@@ -596,12 +613,12 @@ class qte
 		// load language
 		$this->user->add_lang_ext('abdev/qte', 'attributes');
 
-		if ( !sizeof($topic_ids) )
+		if (!sizeof($topic_ids))
 		{
 			trigger_error('NO_TOPIC_SELECTED');
 		}
 
-		if ( !phpbb_check_ids($topic_ids, TOPICS_TABLE, 'topic_id') )
+		if (!phpbb_check_ids($topic_ids, TOPICS_TABLE, 'topic_id'))
 		{
 			return;
 		}
@@ -615,7 +632,7 @@ class qte
 		$result = $this->db->sql_query($sql);
 
 		// log this action
-		while ( $row = $this->db->sql_fetchrow($result) )
+		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$message = ($attribute_id == -1) ? 'REMOVED' : (empty($row['topic_attr_id']) ? 'ADDED' : 'UPDATED');
 			$additional_data = array(
@@ -655,7 +672,7 @@ class qte
 		$result = $this->db->sql_query($sql);
 
 		$shadow_topic_ids = array();
-		while ( $row = $this->db->sql_fetchrow($result) )
+		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$shadow_topic_ids[] = (int) $row['topic_id'];
 		}

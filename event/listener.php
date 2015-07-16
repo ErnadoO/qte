@@ -31,6 +31,9 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+	/** @var \phpbb\log\log */
+	protected $log;
+
 	/** @var string */
 	protected $root_path;
 
@@ -43,13 +46,14 @@ class listener implements EventSubscriberInterface
 	/** @var string */
 	protected $table_prefix;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \abdev\qte\qte $qte, $root_path, $php_ext, $table_prefix)
+	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \abdev\qte\qte $qte, $root_path, $php_ext, $table_prefix)
 	{
 		$this->request = $request;
 		$this->cache = $cache;
 		$this->db = $db;
 		$this->template = $template;
 		$this->user = $user;
+		$this->log = $log;
 		$this->qte = $qte;
 
 		$this->root_path = $root_path;
@@ -68,6 +72,8 @@ class listener implements EventSubscriberInterface
 			'core.acp_manage_forums_update_data_after' => 'acp_manage_forums_update_data_after_complement',
 
 			'core.mcp_topic_review_modify_row' => 'mcp_topic_review_modify_row_complement',
+
+			'core.get_logs_main_query_before' => 'get_logs_main_query_before_complement',
 
 			'core.posting_modify_message_text' => 'posting_modify_message_text_complement',
 			'core.posting_modify_submit_post_before' => 'posting_modify_submit_post_before_complement',
@@ -195,21 +201,28 @@ class listener implements EventSubscriberInterface
 		}
 	}
 
+	public function get_logs_main_query_before_complement()
+	{
+		$this->user->add_lang_ext('abdev/qte', 'info_mcp_attributes');
+	}
+
 	public function posting_modify_message_text_complement($event)
 	{
-		$attr_id = $this->request->variable('attr_id', 0);
-		if ($attr_id != -2)
+		$post_data = $event['post_data'];
+		$post_data['attr_id'] = $this->request->variable('attr_id', 0);
+
+		if ($post_data['attr_id'] != -2)
 		{
 			if (!empty($event['post_data']['topic_attr_id']))
 			{
-				if (empty($attr_id))
+				if (empty($post_data['attr_id']))
 				{
-					$post_data = $event['post_data'];
 					$post_data['attr_id'] = $event['post_data']['topic_attr_id'];
 					$event['post_data'] = $post_data;
 				}
 			}
 		}
+		$event['post_data'] = $post_data;
 	}
 
 	public function posting_modify_submit_post_before_complement($event)
@@ -219,6 +232,7 @@ class listener implements EventSubscriberInterface
 		$data = $event['data'];
 		$data += array('attr_id' => (int) $attr_id);
 		$event['data'] = $data;
+
 	}
 
 	public function posting_modify_template_vars_complement($event)
@@ -315,7 +329,7 @@ class listener implements EventSubscriberInterface
 		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], $event['topic_data']['topic_attr_id'], $hide_attr);
 
 		$tpl_ary = array('S_QTE_FORM' => append_sid("{$this->root_path}viewtopic.{$this->php_ext}", "f={$event['forum_id']}&amp;t={$event['topic_id']}"));
-	if (!empty($topic_data['topic_attr_id']))
+		if (!empty($topic_data['topic_attr_id']))
 		{
 			$this->qte->get_users_by_topic_id(array($event['topic_data']['topic_id']));
 			$tpl_ary += array(
@@ -339,7 +353,7 @@ class listener implements EventSubscriberInterface
 		$attribute_title = $this->qte->attr_title($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']);
 
 		$topic_data = $event['topic_data'];
-		$topic_data['topic_title'] = $attribute_title . ' ' . $event['topic_data']['topic_title'];
+		$topic_data['page_title'] = $attribute_title . ' ' . $event['topic_data']['topic_title'];
 		$event['topic_data'] = $topic_data;
 	}
 
@@ -351,17 +365,31 @@ class listener implements EventSubscriberInterface
 
 			if ($attr_id != -2)
 			{
+				$sql_data = $event['sql_data'];
 				if ($attr_id == -1)
 				{
-					$event['sql_data'][TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
+					$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
 				}
 				else
 				{
-					$event['sql_data'][TOPICS_TABLE]['sql'] += array(
+					$sql_data[TOPICS_TABLE]['sql'] += array(
 						'topic_attr_id' => $attr_id,
 						'topic_attr_user' => (int) $this->user->data['user_id'],
 						'topic_attr_time' => time(),
 					);
+				}
+				$event['sql_data'] = $sql_data;
+
+				if (in_array($event['post_mode'], array('edit_topic', 'edit_first_post')))
+				{
+					$attr_name = $this->qte->get_attr_name_by_id($attr_id);
+					$log_data = array(
+						'forum_id' => $event['data']['forum_id'],
+						'topic_id' => $event['data']['topic_id'],
+						$attr_name,
+					);
+
+					$this->log->add('mod', $this->user->data['user_id'], $this->user->ip, 'MCP_ATTRIBUTE_' . ($attr_id == -1 ? 'REMOVED' : 'UPDATED'), time(), $log_data);
 				}
 			}
 		}
