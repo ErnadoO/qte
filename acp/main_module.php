@@ -307,6 +307,7 @@ class main_module
 					{
 						$json_response = new \phpbb\json_response;
 						$json_response->send(array(
+							'success' => 'true',
 							'MESSAGE_TITLE' => $user->lang['INFORMATION'],
 							'MESSAGE_TEXT' => $user->lang['QTE_REMOVED'],
 							'REFRESH_DATA' => array(
@@ -355,6 +356,12 @@ class main_module
 				if ($move_attr_name !== false)
 				{
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_ATTRIBUTE_' . strtoupper($action), time(), array($move_attr_name));
+				}
+
+				if ($request->is_ajax())
+				{
+					$json_response = new \phpbb\json_response;
+					$json_response->send(array('success' => true));
 				}
 
 			break;
