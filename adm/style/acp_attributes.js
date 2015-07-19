@@ -12,7 +12,7 @@
 var qte = {};
 
 qte.show_hide_remove_link =  function() {
-	if ( $('#acp_attributes fieldset.auths').length > 1 ) {
+	if ($('#acp_attributes fieldset.auths').length > 1) {
 		$('.auth_remove').show();
 	} else {
 		$('.auth_remove').hide();
