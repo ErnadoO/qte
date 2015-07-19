@@ -160,7 +160,7 @@ class qte
 	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr)
 	{
 		// include that file !
-		if ( !function_exists('group_memberships') )
+		if (!function_exists('group_memberships'))
 		{
 			include $this->root_path . 'includes/functions_user.' . $this->php_ext;
 		}
@@ -173,9 +173,9 @@ class qte
 
 		$show_remove = true;
 		$user_groups = array();
-		if ( !empty($user_membership) )
+		if (!empty($user_membership))
 		{
-			foreach ( $user_membership as $row )
+			foreach ($user_membership as $row)
 			{
 				$row['group_id'] = (int) $row['group_id'];
 				$user_groups[$row['group_id']] = $row['group_id'];
@@ -189,9 +189,9 @@ class qte
 		$show_select = false;
 
 		$attributes = array();
-		foreach ( $this->attr as $attr )
+		foreach ($this->attr as $attr)
 		{
-			if ( empty($attr['attr_auths']) )
+			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
 					'forums_ids' => array(),
@@ -204,25 +204,25 @@ class qte
 				$attr_auths = json_decode($attr['attr_auths'], true);
 			}
 
-			foreach ( $attr_auths as $attr_auth )
+			foreach ($attr_auths as $attr_auth)
 			{
 				$forum_ids = $attr_auth['forums_ids'];
 				$group_ids = $attr_auth['groups_ids'];
 
-				if ( is_array($forum_ids) && in_array($forum_id, $forum_ids) )
+				if (is_array($forum_ids) && in_array($forum_id, $forum_ids))
 				{
-					if ( is_array($group_ids) && array_intersect($group_ids, $user_groups) || ($attr_auth['author'] && ($author_id == $this->user->data['user_id'])) )
+					if (is_array($group_ids) && array_intersect($group_ids, $user_groups) || ($attr_auth['author'] && ($author_id == $this->user->data['user_id'])))
 					{
 						// show the selector !
 						$show_select = true;
 
 						$groups_removed = array_intersect($user_groups, $hide_attr);
-						if ( !empty($hide_attr) && (count($groups_removed) >= count($user_groups)) )
+						if (!empty($hide_attr) && (count($groups_removed) >= count($user_groups)))
 						{
 							$show_remove = false;
 						}
 
-						if ( !isset($attributes[$attr['attr_id']]) )
+						if (!isset($attributes[$attr['attr_id']]))
 						{
 							// parse the attribute name
 							$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->attr_lng_key($attr['attr_name']));
@@ -245,7 +245,7 @@ class qte
 		}
 		unset($attr);
 
-		foreach ( $attributes as $attr_id => $attr_row )
+		foreach ($attributes as $attr_id => $attr_row)
 		{
 			$this->template->assign_block_vars('row', array(
 				'QTE_ID' => $attr_id,
@@ -261,7 +261,7 @@ class qte
 		}
 		unset($attr_id, $attr_row);
 
-		if ( $show_select )
+		if ($show_select)
 		{
 			$this->template->assign_vars(array(
 				'S_QTE_SELECT' => true,
@@ -282,9 +282,9 @@ class qte
 		$show_select = false;
 
 		$attributes = array();
-		foreach ( $this->attr as $attr )
+		foreach ($this->attr as $attr)
 		{
-			if ( empty($attr['attr_auths']) )
+			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
 					'forums_ids' => array(),
@@ -297,12 +297,12 @@ class qte
 				$attr_auths = json_decode($attr['attr_auths'], true);
 			}
 
-			foreach ( $attr_auths as $attr_auth )
+			foreach ($attr_auths as $attr_auth)
 			{
 				// show the selector !
 				$show_select = true;
 
-				if ( !isset($attributes[$attr['attr_id']]) )
+				if (!isset($attributes[$attr['attr_id']]))
 				{
 					// parse the attribute name
 					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
@@ -321,7 +321,7 @@ class qte
 		}
 		unset($attr);
 
-		foreach ( $attributes as $attr_id => $attr_row )
+		foreach ($attributes as $attr_id => $attr_row)
 		{
 			$this->template->assign_block_vars('row', array(
 				'QTE_ID' => $attr_id,
@@ -335,7 +335,7 @@ class qte
 		}
 		unset($attr_id, $attr_row);
 
-		if ( $show_select )
+		if ($show_select)
 		{
 			$this->template->assign_var('S_QTE_SELECT', true);
 		}
@@ -349,9 +349,9 @@ class qte
 		$show_select = false;
 
 		$attributes = array();
-		foreach ( $this->attr as $attr )
+		foreach ($this->attr as $attr)
 		{
-			if ( empty($attr['attr_auths']) )
+			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
 					'forums_ids' => array(),
@@ -364,16 +364,16 @@ class qte
 				$attr_auths = json_decode($attr['attr_auths'], true);
 			}
 
-			foreach ( $attr_auths as $attr_auth )
+			foreach ($attr_auths as $attr_auth)
 			{
 				$forum_ids = $attr_auth['forums_ids'];
 
-				if ( is_array($forum_ids) && in_array($forum_id, $forum_ids) )
+				if (is_array($forum_ids) && in_array($forum_id, $forum_ids))
 				{
 					// show the selector !
 					$show_select = true;
 
-					if ( !isset($attributes[$attr['attr_id']]) )
+					if (!isset($attributes[$attr['attr_id']]))
 					{
 						// parse the attribute name
 						$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
@@ -395,7 +395,7 @@ class qte
 		}
 		unset($attr);
 
-		foreach ( $attributes as $attr_id => $attr_row )
+		foreach ($attributes as $attr_id => $attr_row)
 		{
 			$this->template->assign_block_vars('row', array(
 				'QTE_ID' => $attr_id,
@@ -411,7 +411,7 @@ class qte
 		}
 		unset($attr_id, $attr_row);
 
-		if ( $show_select )
+		if ($show_select)
 		{
 			$this->template->assign_var('S_QTE_SELECT', true);
 		}
@@ -425,9 +425,9 @@ class qte
 		$show_select = false;
 
 		$attributes = array();
-		foreach ( $this->attr as $attr )
+		foreach ($this->attr as $attr)
 		{
-			if ( empty($attr['attr_auths']) )
+			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
 					'forums_ids' => array(),
@@ -440,16 +440,16 @@ class qte
 				$attr_auths = json_decode($attr['attr_auths'], true);
 			}
 
-			foreach ( $attr_auths as $attr_auth )
+			foreach ($attr_auths as $attr_auth)
 			{
 				$forum_ids = $attr_auth['forums_ids'];
 
-				if ( is_array($forum_ids) && in_array($forum_id, $forum_ids) )
+				if (is_array($forum_ids) && in_array($forum_id, $forum_ids))
 				{
 					// show the selector !
 					$show_select = true;
 
-					if ( !isset($attributes[$attr['attr_id']]) )
+					if (!isset($attributes[$attr['attr_id']]))
 					{
 						// parse the attribute name
 						$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
@@ -471,7 +471,7 @@ class qte
 		}
 		unset($attr);
 
-		foreach ( $attributes as $attr_id => $attr_row )
+		foreach ($attributes as $attr_id => $attr_row)
 		{
 			$this->template->assign_block_vars('row', array(
 				'QTE_ID' => $attr_id,
@@ -530,7 +530,7 @@ class qte
 
 		if (isset($this->attr[$attribute_id]))
 		{
-			if ( isset($this->name[$user_id]['user_id']) )
+			if (isset($this->name[$user_id]['user_id']))
 			{
 				$attribute_username = get_username_string('username', $this->name[$user_id]['user_id'], $this->name[$user_id]['username'], $this->name[$user_id]['user_colour']);
 			}
@@ -643,7 +643,7 @@ class qte
 		}
 		$this->db->sql_freeresult($result);
 
-		if ( $attribute_id == -1 )
+		if ($attribute_id == -1)
 		{
 			$fields = array(
 				'topic_attr_id' => 0,
@@ -677,7 +677,7 @@ class qte
 		}
 		$this->db->sql_freeresult($result);
 
-		if ( sizeof($shadow_topic_ids) )
+		if (sizeof($shadow_topic_ids))
 		{
 			$sql = 'UPDATE ' . TOPICS_TABLE . '
 				SET ' . $this->db->sql_build_array('UPDATE', $fields) . '
@@ -714,7 +714,7 @@ class qte
 		$result = $this->db->sql_query($sql);
 
 		$s_group_options = '';
-		while ( $row = $this->db->sql_fetchrow($result) )
+		while ($row = $this->db->sql_fetchrow($result))
 		{
 			$selected = in_array($row['group_id'], $group_ids) ? ' selected="selected"' : '';
 			$s_group_options .= '<option' . (($row['group_type'] == GROUP_SPECIAL) ? ' class="sep"' : '') . ' value="' . $row['group_id'] . '"' . $selected . '>' . (($row['group_type'] == GROUP_SPECIAL) ? $this->user->lang['G_' . $row['group_name']] : $row['group_name']) . '</option>';
@@ -742,6 +742,6 @@ class qte
 	// borrowed from "Rank Color System" mod : used to have a different color for each template
 	public function attr_colour($a_name, $a_colour)
 	{
-		return empty($a_colour) ? ( empty($a_name) ? '' : ' class="' . strtolower($a_name) . '"' ) : ' style="color:#' . $a_colour . '; font-weight:bold;"';
+		return empty($a_colour) ? (empty($a_name) ? '' : ' class="' . strtolower($a_name) . '"') : ' style="color:#' . $a_colour . '; font-weight:bold;"';
 	}
 }
