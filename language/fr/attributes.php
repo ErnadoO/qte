@@ -55,7 +55,7 @@ $lang = array_merge($lang, array(
 	'QTE_ALL' => 'Tous',
 
 	// mistake messages
-	'QTE_ATTRIBUTE_UNSELECTED' => 'Vous devez sélectionner un attribut!',
+	'QTE_ATTRIBUTE_UNSELECTED' => 'Vous devez sélectionner un attribut !',
 ));
 
 // topic attributes as keys
