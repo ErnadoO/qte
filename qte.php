@@ -12,7 +12,6 @@
 
 namespace abdev\qte;
 
-
 class qte
 {
 	/** @var \phpbb\request\request */
