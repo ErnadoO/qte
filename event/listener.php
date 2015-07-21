@@ -329,7 +329,7 @@ class listener implements EventSubscriberInterface
 		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], $event['topic_data']['topic_attr_id'], $hide_attr);
 
 		$tpl_ary = array('S_QTE_FORM' => append_sid("{$this->root_path}viewtopic.{$this->php_ext}", "f={$event['forum_id']}&amp;t={$event['topic_id']}"));
-		if (!empty($topic_data['topic_attr_id']))
+		if (!empty($event['topic_data']['topic_attr_id']))
 		{
 			$this->qte->get_users_by_topic_id(array($event['topic_data']['topic_id']));
 			$tpl_ary += array(
