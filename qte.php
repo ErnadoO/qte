@@ -248,7 +248,7 @@ class qte
 
 		foreach ( $attributes as $attr_id => $attr_row )
 		{
-			$this->template->assign_block_vars('row', array(
+			$this->template->assign_block_vars('attributes', array(
 				'QTE_ID' => $attr_id,
 				'QTE_TYPE' => $attr_row['type'],
 				'QTE_NAME' => $attr_row['name'],
@@ -324,7 +324,7 @@ class qte
 
 		foreach ( $attributes as $attr_id => $attr_row )
 		{
-			$this->template->assign_block_vars('row', array(
+			$this->template->assign_block_vars('attributes', array(
 				'QTE_ID' => $attr_id,
 				'QTE_TYPE' => $attr_row['type'],
 				'QTE_NAME' => $attr_row['name'],
@@ -398,7 +398,7 @@ class qte
 
 		foreach ( $attributes as $attr_id => $attr_row )
 		{
-			$this->template->assign_block_vars('row', array(
+			$this->template->assign_block_vars('attributes', array(
 				'QTE_ID' => $attr_id,
 				'QTE_TYPE' => $attr_row['type'],
 				'QTE_NAME' => $attr_row['name'],
@@ -474,7 +474,7 @@ class qte
 
 		foreach ( $attributes as $attr_id => $attr_row )
 		{
-			$this->template->assign_block_vars('row', array(
+			$this->template->assign_block_vars('attributes', array(
 				'QTE_ID' => $attr_id,
 				'QTE_TYPE' => $attr_row['type'],
 				'QTE_NAME' => $attr_row['name'],
