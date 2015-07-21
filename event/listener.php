@@ -78,6 +78,7 @@ class listener implements EventSubscriberInterface
 			'core.posting_modify_message_text' => 'posting_modify_message_text_complement',
 			'core.posting_modify_submit_post_before' => 'posting_modify_submit_post_before_complement',
 			'core.posting_modify_template_vars' => 'posting_modify_template_vars_complement',
+			'core.viewforum_modify_topics_data' => 'viewforum_modify_topics_data_complement',
 			'core.viewforum_topic_row_after' => 'viewforum_topic_row_after_complement',
 			'core.viewtopic_assign_template_vars_before' => 'viewtopic_assign_template_vars_before_complement',
 			'core.viewtopic_modify_post_row' => 'viewtopic_modify_post_row_complement',
@@ -297,6 +298,14 @@ class listener implements EventSubscriberInterface
 					'TOPIC_ATTRIBUTE' => $this->qte->attr_display($event['post_data']['topic_attr_id'], $event['post_data']['topic_attr_user'], $event['post_data']['topic_attr_time']),
 				));
 			}
+		}
+	}
+
+	public function viewforum_modify_topics_data_complement($event)
+	{
+		if (sizeof($event['topic_list']))
+		{
+			$this->qte->get_users_by_topic_id($event['topic_list']);
 		}
 	}
 
