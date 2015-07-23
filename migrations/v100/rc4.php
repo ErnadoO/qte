@@ -42,8 +42,8 @@ class rc4 extends \phpbb\db\migration\migration
 			),
 			'add_columns'	   => array(
 				$this->table_prefix . 'topics_attr'		=> array(
-                    'attr_desc'     => array('VCHAR', ''),
-                    'attr_auths'    => array('MTEXT', ''),
+					'attr_desc'     => array('VCHAR', ''),
+					'attr_auths'    => array('MTEXT', ''),
 				),
 			),
 		);
@@ -52,14 +52,14 @@ class rc4 extends \phpbb\db\migration\migration
 	public function revert_schema()
 	{
 		return array(
-            'add_columns'	   => array(
-                $this->table_prefix . 'topics_attr'		=> array(
-                    'allowed_forums'	=> array('TEXT', ''),
-                    'allowed_groups'	=> array('TEXT', ''),
-                ),
-            ),
+			'add_columns'	   => array(
+				$this->table_prefix . 'topics_attr'		=> array(
+					'allowed_forums'	=> array('TEXT', ''),
+					'allowed_groups'	=> array('TEXT', ''),
+				),
+			),
 			'drop_columns'	   => array(
-                $this->table_prefix . 'topics_attr'		=> array(
+				$this->table_prefix . 'topics_attr'		=> array(
 					'attr_desc',
 					'attr_auths',
 				),
