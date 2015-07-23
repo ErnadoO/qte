@@ -158,7 +158,7 @@ class qte
 		return $attr_name;
 	}
 
-	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr)
+	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr = array())
 	{
 		// include that file !
 		if ( !function_exists('group_memberships') )
