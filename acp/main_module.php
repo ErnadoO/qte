@@ -41,6 +41,9 @@ class main_module
 
 		$user->add_lang_ext('abdev/qte', 'attributes_acp');
 
+		// Display a warning when a development version is installed or if the database is outdated
+		$this->display_version_warning();
+
 		add_form_key('acp_attributes');
 
 		switch ($action)
@@ -607,6 +610,44 @@ class main_module
 					'QTE_COLOUR' => $this->qte->attr_colour($attr['attr_name'], $attr['attr_colour']),
 				));
 			}
+		}
+	}
+
+	protected function display_version_warning()
+	{
+		global $config, $user, $template;
+
+		$version = \abdev\qte\ext::VERSION;
+
+		// Check if the database is up-to-date (we don't display warning if we are on a -dev version since versions doesn't matches)
+		if ($config['qte_version'] != $version && stripos($version, '-dev') === false)
+		{
+			trigger_error($user->lang('QTE_MIGRATIONS_OUTDATED', $config['qte_version'], $version), E_USER_ERROR);
+		}
+
+		// Display a warning for unstable versions
+		if (stripos($version, '-dev') !== false)
+		{
+			$template->assign_vars(array(
+				'S_VERSION_UNSTABLE' => true,
+				'S_VERSION_DEV' => true,
+				'VERSION_WARNING' => $user->lang('QTE_DEV_WARNING', $version) . '<br />' . $user->lang['QTE_DEV_WARNING_DEV'],
+			));
+		}
+		else if (stripos($version, '-a') !== false)
+		{
+			$template->assign_vars(array(
+				'S_VERSION_UNSTABLE' => true,
+				'S_VERSION_DEV' => true,
+				'VERSION_WARNING' => $user->lang('QTE_DEV_WARNING', $version),
+			));
+		}
+		else if (stripos($version, '-b') !== false)
+		{
+			$template->assign_vars(array(
+				'S_VERSION_UNSTABLE' => true,
+				'VERSION_WARNING' => $user->lang('QTE_BETA_WARNING', $version),
+			));
 		}
 	}
 }

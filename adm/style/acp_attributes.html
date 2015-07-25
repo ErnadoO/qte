@@ -91,6 +91,13 @@
 
 	<p>{L_QTE_MANAGE_EXPLAIN}</p>
 
+	<!-- IF S_VERSION_UNSTABLE -->
+	<div class="errorbox<!-- IF not S_VERSION_DEV --> notice<!-- ENDIF -->">
+		<h3>{L_WARNING}</h3>
+		<p>{VERSION_WARNING}</p>
+	</div>
+	<!-- ENDIF -->
+
 	<form id="acp_attributes" method="post" action="{U_ACTION}">
 	<fieldset class="tabulated">
 	<legend>{L_QTE_MANAGE_TITLE}</legend>
