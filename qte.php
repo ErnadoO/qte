@@ -699,7 +699,7 @@ class qte
 	}
 
 	// borrowed function from "ACP Announcement Centre" mod
-	public function qte_group_select($group_ids, $exclude_ids = false, $manage_founder = false)
+	public function qte_group_select($group_ids, $exclude_ids = array(), $manage_founder = false)
 	{
 		$exclude_sql = ($exclude_ids !== false && sizeof($exclude_ids)) ? 'WHERE ' . $this->db->sql_in_set('group_id', array_map('intval', $exclude_ids), true) : '';
 		$sql_and = !$this->config['coppa_enable'] ? ($exclude_sql ? ' AND ' : ' WHERE ') . "group_name <> 'REGISTERED_COPPA'" : '';
