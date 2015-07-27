@@ -10,15 +10,21 @@
  *
  */
 
-namespace abdev\qte;
+namespace abdev\qte\migrations\v200;
 
-class ext extends \phpbb\extension\base
+class alpha1 extends \phpbb\db\migration\migration
 {
-    const VERSION = '2.0.0-a1';
+	static public function depends_on()
+	{
+		return array(
+			'\abdev\qte\migrations\v200\dev',
+		);
+	}
 
-    public function is_enableable()
-    {
-        $config = $this->container->get('config');
-        return phpbb_version_compare($config['version'], '3.1.3-RC1', '>=');
-    }
+	public function update_data()
+	{
+		return array(
+			array('config.update', array('qte_version', '2.0.0-a1')),
+		);
+	}
 }
