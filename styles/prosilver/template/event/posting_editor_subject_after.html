@@ -5,7 +5,7 @@
 		<!-- IF S_EDIT_POST && not S_QTE_EMPTY && not IS_AUTHOR --><option value="-2" style="font-weight:bold;" selected="selected">{L_QTE_ATTRIBUTE_KEEP}</option><!-- ENDIF -->
 		<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->"<!-- IF S_QTE_SELECTED --> selected="selected"<!-- ENDIF --> style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
 		<!-- BEGIN attributes -->
-		<option value="{row.QTE_ID}"{attributes.QTE_COLOUR}<!-- IF attributes.IS_SELECTED && IS_AUTHOR --> selected="selected"<!-- ENDIF -->>{attributes.QTE_NAME}<!-- IF attributes.S_QTE_DESC --> [{attributes.QTE_DESC}]<!-- ENDIF --></option>
+		<option value="{attributes.QTE_ID}"{attributes.QTE_COLOUR}<!-- IF attributes.IS_SELECTED && IS_AUTHOR --> selected="selected"<!-- ENDIF -->>{attributes.QTE_NAME}<!-- IF attributes.S_QTE_DESC --> [{attributes.QTE_DESC}]<!-- ENDIF --></option>
 		<!-- END attributes -->
 	</select></dd>
 </dl>
