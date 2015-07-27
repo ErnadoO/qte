@@ -14,7 +14,7 @@ namespace abdev\qte;
 
 class ext extends \phpbb\extension\base
 {
-    const VERSION = '2.0.0-a1';
+    const VERSION = '2.0.0-a2-dev';
 
     public function is_enableable()
     {
