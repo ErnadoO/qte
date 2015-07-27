@@ -1,0 +1,36 @@
+/**
+ *
+ * @package Quick Title Edition Extension
+ * @copyright (c) 2015 ABDev
+ * @copyright (c) 2015 PastisD
+ * @copyright (c) 2015 Geolim4 <http://geolim4.com>
+ * @copyright (c) 2015 Zoddo <zoddo.ino@gmail.com>
+ * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+ *
+ */
+
+/* selector */
+fieldset.attribute {
+    text-align: right;
+    margin-top: 15px;
+    height: 2.5em;
+}
+
+/* attributes */
+.qte_solved { color: #006600; }
+.qte_cancelled { color: #cc0000; }
+
+.qte_solved, .qte_cancelled { font-weight:bold; }
+
+/* imageset */
+.imageset.qte_solved {
+    background-image: url("./images/icon_topic_solved.gif");
+    padding-left: 16px;
+    padding-top: 16px;
+}
+
+.imageset.qte_cancelled {
+    background-image: url("./images/icon_topic_cancel.gif");
+    padding-left: 16px;
+    padding-top: 16px;
+}

@@ -736,7 +736,7 @@ class qte
 	// borrowed from "Categories Hierarchy" : used to check if a image key exists
 	public function attr_img_key($key, $alt)
 	{
-		return empty($key) ? '' : (isset($this->user->img_array[$key]) ? $this->user->img($key, $alt) : '<img src="' . (preg_match('#^(ht|f)tp[s]?\://#i', $key) ? $key : $this->root_path . $key) . '" alt="' . $alt . '" title="' . $alt . '" />');
+		return empty($key) ? '' : (preg_match('#^[a-z0-9_-]+$#i', $key) ? $this->user->img($key, $alt) : '<img src="' . (preg_match('#^(ht|f)tp[s]?\://#i', $key) ? $key : $this->root_path . $key) . '" alt="' . $alt . '" title="' . $alt . '" />');
 	}
 
 	// borrowed from "Rank Color System" mod : used to have a different color for each template

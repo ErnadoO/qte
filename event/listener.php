@@ -233,7 +233,6 @@ class listener implements EventSubscriberInterface
 		$data = $event['data'];
 		$data += array('attr_id' => (int) $attr_id);
 		$event['data'] = $data;
-
 	}
 
 	public function posting_modify_template_vars_complement($event)
