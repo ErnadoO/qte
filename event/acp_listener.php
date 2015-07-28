@@ -19,6 +19,9 @@ class acp_listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
+	/** @var \phpbb\cache\driver\driver_interface */
+	protected $cache;
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -31,13 +34,14 @@ class acp_listener implements EventSubscriberInterface
 	/** @var string */
 	protected $table_prefix;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\user $user, \abdev\qte\qte $qte, $table_prefix)
+	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\user $user, \abdev\qte\qte $qte, $table_prefix)
 	{
 		$this->request = $request;
+		$this->cache = $cache;
 		$this->db = $db;
 		$this->user = $user;
 		$this->qte = $qte;
-//
+
 		$this->table_prefix = $table_prefix;
 	}
 

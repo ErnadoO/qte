@@ -27,6 +27,7 @@ services:
         class: abdev\qte\event\acp_listener
         arguments:
             - @request
+            - @cache.driver
             - @dbal.conn
             - @user
             - @abdev.qte

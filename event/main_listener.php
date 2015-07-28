@@ -116,9 +116,6 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-	/**
-	 * @todo Don't commit now (event missing)
-	 */
 	public function posting_preview_assign_attribute($event)
 	{
 		$topic_attribute = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
