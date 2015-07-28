@@ -12,18 +12,24 @@ services:
             - %core.root_path%
             - %core.php_ext%
             - %core.table_prefix%
-    abdev.qte.listener:
-        class: abdev\qte\event\listener
+    abdev.qte.main_listener:
+        class: abdev\qte\event\main_listener
         arguments:
             - @request
-            - @cache.driver
             - @dbal.conn
             - @template
             - @user
             - @log
             - @abdev.qte
-            - %core.root_path%
-            - %core.php_ext%
+        tags:
+            - { name: event.listener }
+    abdev.qte.acp_listener:
+        class: abdev\qte\event\acp_listener
+        arguments:
+            - @request
+            - @dbal.conn
+            - @user
+            - @abdev.qte
             - %core.table_prefix%
         tags:
             - { name: event.listener }

@@ -14,6 +14,9 @@ namespace abdev\qte;
 
 class qte
 {
+	const KEEP = -2;
+	const REMOVE = -1;
+
 	/** @var \phpbb\request\request */
 	protected $request;
 
