@@ -25,6 +25,12 @@ if (empty($lang) || !is_array($lang))
 // moderation
 $lang = array_merge($lang, array(
 	// logs
+	'LOG_ATTRIBUTE_ADDED' => '<strong>Added a new attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_UPDATED' => '<strong>Updated an attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_REMOVED'	=> '<strong>Deleted an attribute</strong><br />» %s',
+	'LOG_ATTRIBUTE_MOVE_DOWN'	=> '<strong>Moved an attribute</strong> %1$s <strong>below</strong> %2$s',
+	'LOG_ATTRIBUTE_MOVE_UP'	=> '<strong>Moved an attribute</strong> %1$s <strong>above</strong> %2$s',
+
 	'MCP_ATTRIBUTE_ADDED' => '<strong>Added a new attribute to the topic</strong><br />» %s',
 	'MCP_ATTRIBUTE_UPDATED' => '<strong>Updated the attribute for the topic</strong><br />» %s',
 	'MCP_ATTRIBUTE_REMOVED'	=> '<strong>Deleted the attribute of the topic</strong><br />» %s',

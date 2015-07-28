@@ -51,6 +51,7 @@ class acp_listener implements EventSubscriberInterface
 			'core.permissions' => 'add_permission',
 			'core.delete_user_after' => 'delete_user',
 			'core.get_logs_main_query_before' => 'load_log_keys',
+			'core.get_logs_modify_entry_data'=> 'translate_attributes',
 
 			// forums admin panel
 			'core.acp_manage_forums_request_data' => 'get_attributes_data',
@@ -81,9 +82,28 @@ class acp_listener implements EventSubscriberInterface
 
 	public function load_log_keys()
 	{
-		if (defined('IN_ADMIN'))
+		$this->user->add_lang_ext('abdev/qte', array('attributes', 'logs_attributes'));
+	}
+
+	public function translate_attributes($event)
+	{
+		$row = $event['row'];
+
+		if (strpos($row['log_operation'], 'LOG_ATTRIBUTE_') === 0 || strpos($row['log_operation'], 'MCP_ATTRIBUTE_') === 0)
 		{
-			$this->user->add_lang_ext('abdev/qte', 'info_mcp_attributes');
+			$log_data = unserialize($row['log_data']);
+
+			if (!empty($log_data) && is_array($log_data))
+			{
+				foreach ($log_data as &$arg)
+				{
+					$arg = $this->qte->attr_lng_key($arg);
+					$arg = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $arg);
+				}
+			}
+
+			$row['log_data'] = serialize($log_data);
+			$event['row'] = $row;
 		}
 	}
 

@@ -68,8 +68,6 @@ $lang = array_merge($lang, array(
 
 	'QTE_CSS' => 'Probablement géré en CSS',
 	'QTE_NONE' => 'N/A',
-	'QTE_KEY_USERNAME' => '¦utilisateur¦',
-	'QTE_KEY_DATE' => '¦date¦',
 
 	'QTE_MUST_SELECT' => 'Vous devez sélectionner un attribut.',
 	'QTE_NAME_ERROR' => 'Le champ « Intitulé de l’attribut » semble être vidé.',

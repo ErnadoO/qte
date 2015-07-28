@@ -39,7 +39,7 @@ class main_module
 		$this->tpl_name = 'acp_attributes';
 		$this->page_title = 'QTE_MANAGE_TITLE';
 
-		$user->add_lang_ext('abdev/qte', 'attributes_acp');
+		$user->add_lang_ext('abdev/qte', array('attributes', 'attributes_acp'));
 
 		// Display a warning when a development version is installed or if the database is outdated
 		$this->display_version_warning();
@@ -591,8 +591,6 @@ class main_module
 	protected function qte_attr_select($attr_id)
 	{
 		global $user, $template;
-
-		$user->add_lang_ext('abdev/qte', 'attributes');
 
 		$current_time = time();
 

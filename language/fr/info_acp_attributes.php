@@ -27,10 +27,4 @@ $lang = array_merge($lang, array(
 	'QTE_MANAGE' => 'Gérer les attributs de sujet',
 	'QTE_MANAGE_TITLE' => 'Attributs de sujet',
 	'QTE_MANAGE_EXPLAIN' => 'Depuis cette page vous pouvez gérer les libellés et les icônes qui seront utilisés en tant qu’attributs de sujet.',
-
-	'LOG_ATTRIBUTE_ADDED' => '<strong>Ajout d’un nouvel attribut</strong><br />» %s',
-	'LOG_ATTRIBUTE_UPDATED' => '<strong>Mise à jour d’un attribut</strong><br />» %s',
-	'LOG_ATTRIBUTE_REMOVED'	=> '<strong>Suppression d’un attribut</strong><br />» %s',
-	'LOG_ATTRIBUTE_MOVE_DOWN'	=> '<strong>Déplacement d’un attribut</strong> %1$s <strong>en dessous de</strong> %2$s',
-	'LOG_ATTRIBUTE_MOVE_UP'	=> '<strong>Déplacement d’un attribut</strong> %1$s <strong>au dessus de</strong> %2$s',
 ));

@@ -27,10 +27,4 @@ $lang = array_merge($lang, array(
 	'QTE_MANAGE' => 'Manage topic attributes',
 	'QTE_MANAGE_TITLE' => 'Topic attributes',
 	'QTE_MANAGE_EXPLAIN' => 'Here you can manage the wordings and the icons used as topic attributes.',
-
-	'LOG_ATTRIBUTE_ADDED' => '<strong>Added a new attribute</strong><br />» %s',
-	'LOG_ATTRIBUTE_UPDATED' => '<strong>Updated an attribute</strong><br />» %s',
-	'LOG_ATTRIBUTE_REMOVED'	=> '<strong>Deleted an attribute</strong><br />» %s',
-	'LOG_ATTRIBUTE_MOVE_DOWN'	=> '<strong>Moved an attribute</strong> %1$s <strong>below</strong> %2$s',
-	'LOG_ATTRIBUTE_MOVE_UP'	=> '<strong>Moved an attribute</strong> %1$s <strong>above</strong> %2$s',
 ));
