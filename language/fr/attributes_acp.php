@@ -42,7 +42,7 @@ $lang = array_merge($lang, array(
 	'QTE_DATE' => 'Format de date de l’attribut',
 	'QTE_DATE_EXPLAIN' => 'La syntaxe utilisée est identique à la fonction PHP <a href="http://www.php.net/date">date()</a>.',
 	'QTE_COLOUR' => 'Couleur de l’attribut',
-	'QTE_COLOUR_EXPLAIN' => 'Sélectionnez une valeur dans la <strong>palette de couleurs</strong>, ou saisissez-la manuellement.<br />Laisser vide pour utiliser une classe CSS nommée comme l’attribut.',
+	'QTE_COLOUR_EXPLAIN' => 'Sélectionnez une valeur dans la <strong>palette de couleurs</strong>, ou saisissez-la manuellement.',
 	'QTE_USER_COLOUR' => 'Colorer le nom de l’utilisateur ayant appliqué l’attribut',
 	'QTE_USER_COLOUR_EXPLAIN' => 'Si vous utilisez l’argument <strong>%mod%</strong> et que cette option est activée, la couleur du groupe de l’utilisateur sera appliquée.',
 	'QTE_COPY_AUTHS' => 'Copier les permissions depuis',

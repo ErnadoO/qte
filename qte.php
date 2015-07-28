@@ -742,9 +742,14 @@ class qte
 		return empty($key) ? '' : (preg_match('#^[a-z0-9_-]+$#i', $key) ? $this->user->img($key, $alt) : '<img src="' . (preg_match('#^(ht|f)tp[s]?\://#i', $key) ? $key : $this->root_path . $key) . '" alt="' . $alt . '" title="' . $alt . '" />');
 	}
 
-	// borrowed from "Rank Color System" mod : used to have a different color for each template
 	public function attr_colour($a_name, $a_colour)
 	{
-		return empty($a_colour) ? (empty($a_name) ? '' : ' class="' . strtolower($a_name) . '"') : ' style="color:#' . $a_colour . '; font-weight:bold;"';
+		$a_name = preg_replace("#[^a-z0-9 _-]#", '', strtolower($a_name));
+		if (!empty($a_name))
+		{
+			$a_name .= '-qte';
+		}
+
+		return ' class="qte-attr ' . $a_name . '"' . (!empty($a_colour) ? ' style="color:#' . $a_colour . '; font-weight:bold;"' : '');
 	}
 }
