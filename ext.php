@@ -14,11 +14,11 @@ namespace ernadoo\qte;
 
 class ext extends \phpbb\extension\base
 {
-    const VERSION = '2.0.0-a2-dev';
+	const VERSION = '2.0.0-a2-dev';
 
-    public function is_enableable()
-    {
-        $config = $this->container->get('config');
-        return phpbb_version_compare($config['version'], '3.1.3-RC1', '>=');
-    }
+	public function is_enableable()
+	{
+		$config = $this->container->get('config');
+		return phpbb_version_compare($config['version'], '3.1.3-RC1', '>=');
+	}
 }

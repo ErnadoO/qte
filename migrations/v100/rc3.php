@@ -41,17 +41,17 @@ class rc3 extends \phpbb\db\migration\migration
 	{
 		return array(
 			'add_tables'		=> array(
-				$this->table_prefix . 'topics_attr'			=> array(
+				$this->table_prefix . 'topics_attr'		=> array(
 					'COLUMNS'		  => array(
-						'attr_id'		   => array('UINT', NULL, 'auto_increment'),
-						'attr_type'		 => array('BOOL', 0),
-						'attr_name'		 => array('VCHAR', ''),
-						'left_id'		   => array('UINT', 0),
-						'right_id'		  => array('UINT', 0),
-						'attr_img'		  => array('VCHAR', ''),
-						'attr_date'		 => array('VCHAR:30', ''),
-						'attr_colour'	   => array('VCHAR:6', ''),
-						'attr_user_colour'  => array('BOOL', 0),
+						'attr_id'			=> array('UINT', null, 'auto_increment'),
+						'attr_type'			=> array('BOOL', 0),
+						'attr_name'			=> array('VCHAR', ''),
+						'left_id'			=> array('UINT', 0),
+						'right_id'			=> array('UINT', 0),
+						'attr_img'			=> array('VCHAR', ''),
+						'attr_date'			=> array('VCHAR:30', ''),
+						'attr_colour'		=> array('VCHAR:6', ''),
+						'attr_user_colour'	=> array('BOOL', 0),
 						'allowed_forums'	=> array('TEXT', ''),
 						'allowed_groups'	=> array('TEXT', ''),
 					),
