@@ -10,13 +10,13 @@
  *
  */
 
-namespace abdev\qte\migrations\v100;
+namespace ernadoo\qte\migrations\v100;
 
 class rc4 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array('\abdev\qte\migrations\v100\rc3');
+		return array('\ernadoo\qte\migrations\v100\rc3');
 	}
 
 	public function effectively_installed()

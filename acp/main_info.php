@@ -10,17 +10,17 @@
  *
  */
 
-namespace abdev\qte\acp;
+namespace ernadoo\qte\acp;
 
 class main_info
 {
 	public function module()
 	{
 		return array(
-			'filename' => '\abdev\qte\acp\main_module',
+			'filename' => '\ernadoo\qte\acp\main_module',
 			'title' => 'QTE_MANAGE_TITLE',
 			'modes' => array(
-				'manage' => array('title' => 'QTE_MANAGE_TITLE', 'auth' => 'ext_abdev/qte && acl_a_attr_manage', 'cat' => array('ACP_MESSAGES')),
+				'manage' => array('title' => 'QTE_MANAGE_TITLE', 'auth' => 'ext_ernadoo/qte && acl_a_attr_manage', 'cat' => array('ACP_MESSAGES')),
 			),
 		);
 	}

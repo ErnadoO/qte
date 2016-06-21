@@ -10,7 +10,7 @@
  *
  */
 
-namespace abdev\qte;
+namespace ernadoo\qte;
 
 class ext extends \phpbb\extension\base
 {

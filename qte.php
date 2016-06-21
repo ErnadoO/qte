@@ -10,7 +10,7 @@
  *
  */
 
-namespace abdev\qte;
+namespace ernadoo\qte;
 
 class qte
 {
@@ -169,7 +169,7 @@ class qte
 		}
 
 		// load language
-		$this->user->add_lang_ext('abdev/qte', 'attributes');
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		// get groups membership !
 		$user_membership = group_memberships(false, $this->user->data['user_id']);
@@ -280,7 +280,7 @@ class qte
 	public function attr_search()
 	{
 		// load language
-		$this->user->add_lang_ext('abdev/qte', array('attributes', 'attributes_acp'));
+		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
 
 		$show_select = false;
 
@@ -347,7 +347,7 @@ class qte
 	public function attr_sort($forum_id = 0, $attribute_id = 0)
 	{
 		// load language
-		$this->user->add_lang_ext('abdev/qte', array('attributes', 'attributes_acp'));
+		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
 
 		$show_select = false;
 
@@ -423,7 +423,7 @@ class qte
 	public function attr_default($forum_id = 0, $attribute_id = 0)
 	{
 		// load language
-		$this->user->add_lang_ext('abdev/qte', array('attributes', 'attributes_acp'));
+		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
 
 		$show_select = false;
 
@@ -602,7 +602,7 @@ class qte
 
 		// load language
 		$this->user->add_lang('posting');
-		$this->user->add_lang_ext('abdev/qte', 'attributes');
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		$message = $this->user->lang['QTE_ATTRIBUTE_' . ($attribute_id == -1 ? 'REMOVED' : (empty($topic_attribute) ? 'ADDED' : 'UPDATED'))] . '<br /><br />' . sprintf($this->user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
 		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$this->root_path}viewforum.$this->php_ext", 'f=' . $forum_id) . '">', '</a>');
@@ -613,7 +613,7 @@ class qte
 	public function mcp_attr_apply($attribute_id = 0, $topic_ids = array())
 	{
 		// load language
-		$this->user->add_lang_ext('abdev/qte', 'attributes');
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		if (!sizeof($topic_ids))
 		{
@@ -731,7 +731,7 @@ class qte
 	public function attr_lng_key($key)
 	{
 		// load language
-		$this->user->add_lang_ext('abdev/qte', 'attributes');
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		return isset($this->user->lang[$key]) ? $this->user->lang[$key] : $key;
 	}

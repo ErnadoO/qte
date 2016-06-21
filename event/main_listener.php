@@ -10,7 +10,7 @@
  *
  */
 
-namespace abdev\qte\event;
+namespace ernadoo\qte\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,10 +31,10 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\log\log */
 	protected $log;
 
-	/** @var \abdev\qte\qte */
+	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \abdev\qte\qte $qte)
+	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \ernadoo\qte\qte $qte)
 	{
 		$this->request = $request;
 		$this->db = $db;
@@ -150,7 +150,7 @@ class main_listener implements EventSubscriberInterface
 		$post_data = $event['post_data'];
 		$post_data['attr_id'] = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
 
-		if ($post_data['attr_id'] != \abdev\qte\qte::KEEP)
+		if ($post_data['attr_id'] != \ernadoo\qte\qte::KEEP)
 		{
 			if (!empty($event['post_data']['topic_attr_id']))
 			{
@@ -171,10 +171,10 @@ class main_listener implements EventSubscriberInterface
 	{
 		if (in_array($event['post_mode'], array('post', 'edit_topic', 'edit_first_post')))
 		{
-			if ($event['data']['attr_id'] != \abdev\qte\qte::KEEP)
+			if ($event['data']['attr_id'] != \ernadoo\qte\qte::KEEP)
 			{
 				$sql_data = $event['sql_data'];
-				if ($event['data']['attr_id'] == \abdev\qte\qte::REMOVE)
+				if ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE)
 				{
 					$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
 				}
@@ -197,7 +197,7 @@ class main_listener implements EventSubscriberInterface
 						$attr_name,
 					);
 
-					$this->log->add('mod', $this->user->data['user_id'], $this->user->ip, 'MCP_ATTRIBUTE_' . ($event['data']['attr_id'] == \abdev\qte\qte::REMOVE ? 'REMOVED' : 'UPDATED'), time(), $log_data);
+					$this->log->add('mod', $this->user->data['user_id'], $this->user->ip, 'MCP_ATTRIBUTE_' . ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE ? 'REMOVED' : 'UPDATED'), time(), $log_data);
 				}
 			}
 		}

@@ -10,14 +10,14 @@
  *
  */
 
-namespace abdev\qte\migrations\v200;
+namespace ernadoo\qte\migrations\v200;
 
 class alpha1 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
 		return array(
-			'\abdev\qte\migrations\v200\dev',
+			'\ernadoo\qte\migrations\v200\dev',
 		);
 	}
 

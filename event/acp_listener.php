@@ -10,7 +10,7 @@
  *
  */
 
-namespace abdev\qte\event;
+namespace ernadoo\qte\event;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -28,13 +28,13 @@ class acp_listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var \abdev\qte\qte */
+	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
 	/** @var string */
 	protected $table_prefix;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\user $user, \abdev\qte\qte $qte, $table_prefix)
+	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\db\driver\driver_interface $db, \phpbb\user $user, \ernadoo\qte\qte $qte, $table_prefix)
 	{
 		$this->request = $request;
 		$this->cache = $cache;
@@ -82,7 +82,7 @@ class acp_listener implements EventSubscriberInterface
 
 	public function load_log_keys()
 	{
-		$this->user->add_lang_ext('abdev/qte', array('attributes', 'logs_attributes'));
+		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'logs_attributes'));
 	}
 
 	public function translate_attributes($event)
@@ -135,7 +135,7 @@ class acp_listener implements EventSubscriberInterface
 
 	public function add_attributes_features($event)
 	{
-		$this->user->add_lang_ext('abdev/qte', 'attributes_acp');
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes_acp');
 
 		// init ary
 		$template_data = $event['template_data'];

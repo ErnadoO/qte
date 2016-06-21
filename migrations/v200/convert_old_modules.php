@@ -10,14 +10,14 @@
  *
  */
 
-namespace abdev\qte\migrations\v200;
+namespace ernadoo\qte\migrations\v200;
 
 class convert_old_modules extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
 		return array(
-			'\abdev\qte\migrations\v12x\v125',
+			'\ernadoo\qte\migrations\v12x\v125',
 		);
 	}
 
@@ -31,7 +31,7 @@ class convert_old_modules extends \phpbb\db\migration\migration
 			)),
 
 			array('module.add', array('acp', 'ACP_MESSAGES', array(
-				'module_basename'		=> '\abdev\qte\acp\main_module',
+				'module_basename'		=> '\ernadoo\qte\acp\main_module',
 				'modes'					=> array('manage'),
 			))),
 		);

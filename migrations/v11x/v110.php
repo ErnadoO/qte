@@ -10,13 +10,13 @@
  *
  */
 
-namespace abdev\qte\migrations\v11x;
+namespace ernadoo\qte\migrations\v11x;
 
 class v110 extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array('\abdev\qte\migrations\v100\gold');
+		return array('\ernadoo\qte\migrations\v100\gold');
 	}
 
 	public function effectively_installed()

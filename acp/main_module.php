@@ -10,14 +10,14 @@
  *
  */
 
-namespace abdev\qte\acp;
+namespace ernadoo\qte\acp;
 
 class main_module
 {
 	/** @var string */
 	public $u_action;
 
-	/** @var \abdev\qte\qte */
+	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
 	public function main($id, $mode)
@@ -25,9 +25,9 @@ class main_module
 		/** @var \phpbb\request\request $request */
 		/** @var \phpbb\log\log $phpbb_log */
 		global $phpbb_container, $db, $user, $phpbb_log, $template, $cache, $request, $table_prefix, $phpbb_root_path;
-		$this->qte = $phpbb_container->get('abdev.qte');
+		$this->qte = $phpbb_container->get('ernadoo.qte');
 
-		$ext_root_path = $phpbb_root_path . 'ext/abdev/qte/';
+		$ext_root_path = $phpbb_root_path . 'ext/ernadoo/qte/';
 
 		$action = $request->variable('action', '');
 		$submit = $request->is_set_post('submit');
@@ -39,7 +39,7 @@ class main_module
 		$this->tpl_name = 'acp_attributes';
 		$this->page_title = 'QTE_MANAGE_TITLE';
 
-		$user->add_lang_ext('abdev/qte', array('attributes', 'attributes_acp'));
+		$user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
 
 		// Display a warning when a development version is installed or if the database is outdated
 		$this->display_version_warning();
@@ -615,7 +615,7 @@ class main_module
 	{
 		global $config, $user, $template;
 
-		$version = \abdev\qte\ext::VERSION;
+		$version = \ernadoo\qte\ext::VERSION;
 
 		// Check if the database is up-to-date (we don't display warning if we are on a -dev version since versions doesn't matches)
 		if ($config['qte_version'] != $version && stripos($version, '-dev') === false)

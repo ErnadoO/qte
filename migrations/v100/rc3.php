@@ -10,7 +10,7 @@
  *
  */
 
-namespace abdev\qte\migrations\v100;
+namespace ernadoo\qte\migrations\v100;
 
 class rc3 extends \phpbb\db\migration\migration
 {
