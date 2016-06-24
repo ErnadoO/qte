@@ -67,7 +67,7 @@ class acp_listener implements EventSubscriberInterface
 		$permissions = $event['permissions'];
 		$permissions += array(
 			// ACP
-			'acl_a_attr_manage' => array('lang' => 'ACL_A_ATTR_MANAGE', 'cat' => 'posting'),
+			'a_attr_manage' => array('lang' => 'ACL_A_ATTR_MANAGE', 'cat' => 'posting'),
 		);
 		$event['permissions'] = $permissions;
 	}
