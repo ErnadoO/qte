@@ -160,7 +160,7 @@ class qte
 		return $attr_name;
 	}
 
-	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr = array())
+	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr = array(), $viewtopic_url = '')
 	{
 		// include that file !
 		if (!function_exists('group_memberships'))
@@ -260,6 +260,7 @@ class qte
 				'IS_SELECTED' => $attr_row['select'],
 
 				'S_QTE_DESC' => !empty($attr_row['s_desc']) ? true : false,
+				'U_QTE_URL'		=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => $attr_id)) : false,
 			));
 		}
 		unset($attr_id, $attr_row);
@@ -273,6 +274,7 @@ class qte
 				'S_QTE_SELECTED' => ($show_remove && ($attribute_id == -1)),
 
 				'L_QTE_SELECT' => $this->user->lang['QTE_ATTRIBUTE_' . (!empty($attribute_id) ? ($show_remove ? 'REMOVE' : 'RESTRICT') : 'ADD')],
+				'U_QTE_URL'	=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => -1)) : false,
 			));
 		}
 	}
@@ -606,6 +608,18 @@ class qte
 
 		$message = $this->user->lang['QTE_ATTRIBUTE_' . ($attribute_id == -1 ? 'REMOVED' : (empty($topic_attribute) ? 'ADDED' : 'UPDATED'))] . '<br /><br />' . sprintf($this->user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
 		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$this->root_path}viewforum.$this->php_ext", 'f=' . $forum_id) . '">', '</a>');
+
+		if ($this->request->is_ajax())
+		{
+			$json_response = new \phpbb\json_response;
+			$json_response->send(array(
+				'success' => true,
+
+				'MESSAGE_TITLE'	=> $this->user->lang['INFORMATION'],
+				'MESSAGE_TEXT'	=> $message,
+				'NEW_ATTRIBUTE'	=> $this->attr_display($attribute_id, $this->user->data['user_id'], $current_time),
+			));
+		}
 
 		trigger_error($message);
 	}

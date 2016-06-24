@@ -52,7 +52,8 @@ class main_listener implements EventSubscriberInterface
 			'core.viewforum_modify_topicrow' => 'viewforum_assign_attribute',
 
 			// viewtopic
-			'core.viewtopic_assign_template_vars_before' => 'viewtopic_assign_attribute',
+			'core.viewtopic_assign_template_vars_before'	=> 'viewtopic_select_assign_attributes',
+			'core.viewtopic_add_quickmod_option_before'		=> 'viewtopic_attr_apply',
 
 			// posting
 			'core.posting_modify_template_vars' => array('posting_select_attributes', 'posting_preview_assign_attribute'),
@@ -79,12 +80,24 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-	public function viewtopic_assign_attribute($event)
+	public function viewtopic_select_assign_attributes($event)
 	{
 		if (!empty($event['topic_data']['topic_attr_id']))
 		{
 			$this->qte->get_users_by_topic_id(array($event['topic_data']['topic_id']));
 			$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']));
+		}
+
+		$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])), $event['viewtopic_url']);
+	}
+
+	public function viewtopic_attr_apply($event)
+	{
+		$attr_id = (int) $this->request->variable('attr_id', 0);
+		if ( $attr_id )
+		{
+			$this->qte->get_users_by_topic_id(array($event['topic_id']));
+			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id']);
 		}
 	}
 
@@ -101,13 +114,7 @@ class main_listener implements EventSubscriberInterface
 				}
 			}
 
-			$hide_attr = unserialize(trim($event['post_data']['hide_attr']));
-			if ($hide_attr === false)
-			{
-				$hide_attr = array();
-			}
-
-			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute, $hide_attr);
+			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute, (array) unserialize(trim($event['post_data']['hide_attr'])));
 
 			$this->template->assign_vars(array(
 				'S_POSTING' => true,

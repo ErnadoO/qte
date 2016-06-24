@@ -1,0 +1,18 @@
+<div class="dropdown-container dropdown-container-left dropdown-button-control">
+	<span title="{L_QTE_ATTRIBUTES}" class="button dropdown-trigger dropdown-up dropdown-select">{L_QTE_ATTRIBUTES}</span>
+	<div class="dropdown hidden">
+		<div class="pointer"><div class="pointer-inner"></div></div>
+		<ul class="dropdown-contents">
+			<!-- IF S_QTE_REMOVE and not S_QTE_EMPTY-->
+			<li>
+				<a href="{U_QTE_URL}" style="font-weight:bold;" title="{attributes.QTE_NAME}" data-ajax="qte.attr_apply">{L_QTE_SELECT}</a>
+				</li>
+			<!-- ENDIF -->
+			<!-- BEGIN attributes -->
+			<li>
+				<a href="{attributes.U_QTE_URL}" {attributes.QTE_COLOUR} title="{attributes.QTE_NAME}" data-ajax="qte.attr_apply">{attributes.QTE_NAME}<!-- IF attributes.S_QTE_DESC --> [{attributes.QTE_DESC}]<!-- ENDIF --></a>
+			</li>
+			<!-- END attributes -->
+		</ul>
+	</div>
+</div>
