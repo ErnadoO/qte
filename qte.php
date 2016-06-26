@@ -140,10 +140,10 @@ class qte
 			WHERE user_id = ' . (int) $user_id;
 		$result = $this->db->sql_query($sql);
 
-		$this->name = array();
+		$this->_name = array();
 		while ( $row = $this->db->sql_fetchrow($result) )
 		{
-			$this->name[$row['user_id']] = array(
+			$this->_name[$row['user_id']] = array(
 				'user_id'		=> (int) $row['user_id'],
 				'username'		=> $row['username'],
 				'user_colour'	=> $row['user_colour'],
@@ -495,7 +495,7 @@ class qte
 	*
 	* @return	null
 	*/
-	public function attr_apply($attribute_id = 0, $topic_id = 0, $forum_id = 0, $topic_attribute = '', $hide_attr = array())
+	public function attr_apply($attribute_id = 0, $topic_id = 0, $forum_id = 0, $topic_attribute = 0, $hide_attr = array())
 	{
 		if (empty($topic_id) || empty($forum_id) || empty($attribute_id))
 		{
@@ -681,7 +681,7 @@ class qte
 	*
 	* @param int	$group_ids		The default groups id to mark as selected
 	* @param array	$exclude_ids	The group ids to exclude from the list, false (default) if you whish to exclude no id
-	* @param int	$manage_founder If set to false (default) all groups are returned, if 0 only those groups returned not being managed by founders only, if 1 only those groups returned managed by founders only.
+	* @param bool	$manage_founder If set to false (default) all groups are returned, if 0 only those groups returned not being managed by founders only, if 1 only those groups returned managed by founders only.
 	*
 	* @return string The list of options.
 	*/
@@ -767,6 +767,8 @@ class qte
 				return true;
 			}
 		}
+
+		return false;
 	}
 
 	/**
