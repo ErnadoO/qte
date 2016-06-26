@@ -547,7 +547,7 @@ class qte
 			$this->db->sql_query($sql);
 		}
 
-		$meta_url = append_sid("{$this->root_path}viewtopic.$this->php_ext", "f=$forum_id&amp;t=$topic_id");
+		$meta_url = append_sid($this->root_path . 'viewtopic.' . $this->php_ext, array('f' => $forum_id, 't' => $topic_id));
 		meta_refresh(3, $meta_url);
 
 		// load language
@@ -555,7 +555,7 @@ class qte
 		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		$message = $this->user->lang['QTE_ATTRIBUTE_' . ($attribute_id == -1 ? 'REMOVED' : (empty($topic_attribute) ? 'ADDED' : 'UPDATED'))] . '<br /><br />' . sprintf($this->user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
-		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid("{$this->root_path}viewforum.$this->php_ext", 'f=' . $forum_id) . '">', '</a>');
+		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid($this->root_path . 'viewforum.' . $this->php_ext, array('f' => $forum_id)) . '">', '</a>');
 
 		if ($this->request->is_ajax())
 		{
@@ -661,7 +661,7 @@ class qte
 		$redirect = $this->request->variable('redirect', $this->user->data['session_page']);
 
 		meta_refresh(3, $redirect);
-		trigger_error($this->user->lang['QTE_TOPIC' . (sizeof($topic_ids) == 1 ? '' : 'S') . '_ATTRIBUTE_' . $message] . '<br /><br />' . sprintf($this->user->lang['RETURN_PAGE'], '<a href="' . $redirect . '">', '</a>'));
+		trigger_error($this->user->lang['QTE_TOPIC' . (sizeof($topic_ids) == 1 ? '' : 'S') . '_ATTRIBUTE_' . (isset($message) ? $message : 'ADDED')] . '<br /><br />' . sprintf($this->user->lang['RETURN_PAGE'], '<a href="' . $redirect . '">', '</a>'));
 
 		return;
 	}
@@ -679,9 +679,9 @@ class qte
 	/**
 	* Generate list of groups
 	*
-	* @param int	$group_ids		The default groups id to mark as selected
-	* @param array	$exclude_ids	The group ids to exclude from the list, false (default) if you whish to exclude no id
-	* @param bool	$manage_founder If set to false (default) all groups are returned, if 0 only those groups returned not being managed by founders only, if 1 only those groups returned managed by founders only.
+	* @param int		$group_ids		The default groups id to mark as selected
+	* @param array|bool	$exclude_ids	The group ids to exclude from the list, false (default) if you whish to exclude no id
+	* @param bool		$manage_founder If set to false (default) all groups are returned, if 0 only those groups returned not being managed by founders only, if 1 only those groups returned managed by founders only.
 	*
 	* @return string The list of options.
 	*/
@@ -737,7 +737,7 @@ class qte
 	*/
 	public function attr_colour($a_name, $a_colour)
 	{
-		$a_name = preg_replace("#[^a-z0-9 _-]#", '', strtolower($a_name));
+		$a_name = preg_replace('#[^a-z0-9 _-]#', '', strtolower($a_name));
 		if (!empty($a_name))
 		{
 			$a_name .= '-qte';
@@ -803,6 +803,8 @@ class qte
 		{
 			return true;
 		}
+
+		return false;
 	}
 
 	/**
