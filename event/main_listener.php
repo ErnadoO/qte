@@ -88,7 +88,7 @@ class main_listener implements EventSubscriberInterface
 			$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']));
 		}
 
-		$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])), $event['viewtopic_url']);
+		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], (int) $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])), $event['viewtopic_url']);
 	}
 
 	public function viewtopic_attr_apply($event)
@@ -97,7 +97,7 @@ class main_listener implements EventSubscriberInterface
 		if ( $attr_id )
 		{
 			$this->qte->get_users_by_topic_id(array($event['topic_id']));
-			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id']);
+			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])));
 		}
 	}
 
