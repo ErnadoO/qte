@@ -491,7 +491,7 @@ class qte
 			return;
 		}
 
-		if ($attribute_id == \ernadoo\qte\qte::REMOVE && !$this->_check_auth_remove_attr($user_groups, $hide_attr))
+		if ($attribute_id == self::REMOVE && !$this->_check_auth_remove_attr($user_groups, $hide_attr))
 		{
 			return;
 		}
@@ -499,7 +499,7 @@ class qte
 		// time !
 		$current_time = time();
 
-		if ($attribute_id == \ernadoo\qte\qte::REMOVE)
+		if ($attribute_id == self::REMOVE)
 		{
 			$fields = array(
 				'topic_attr_id'		=> 0,
