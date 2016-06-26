@@ -48,61 +48,51 @@ class qte
 	protected $table_prefix;
 
 	/** @var array */
-	protected $attr = array();
+	private $_attr = array();
 
 	/** @var array */
-	protected $name = array();
+	private $_name = array();
 
+	/**
+	* Constructor
+	*
+	* @param \phpbb\request\request					$request			Request object
+	* @param \phpbb\cache\driver\driver_interface	$cache				Cache object
+	* @param \phpbb\config\config					$config				Config object
+	* @param \phpbb\db\driver\driver_interface 		$db					Database object
+	* @param \phpbb\template\template				$template			Template object
+	* @param \phpbb\user							$user				User object
+	* @param \phpbb\log\log							$log				Log object
+	* @param string									$root_path			phpBB root path
+	* @param string									$php_ext   			phpEx
+	* @param string									$table_prefix   	Prefix tables
+	*/
 	public function __construct(\phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, \phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, $root_path, $php_ext, $table_prefix)
 	{
-		$this->request = $request;
-		$this->cache = $cache;
-		$this->config = $config;
-		$this->db = $db;
-		$this->template = $template;
-		$this->user = $user;
-		$this->log = $log;
+		$this->request		= $request;
+		$this->cache		= $cache;
+		$this->config		= $config;
+		$this->db			= $db;
+		$this->template		= $template;
+		$this->user			= $user;
+		$this->log			= $log;
 
-		$this->root_path = $root_path;
-		$this->php_ext = $php_ext;
+		$this->root_path	= $root_path;
+		$this->php_ext		= $php_ext;
 		$this->table_prefix = $table_prefix;
 
-		$this->get_attributes();
+		$this->_get_attributes();
 	}
 
-	protected function get_attributes()
-	{
-		if (($this->attr = $this->cache->get('_attr')) === false)
-		{
-			$sql = 'SELECT *
-				FROM ' . $this->table_prefix . 'topics_attr
-				ORDER BY left_id ASC';
-			$result = $this->db->sql_query($sql);
-
-			$this->attr = array();
-			while ($row = $this->db->sql_fetchrow($result))
-			{
-				$this->attr[$row['attr_id']] = array(
-					'attr_id' => (int) $row['attr_id'],
-					'attr_type' => (bool) $row['attr_type'],
-					'attr_name' => $row['attr_name'],
-					'attr_desc' => $row['attr_desc'],
-					'attr_img' => $row['attr_img'],
-					'attr_colour' => $row['attr_colour'],
-					'attr_date' => $row['attr_date'],
-					'attr_user_colour' => (bool) $row['attr_user_colour'],
-					'attr_auths' => $row['attr_auths'],
-				);
-			}
-			$this->db->sql_freeresult();
-
-			$this->cache->put('_attr', $this->attr);
-		}
-	}
-
+	/**
+	* Get topic attributes username
+	*
+	* @param	array	$topic_list	Topic ids
+	*
+	* @return	null
+	*/
 	public function get_users_by_topic_id($topic_list)
 	{
-		$this->name = array();
 		if (!empty($topic_list))
 		{
 			$sql = 'SELECT u.user_id, u.username, u.user_colour
@@ -114,7 +104,7 @@ class qte
 
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				$this->name[$row['user_id']] = array(
+				$this->_name[$row['user_id']] = array(
 					'user_id' => (int) $row['user_id'],
 					'username' => $row['username'],
 					'user_colour' => $row['user_colour'],
@@ -124,6 +114,25 @@ class qte
 		}
 	}
 
+	/**
+	* Get attribute name
+	*
+	* @param	int		$attr_id	The attribute id
+	*
+	* @return	string
+	*/
+	public function get_attr_name_by_id($attr_id)
+	{
+		return $this->_attr[$attr_id]['attr_name'];
+	}
+
+	/**
+	* Get attribute author
+	*
+	* @param	int		$user_id	User id
+	*
+	* @return	string
+	*/
 	public function get_users_by_user_id($user_id)
 	{
 		$sql = 'SELECT user_id, username, user_colour
@@ -132,74 +141,48 @@ class qte
 		$result = $this->db->sql_query($sql);
 
 		$this->name = array();
-		while ($row = $this->db->sql_fetchrow($result))
+		while ( $row = $this->db->sql_fetchrow($result) )
 		{
 			$this->name[$row['user_id']] = array(
-				'user_id' => (int) $row['user_id'],
-				'username' => $row['username'],
-				'user_colour' => $row['user_colour'],
+				'user_id'		=> (int) $row['user_id'],
+				'username'		=> $row['username'],
+				'user_colour'	=> $row['user_colour'],
 			);
 		}
 		$this->db->sql_freeresult();
 	}
 
-	public function get_attr_name_by_id($attr_id)
-	{
-		$sql = 'SELECT attr_name
-			FROM ' . $this->table_prefix . 'topics_attr
-			WHERE attr_id = ' . (int) $attr_id;
-		$result = $this->db->sql_query($sql);
-		$attr_name = (string) $this->db->sql_fetchfield('attr_name');
-		$this->db->sql_freeresult($result);
-
-		if (empty($attr_name))
-		{
-			return;
-		}
-
-		return $attr_name;
-	}
-
+	/**
+	* Generate a list of attributes based on permissions
+	*
+	* @param	int		$forum_id		Forum id
+	* @param	int		$author_id		Topic author id
+	* @param	int		$attribute_id	Current attribute id
+	* @param	array	$hide_attr		Groups which can't delete attribute in this forum
+	* @param	string	$viewtopic_url	Topic's url
+	*
+	* @return	null
+	*/
 	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr = array(), $viewtopic_url = '')
 	{
-		// include that file !
-		if (!function_exists('group_memberships'))
-		{
-			include $this->root_path . 'includes/functions_user.' . $this->php_ext;
-		}
-
 		// load language
 		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
-
-		// get groups membership !
-		$user_membership = group_memberships(false, $this->user->data['user_id']);
-
-		$show_remove = true;
-		$user_groups = array();
-		if (!empty($user_membership))
-		{
-			foreach ($user_membership as $row)
-			{
-				$row['group_id'] = (int) $row['group_id'];
-				$user_groups[$row['group_id']] = $row['group_id'];
-			}
-		}
-		unset($user_membership);
 
 		// get current time once !
 		$current_time = time();
 
 		$show_select = false;
+		$user_groups = array();
+		$show_remove = $this->_check_auth_remove_attr($user_groups, $hide_attr);
 
-		$attributes = array();
-		foreach ($this->attr as $attr)
+		foreach ($this->_attr as $attr)
 		{
 			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
-					'forums_ids' => array(),
-					'groups_ids' => array(),
-					'author' => false,
+					'forums_ids'	=> array(),
+					'groups_ids'	=> array(),
+					'author'		=> false,
 				));
 			}
 			else
@@ -209,76 +192,51 @@ class qte
 
 			foreach ($attr_auths as $attr_auth)
 			{
-				$forum_ids = $attr_auth['forums_ids'];
-				$group_ids = $attr_auth['groups_ids'];
-
-				if (is_array($forum_ids) && in_array($forum_id, $forum_ids))
+				if (!$this->_check_auth_attribute($attr_auth, $forum_id, $user_groups, $author_id))
 				{
-					if (is_array($group_ids) && array_intersect($group_ids, $user_groups) || ($attr_auth['author'] && ($author_id == $this->user->data['user_id'])))
-					{
-						// show the selector !
-						$show_select = true;
-
-						$groups_removed = array_intersect($user_groups, $hide_attr);
-						if (!empty($hide_attr) && (count($groups_removed) >= count($user_groups)))
-						{
-							$show_remove = false;
-						}
-
-						if (!isset($attributes[$attr['attr_id']]))
-						{
-							// parse the attribute name
-							$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->attr_lng_key($attr['attr_name']));
-
-							$attributes[$attr['attr_id']] = array(
-								'type' => $attr['attr_type'],
-								'name' => $attribute_name,
-								'desc' => $this->attr_lng_key($attr['attr_desc']),
-								'colour' => $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
-
-								'select' => (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
-
-								's_desc' => !empty($attr['attr_desc']),
-							);
-						}
-					}
+					continue;
 				}
+
+				// show the selector !
+				$show_select = true;
+
+				// parse the attribute name
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->attr_lng_key($attr['attr_name']));
+
+				$this->template->assign_block_vars('attributes', array(
+					'QTE_ID'		=> $attr['attr_id'],
+					'QTE_TYPE'		=> $attr['attr_type'],
+					'QTE_NAME'		=> $attribute_name,
+					'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+
+					'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
+
+					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+					'U_QTE_URL'		=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => $attr['attr_id'])) : false,
+				));
 			}
-			unset($attr_auth);
 		}
-		unset($attr);
-
-		foreach ($attributes as $attr_id => $attr_row)
-		{
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID' => $attr_id,
-				'QTE_TYPE' => $attr_row['type'],
-				'QTE_NAME' => $attr_row['name'],
-				'QTE_DESC' => $attr_row['desc'],
-				'QTE_COLOUR' => $attr_row['colour'],
-
-				'IS_SELECTED' => $attr_row['select'],
-
-				'S_QTE_DESC' => !empty($attr_row['s_desc']) ? true : false,
-				'U_QTE_URL'		=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => $attr_id)) : false,
-			));
-		}
-		unset($attr_id, $attr_row);
 
 		if ($show_select)
 		{
 			$this->template->assign_vars(array(
-				'S_QTE_SELECT' => true,
-				'S_QTE_REMOVE' => $show_remove,
-				'S_QTE_EMPTY' => (empty($attribute_id) || ($attribute_id == -1) || ($attribute_id == -2)),
-				'S_QTE_SELECTED' => ($show_remove && ($attribute_id == -1)),
+				'S_QTE_SELECT'		=> true,
+				'S_QTE_REMOVE'		=> $show_remove,
+				'S_QTE_EMPTY'		=> (empty($attribute_id) || ($attribute_id == -1) || ($attribute_id == -2)),
+				'S_QTE_SELECTED'	=> ($show_remove && ($attribute_id == -1)),
 
-				'L_QTE_SELECT' => $this->user->lang['QTE_ATTRIBUTE_' . (!empty($attribute_id) ? ($show_remove ? 'REMOVE' : 'RESTRICT') : 'ADD')],
-				'U_QTE_URL'	=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => -1)) : false,
+				'L_QTE_SELECT'		=> $this->user->lang['QTE_ATTRIBUTE_' . (!empty($attribute_id) ? ($show_remove ? 'REMOVE' : 'RESTRICT') : 'ADD')],
+				'U_QTE_URL'			=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => -1)) : false,
 			));
 		}
 	}
 
+	/**
+	* Generate a list of all attributes for search page
+	*
+	* @return	null
+	*/
 	public function attr_search()
 	{
 		// load language
@@ -286,15 +244,14 @@ class qte
 
 		$show_select = false;
 
-		$attributes = array();
-		foreach ($this->attr as $attr)
+		foreach ($this->_attr as $attr)
 		{
 			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
-					'forums_ids' => array(),
-					'groups_ids' => array(),
-					'author' => false,
+					'forums_ids'	=> array(),
+					'groups_ids'	=> array(),
+					'author'		=> false,
 				));
 			}
 			else
@@ -307,38 +264,20 @@ class qte
 				// show the selector !
 				$show_select = true;
 
-				if (!isset($attributes[$attr['attr_id']]))
-				{
-					// parse the attribute name
-					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+				// parse the attribute name
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
 
-					$attributes[$attr['attr_id']] = array(
-						'type' => $attr['attr_type'],
-						'name' => $attribute_name,
-						'desc' => $this->attr_lng_key($attr['attr_desc']),
-						'colour' => $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+				$this->template->assign_block_vars('attributes', array(
+					'QTE_ID'		=> $attr['attr_id'],
+					'QTE_TYPE'		=> $attr['attr_type'],
+					'QTE_NAME'		=> $attribute_name,
+					'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-						's_desc' => !empty($attr['attr_desc']) ? true : false,
-					);
-				}
+					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+				));
 			}
-			unset($attr_auth);
 		}
-		unset($attr);
-
-		foreach ($attributes as $attr_id => $attr_row)
-		{
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID' => $attr_id,
-				'QTE_TYPE' => $attr_row['type'],
-				'QTE_NAME' => $attr_row['name'],
-				'QTE_DESC' => $attr_row['desc'],
-				'QTE_COLOUR' => $attr_row['colour'],
-
-				'S_QTE_DESC' => $attr_row['s_desc'],
-			));
-		}
-		unset($attr_id, $attr_row);
 
 		if ($show_select)
 		{
@@ -346,6 +285,14 @@ class qte
 		}
 	}
 
+	/**
+	* Generate a list of attributes for viewforum page
+	*
+	* @param	int		$forum_id		Forum id
+	* @param	int		$attribute_id	Current attribute id
+	*
+	* @return	null
+	*/
 	public function attr_sort($forum_id = 0, $attribute_id = 0)
 	{
 		// load language
@@ -353,15 +300,14 @@ class qte
 
 		$show_select = false;
 
-		$attributes = array();
-		foreach ($this->attr as $attr)
+		foreach ($this->_attr as $attr)
 		{
 			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
-					'forums_ids' => array(),
-					'groups_ids' => array(),
-					'author' => false,
+					'forums_ids'	=> array(),
+					'groups_ids'	=> array(),
+					'author'		=> false,
 				));
 			}
 			else
@@ -378,43 +324,23 @@ class qte
 					// show the selector !
 					$show_select = true;
 
-					if (!isset($attributes[$attr['attr_id']]))
-					{
-						// parse the attribute name
-						$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+					// parse the attribute name
+					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
 
-						$attributes[$attr['attr_id']] = array(
-							'type' => $attr['attr_type'],
-							'name' => $attribute_name,
-							'desc' => $this->attr_lng_key($attr['attr_desc']),
-							'colour' => $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+					$this->template->assign_block_vars('attributes', array(
+						'QTE_ID'		=> $attr['attr_id'],
+						'QTE_TYPE'		=> $attr['attr_type'],
+						'QTE_NAME'		=> $attribute_name,
+						'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+						'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-							'select' => (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
+						'IS_SELECTED' => (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
 
-							's_desc' => !empty($attr['attr_desc']) ? true : false,
-						);
-					}
+						'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+					));
 				}
 			}
-			unset($attr_auth);
 		}
-		unset($attr);
-
-		foreach ($attributes as $attr_id => $attr_row)
-		{
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID' => $attr_id,
-				'QTE_TYPE' => $attr_row['type'],
-				'QTE_NAME' => $attr_row['name'],
-				'QTE_DESC' => $attr_row['desc'],
-				'QTE_COLOUR' => $attr_row['colour'],
-
-				'IS_SELECTED' => $attr_row['select'],
-
-				'S_QTE_DESC' => $attr_row['s_desc'],
-			));
-		}
-		unset($attr_id, $attr_row);
 
 		if ($show_select)
 		{
@@ -422,6 +348,14 @@ class qte
 		}
 	}
 
+	/**
+	* Generate a default attribute list for a forum
+	*
+	* @param	int		$forum_id		Forum id
+	* @param	int		$attribute_id	Current attribute id
+	*
+	* @return	null
+	*/
 	public function attr_default($forum_id = 0, $attribute_id = 0)
 	{
 		// load language
@@ -429,15 +363,14 @@ class qte
 
 		$show_select = false;
 
-		$attributes = array();
-		foreach ($this->attr as $attr)
+		foreach ($this->_attr as $attr)
 		{
 			if (empty($attr['attr_auths']))
 			{
 				$attr_auths = array(array(
-					'forums_ids' => array(),
-					'groups_ids' => array(),
-					'author' => false,
+					'forums_ids'	=> array(),
+					'groups_ids'	=> array(),
+					'author'		=> false,
 				));
 			}
 			else
@@ -454,43 +387,23 @@ class qte
 					// show the selector !
 					$show_select = true;
 
-					if (!isset($attributes[$attr['attr_id']]))
-					{
-						// parse the attribute name
-						$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+					// parse the attribute name
+					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
 
-						$attributes[$attr['attr_id']] = array(
-							'type' => $attr['attr_type'],
-							'name' => $attribute_name,
-							'desc' => $this->attr_lng_key($attr['attr_desc']),
-							'colour' => $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+					$this->template->assign_block_vars('attributes', array(
+						'QTE_ID'		=> $attr['attr_id'],
+						'QTE_TYPE'		=> $attr['attr_type'],
+						'QTE_NAME'		=> $attribute_name,
+						'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+						'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-							'select' => (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
+						'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
 
-							's_desc' => !empty($attr['attr_desc']) ? true : false,
-						);
-					}
+						'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+					));
 				}
 			}
-			unset($attr_auth);
 		}
-		unset($attr);
-
-		foreach ($attributes as $attr_id => $attr_row)
-		{
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID' => $attr_id,
-				'QTE_TYPE' => $attr_row['type'],
-				'QTE_NAME' => $attr_row['name'],
-				'QTE_DESC' => $attr_row['desc'],
-				'QTE_COLOUR' => $attr_row['colour'],
-
-				'IS_SELECTED' => $attr_row['select'],
-
-				'S_QTE_DESC' => $attr_row['s_desc'],
-			));
-		}
-		unset($attr_id, $attr_row);
 
 		if ($show_select)
 		{
@@ -498,6 +411,15 @@ class qte
 		}
 	}
 
+	/**
+	* Generate attribute for topic title
+	*
+	* @param	int		$attribute_id	Current attribute id
+	* @param	int		$user_id		Current attribute user id
+	* @param	int		$timestamp		Attribute timestamp
+	*
+	* @return	string					Attribute html code
+	*/
 	public function attr_display($attribute_id = 0, $user_id = 0, $timestamp = 0)
 	{
 		if (empty($attribute_id) || empty($user_id) || empty($timestamp))
@@ -505,27 +427,36 @@ class qte
 			return false;
 		}
 
-		if (isset($this->attr[$attribute_id]))
+		if (isset($this->_attr[$attribute_id]))
 		{
-			$attribute_colour = $this->attr_colour($this->attr[$attribute_id]['attr_name'], $this->attr[$attribute_id]['attr_colour']);
+			$attribute_colour = $this->attr_colour($this->_attr[$attribute_id]['attr_name'], $this->_attr[$attribute_id]['attr_colour']);
 
-			if (isset($this->name[$user_id]['user_id']))
+			if (isset($this->_name[$user_id]['user_id']))
 			{
-				$attribute_username = get_username_string(($this->attr[$attribute_id]['attr_user_colour'] ? 'no_profile' : 'username'), $this->name[$user_id]['user_id'], $this->name[$user_id]['username'], $this->name[$user_id]['user_colour']);
+				$attribute_username = get_username_string(($this->_attr[$attribute_id]['attr_user_colour'] ? 'no_profile' : 'username'), $this->_name[$user_id]['user_id'], $this->_name[$user_id]['username'], $this->_name[$user_id]['user_colour']);
 			}
 			else
 			{
 				$attribute_username = $this->user->lang['GUEST'];
 			}
 
-			$attribute_date = $this->user->format_date($timestamp, $this->attr[$attribute_id]['attr_date']);
+			$attribute_date = $this->user->format_date($timestamp, $this->_attr[$attribute_id]['attr_date']);
 
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->attr[$attribute_id]['attr_name']));
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->_attr[$attribute_id]['attr_name']));
 
-			return !$this->attr[$attribute_id]['attr_type'] ? '<span' . $attribute_colour . '>' . $attribute_name . '</span>' : $this->attr_img_key($this->attr[$attribute_id]['attr_img'], $attribute_name);
+			return !$this->_attr[$attribute_id]['attr_type'] ? '<span' . $attribute_colour . '>' . $attribute_name . '</span>' : $this->attr_img_key($this->_attr[$attribute_id]['attr_img'], $attribute_name);
 		}
 	}
 
+	/**
+	* Generate attribute for page title
+	*
+	* @param	int		$attribute_id	Current attribute id
+	* @param	int		$user_id		Current attribute user id
+	* @param	int		$timestamp		Attribute timestamp
+	*
+	* @return	string					attribute html code
+	*/
 	public function attr_title($attribute_id = 0, $user_id = 0, $timestamp = 0)
 	{
 		if (empty($attribute_id) || empty($user_id) || empty($timestamp))
@@ -533,28 +464,45 @@ class qte
 			return false;
 		}
 
-		if (isset($this->attr[$attribute_id]))
+		if (isset($this->_attr[$attribute_id]))
 		{
-			if (isset($this->name[$user_id]['user_id']))
+			if (isset($this->_name[$user_id]['user_id']))
 			{
-				$attribute_username = get_username_string('username', $this->name[$user_id]['user_id'], $this->name[$user_id]['username'], $this->name[$user_id]['user_colour']);
+				$attribute_username = get_username_string('username', $this->_name[$user_id]['user_id'], $this->_name[$user_id]['username'], $this->_name[$user_id]['user_colour']);
 			}
 			else
 			{
 				$attribute_username = $this->user->lang['GUEST'];
 			}
 
-			$attribute_date = $this->user->format_date($timestamp, $this->attr[$attribute_id]['attr_date']);
+			$attribute_date = $this->user->format_date($timestamp, $this->_attr[$attribute_id]['attr_date']);
 
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->attr[$attribute_id]['attr_name']));
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->_attr[$attribute_id]['attr_name']));
 
 			return $attribute_name;
 		}
 	}
 
-	public function attr_apply($attribute_id = 0, $topic_id = 0, $forum_id = 0, $topic_attribute = '')
+
+	/**
+	* Change topic attribute
+	*
+	* @param	int		$attribute_id		New attribute id
+	* @param	int		$topic_id			The id of the topic
+	* @param	int		$forum_id			The id of the forum
+	* @param	int		$topic_attribute	Current attribute id
+	* @param	array	$hide_attr			Groups which can't delete attribute in this forum
+	*
+	* @return	null
+	*/
+	public function attr_apply($attribute_id = 0, $topic_id = 0, $forum_id = 0, $topic_attribute = '', $hide_attr = array())
 	{
 		if (empty($topic_id) || empty($forum_id) || empty($attribute_id))
+		{
+			return;
+		}
+
+		if ($attribute_id == \ernadoo\qte\qte::REMOVE && !$this->_check_auth_remove_attr($user_groups, $hide_attr))
 		{
 			return;
 		}
@@ -562,20 +510,20 @@ class qte
 		// time !
 		$current_time = time();
 
-		if ($attribute_id == -1)
+		if ($attribute_id == \ernadoo\qte\qte::REMOVE)
 		{
 			$fields = array(
-				'topic_attr_id' => 0,
-				'topic_attr_user' => 0,
-				'topic_attr_time' => 0,
+				'topic_attr_id'		=> 0,
+				'topic_attr_user'	=> 0,
+				'topic_attr_time'	=> 0,
 			);
 		}
 		else
 		{
 			$fields = array(
-				'topic_attr_id' => $attribute_id,
-				'topic_attr_user' => $this->user->data['user_id'],
-				'topic_attr_time' => $current_time,
+				'topic_attr_id'		=> $attribute_id,
+				'topic_attr_user'	=> $this->user->data['user_id'],
+				'topic_attr_time'	=> $current_time,
 			);
 		}
 
@@ -624,6 +572,14 @@ class qte
 		trigger_error($message);
 	}
 
+	/**
+	* Change topic attribute in mcp
+	*
+	* @param	int		$attribute_id		New attribute id
+	* @param	array	$topic_ids			Topics ids
+	*
+	* @return	null
+	*/
 	public function mcp_attr_apply($attribute_id = 0, $topic_ids = array())
 	{
 		// load language
@@ -663,17 +619,17 @@ class qte
 		if ($attribute_id == -1)
 		{
 			$fields = array(
-				'topic_attr_id' => 0,
-				'topic_attr_user' => 0,
-				'topic_attr_time' => 0,
+				'topic_attr_id'		=> 0,
+				'topic_attr_user'	=> 0,
+				'topic_attr_time'	=> 0,
 			);
 		}
 		else
 		{
 			$fields = array(
-				'topic_attr_id' => $attribute_id,
-				'topic_attr_user' => $this->user->data['user_id'],
-				'topic_attr_time' => $current_time,
+				'topic_attr_id'		=> $attribute_id,
+				'topic_attr_user'	=> $this->user->data['user_id'],
+				'topic_attr_time'	=> $current_time,
 			);
 		}
 
@@ -710,12 +666,25 @@ class qte
 		return;
 	}
 
+	/**
+	* Getter...
+	*
+	* @return	array
+	*/
 	public function getAttr()
 	{
-		return $this->attr;
+		return $this->_attr;
 	}
 
-	// borrowed function from "ACP Announcement Centre" mod
+	/**
+	* Generate list of groups
+	*
+	* @param int	$group_ids		The default groups id to mark as selected
+	* @param array	$exclude_ids	The group ids to exclude from the list, false (default) if you whish to exclude no id
+	* @param int	$manage_founder If set to false (default) all groups are returned, if 0 only those groups returned not being managed by founders only, if 1 only those groups returned managed by founders only.
+	*
+	* @return string The list of options.
+	*/
 	public function qte_group_select($group_ids, $exclude_ids = array(), $manage_founder = false)
 	{
 		$exclude_sql = ($exclude_ids !== false && sizeof($exclude_ids)) ? 'WHERE ' . $this->db->sql_in_set('group_id', array_map('intval', $exclude_ids), true) : '';
@@ -741,7 +710,10 @@ class qte
 		return $s_group_options;
 	}
 
-	// borrowed from "Categories Hierarchy" : used to check if a language key exists
+	/**
+	* borrowed from "Categories Hierarchy" : used to check if a language key exists
+	* @todo delete
+	*/
 	public function attr_lng_key($key)
 	{
 		// load language
@@ -756,6 +728,13 @@ class qte
 		return empty($key) ? '' : (preg_match('#^[a-z0-9_-]+$#i', $key) ? $this->user->img($key, $alt) : '<img src="' . (preg_match('#^(ht|f)tp[s]?\://#i', $key) ? $key : $this->root_path . $key) . '" alt="' . $alt . '" title="' . $alt . '" />');
 	}
 
+	/**
+	* Build class and style attribute
+	*
+	* @param	string	$a_name			Attribute name
+	* @param	string	$a_colour		Attribute color
+	* @return	string					html code
+	*/
 	public function attr_colour($a_name, $a_colour)
 	{
 		$a_name = preg_replace("#[^a-z0-9 _-]#", '', strtolower($a_name));
@@ -765,5 +744,97 @@ class qte
 		}
 
 		return ' class="qte-attr ' . $a_name . '"' . (!empty($a_colour) ? ' style="color:#' . $a_colour . '; font-weight:bold;"' : '');
+	}
+
+	/**
+	* Check if user can apply an attribute
+	*
+	* @param	array	$attr_auth		Forum auth
+	* @param	int		$forum_id		Forum id
+	* @param	array	$user_groups	User's groups
+	* @param	int		$author_id		Topic author id
+	* @return	bool
+	*/
+	private function _check_auth_attribute($attr_auth, $forum_id, $user_groups, $author_id)
+	{
+		$forum_ids = $attr_auth['forums_ids'];
+		$group_ids = $attr_auth['groups_ids'];
+
+		if (is_array($forum_ids) && in_array($forum_id, $forum_ids))
+		{
+			if (is_array($group_ids) && array_intersect($group_ids, $user_groups) || ($attr_auth['author'] && ($author_id == $this->user->data['user_id']) && ($this->user->data['user_id'] != ANONYMOUS)))
+			{
+				return true;
+			}
+		}
+	}
+
+	/**
+	* Check if user can delete an attribute
+	*
+	* @param	array	$user_groups	User's groups
+	* @param	array	$hide_attr		Groups which can't delete attribute in a forum
+	* @return	bool
+	*/
+	private function _check_auth_remove_attr(&$user_groups, $hide_attr)
+	{
+		// include that file !
+		if (!function_exists('group_memberships'))
+		{
+			include $this->root_path . 'includes/functions_user.' . $this->php_ext;
+		}
+
+		// get groups membership !
+		$user_membership = group_memberships(false, $this->user->data['user_id']);
+
+		$user_groups = array();
+		if (!empty($user_membership))
+		{
+			foreach ($user_membership as $row)
+			{
+				$user_groups[$row['group_id']] = (int) $row['group_id'];
+			}
+		}
+
+		$groups_removed = array_intersect($user_groups, $hide_attr);
+		if (empty($hide_attr) || (count($groups_removed) < count($user_groups)))
+		{
+			return true;
+		}
+	}
+
+	/**
+	* Get attributes from database
+	*
+	* @return	null
+	*/
+	private function _get_attributes()
+	{
+		if (($this->_attr = $this->cache->get('_attr')) === false)
+		{
+			$sql = 'SELECT *
+				FROM ' . $this->table_prefix . 'topics_attr
+				ORDER BY left_id ASC';
+			$result = $this->db->sql_query($sql);
+
+			$this->_attr = array();
+			while ($row = $this->db->sql_fetchrow($result))
+			{
+				$this->_attr[$row['attr_id']] = array(
+					'attr_id'			=> (int) $row['attr_id'],
+					'attr_type'			=> (bool) $row['attr_type'],
+					'attr_name'			=> $row['attr_name'],
+					'attr_desc'			=> $row['attr_desc'],
+					'attr_img'			=> $row['attr_img'],
+					'attr_colour'		=> $row['attr_colour'],
+					'attr_date'			=> $row['attr_date'],
+					'attr_user_colour'	=> (bool) $row['attr_user_colour'],
+					'attr_auths'		=> $row['attr_auths'],
+				);
+			}
+			$this->db->sql_freeresult();
+
+			$this->cache->put('_attr', $this->_attr);
+		}
 	}
 }
