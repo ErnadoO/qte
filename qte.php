@@ -82,6 +82,7 @@ class qte
 		$this->table_prefix = $table_prefix;
 
 		$this->_get_attributes();
+		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 	}
 
 	/**
@@ -165,9 +166,6 @@ class qte
 	*/
 	public function attr_select($forum_id = 0, $author_id = 0, $attribute_id = 0, $hide_attr = array(), $viewtopic_url = '')
 	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
-
 		// get current time once !
 		$current_time = time();
 
@@ -201,13 +199,13 @@ class qte
 				$show_select = true;
 
 				// parse the attribute name
-				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->attr_lng_key($attr['attr_name']));
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->user->lang($attr['attr_name']));
 
 				$this->template->assign_block_vars('attributes', array(
 					'QTE_ID'		=> $attr['attr_id'],
 					'QTE_TYPE'		=> $attr['attr_type'],
 					'QTE_NAME'		=> $attribute_name,
-					'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+					'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
 					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
 					'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
@@ -239,9 +237,6 @@ class qte
 	*/
 	public function attr_search()
 	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
-
 		$show_select = false;
 
 		foreach ($this->_attr as $attr)
@@ -265,13 +260,13 @@ class qte
 				$show_select = true;
 
 				// parse the attribute name
-				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
 
 				$this->template->assign_block_vars('attributes', array(
 					'QTE_ID'		=> $attr['attr_id'],
 					'QTE_TYPE'		=> $attr['attr_type'],
 					'QTE_NAME'		=> $attribute_name,
-					'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+					'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
 					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
 					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
@@ -295,9 +290,6 @@ class qte
 	*/
 	public function attr_sort($forum_id = 0, $attribute_id = 0)
 	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
-
 		$show_select = false;
 
 		foreach ($this->_attr as $attr)
@@ -325,16 +317,16 @@ class qte
 					$show_select = true;
 
 					// parse the attribute name
-					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
 
 					$this->template->assign_block_vars('attributes', array(
 						'QTE_ID'		=> $attr['attr_id'],
 						'QTE_TYPE'		=> $attr['attr_type'],
 						'QTE_NAME'		=> $attribute_name,
-						'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+						'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
 						'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-						'IS_SELECTED' => (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
+						'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
 
 						'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
 					));
@@ -358,9 +350,6 @@ class qte
 	*/
 	public function attr_default($forum_id = 0, $attribute_id = 0)
 	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
-
 		$show_select = false;
 
 		foreach ($this->_attr as $attr)
@@ -388,13 +377,13 @@ class qte
 					$show_select = true;
 
 					// parse the attribute name
-					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->attr_lng_key($attr['attr_name']));
+					$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
 
 					$this->template->assign_block_vars('attributes', array(
 						'QTE_ID'		=> $attr['attr_id'],
 						'QTE_TYPE'		=> $attr['attr_type'],
 						'QTE_NAME'		=> $attribute_name,
-						'QTE_DESC'		=> $this->attr_lng_key($attr['attr_desc']),
+						'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
 						'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
 						'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
@@ -442,7 +431,7 @@ class qte
 
 			$attribute_date = $this->user->format_date($timestamp, $this->_attr[$attribute_id]['attr_date']);
 
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->_attr[$attribute_id]['attr_name']));
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->user->lang($this->_attr[$attribute_id]['attr_name']));
 
 			return !$this->_attr[$attribute_id]['attr_type'] ? '<span' . $attribute_colour . '>' . $attribute_name . '</span>' : $this->attr_img_key($this->_attr[$attribute_id]['attr_img'], $attribute_name);
 		}
@@ -477,7 +466,7 @@ class qte
 
 			$attribute_date = $this->user->format_date($timestamp, $this->_attr[$attribute_id]['attr_date']);
 
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->attr_lng_key($this->_attr[$attribute_id]['attr_name']));
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->user->lang($this->_attr[$attribute_id]['attr_name']));
 
 			return $attribute_name;
 		}
@@ -552,7 +541,6 @@ class qte
 
 		// load language
 		$this->user->add_lang('posting');
-		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
 
 		$message = $this->user->lang['QTE_ATTRIBUTE_' . ($attribute_id == -1 ? 'REMOVED' : (empty($topic_attribute) ? 'ADDED' : 'UPDATED'))] . '<br /><br />' . sprintf($this->user->lang['VIEW_MESSAGE'], '<a href="' . $meta_url . '">', '</a>');
 		$message .= '<br /><br />' . sprintf($this->user->lang['RETURN_FORUM'], '<a href="' . append_sid($this->root_path . 'viewforum.' . $this->php_ext, array('f' => $forum_id)) . '">', '</a>');
@@ -582,9 +570,6 @@ class qte
 	*/
 	public function mcp_attr_apply($attribute_id = 0, $topic_ids = array())
 	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
-
 		if (!sizeof($topic_ids))
 		{
 			trigger_error('NO_TOPIC_SELECTED');
@@ -710,18 +695,6 @@ class qte
 		return $s_group_options;
 	}
 
-	/**
-	* borrowed from "Categories Hierarchy" : used to check if a language key exists
-	* @todo delete
-	*/
-	public function attr_lng_key($key)
-	{
-		// load language
-		$this->user->add_lang_ext('ernadoo/qte', 'attributes');
-
-		return isset($this->user->lang[$key]) ? $this->user->lang[$key] : $key;
-	}
-
 	// borrowed from "Categories Hierarchy" : used to check if a image key exists
 	public function attr_img_key($key, $alt)
 	{
@@ -799,12 +772,7 @@ class qte
 		}
 
 		$groups_removed = array_intersect($user_groups, $hide_attr);
-		if (empty($hide_attr) || (count($groups_removed) < count($user_groups)))
-		{
-			return true;
-		}
-
-		return false;
+		return (empty($hide_attr) || (count($groups_removed) < count($user_groups)));
 	}
 
 	/**

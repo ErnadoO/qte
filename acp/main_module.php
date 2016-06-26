@@ -107,7 +107,7 @@ class main_module
 						$attr_user_colour = false;
 					}
 
-					$attr_name_tmp = $this->qte->attr_lng_key($attr_name);
+					$attr_name_tmp = $user->lang($attr_name);
 					if ($attr_user_colour)
 					{
 						if (strpos($attr_name_tmp, '%mod%') === false)
@@ -390,7 +390,7 @@ class main_module
 
 		while ($row = $db->sql_fetchrow($result))
 		{
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($user->lang['QTE_KEY_USERNAME'], $user->lang['QTE_KEY_DATE']), $this->qte->attr_lng_key($row['attr_name']));
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($user->lang['QTE_KEY_USERNAME'], $user->lang['QTE_KEY_DATE']), $user->lang($row['attr_name']));
 			$attribute_count = isset($stats[$row['attr_id']]) ? $stats[$row['attr_id']] : 0;
 
 			$template->assign_block_vars('row', array(
@@ -402,7 +402,7 @@ class main_module
 				'S_CSS' => (!$row['attr_type'] && isset($user->lang[$row['attr_name']]) && empty($row['attr_colour'])) ? true : false,
 
 				'QTE_TXT' => $attribute_name,
-				'QTE_DESC' => $this->qte->attr_lng_key($row['attr_desc']),
+				'QTE_DESC' => $user->lang($row['attr_desc']),
 				'QTE_IMG' => $this->qte->attr_img_key($row['attr_img'], $attribute_name),
 				'QTE_COLOUR' => $row['attr_colour'],
 				'QTE_DATE' => $row['attr_date'],
@@ -598,13 +598,13 @@ class main_module
 		{
 			if ($attr['attr_id'] != $attr_id)
 			{
-				$attribute_name = str_replace(array('%mod%', '%date%'), array($user->data['username'], $user->format_date($current_time, $attr['attr_date'])), $this->qte->attr_lng_key($attr['attr_name']));
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($user->data['username'], $user->format_date($current_time, $attr['attr_date'])), $user->lang($attr['attr_name']));
 
 				$template->assign_block_vars('select_row', array(
 					'QTE_ID' => $attr['attr_id'],
 					'QTE_TYPE' => $attr['attr_type'],
 					'QTE_NAME' => $attribute_name,
-					'QTE_DESC' => $this->qte->attr_lng_key($attr['attr_desc']),
+					'QTE_DESC' => $user->lang($attr['attr_desc']),
 					'QTE_COLOUR' => $this->qte->attr_colour($attr['attr_name'], $attr['attr_colour']),
 				));
 			}

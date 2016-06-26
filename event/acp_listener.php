@@ -97,8 +97,7 @@ class acp_listener implements EventSubscriberInterface
 			{
 				foreach ($log_data as &$arg)
 				{
-					$arg = $this->qte->attr_lng_key($arg);
-					$arg = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $arg);
+					$arg = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($arg));
 				}
 			}
 
