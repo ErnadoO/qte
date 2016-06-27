@@ -83,9 +83,8 @@ class main_listener implements EventSubscriberInterface
 
 	public function viewtopic_attr_title($event)
 	{
-		$this->qte->get_users_by_user_id($event['topic_data']['topic_attr_id']);
 		$attr_title = $this->qte->attr_title($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']);
-		$event['page_title'] = $attr_title . ' ' . $event['page_title'];
+		$event['page_title'] = $attr_title ? $attr_title . ' ' . $event['page_title'] : $event['page_title'];
 	}
 
 	public function viewtopic_select_assign_attributes($event)
