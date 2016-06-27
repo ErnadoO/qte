@@ -466,9 +466,7 @@ class qte
 
 			$attribute_date = $this->user->format_date($timestamp, $this->_attr[$attribute_id]['attr_date']);
 
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->user->lang($this->_attr[$attribute_id]['attr_name']));
-
-			return $attribute_name;
+			return str_replace(array('%mod%', '%date%'), array($attribute_username, $attribute_date), $this->user->lang($this->_attr[$attribute_id]['attr_name']));
 		}
 	}
 
@@ -491,15 +489,14 @@ class qte
 			return;
 		}
 
+		// time !
+		$current_time = time();
+
 		if ($attribute_id == self::REMOVE && !$this->_check_auth_remove_attr($user_groups, $hide_attr))
 		{
 			return;
 		}
-
-		// time !
-		$current_time = time();
-
-		if ($attribute_id == self::REMOVE)
+		else if ($attribute_id == self::REMOVE)
 		{
 			$fields = array(
 				'topic_attr_id'		=> 0,

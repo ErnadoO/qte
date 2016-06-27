@@ -48,17 +48,18 @@ class main_listener implements EventSubscriberInterface
 	{
 		return array(
 			// viewforum
-			'core.viewforum_modify_topics_data' => 'viewforum_get_user_infos',
-			'core.viewforum_modify_topicrow' => 'viewforum_assign_attribute',
+			'core.viewforum_modify_topics_data'	=> 'viewforum_get_user_infos',
+			'core.viewforum_modify_topicrow'	=> 'viewforum_assign_attribute',
 
 			// viewtopic
-			'core.viewtopic_assign_template_vars_before'	=> 'viewtopic_select_assign_attributes',
 			'core.viewtopic_add_quickmod_option_before'		=> 'viewtopic_attr_apply',
+			'core.viewtopic_assign_template_vars_before'	=> 'viewtopic_select_assign_attributes',
+			'core.viewtopic_modify_page_title'				=> 'viewtopic_attr_title',
 
 			// posting
-			'core.posting_modify_template_vars' => array('posting_select_attributes', 'posting_preview_assign_attribute'),
-			'core.posting_modify_submit_post_before' => 'posting_submit_data',
-			'core.submit_post_modify_sql_data' => 'posting_save_attribute',
+			'core.posting_modify_template_vars'			=> array('posting_select_attributes', 'posting_preview_assign_attribute'),
+			'core.posting_modify_submit_post_before'	=> 'posting_submit_data',
+			'core.submit_post_modify_sql_data'			=> 'posting_save_attribute',
 		);
 	}
 
@@ -78,6 +79,13 @@ class main_listener implements EventSubscriberInterface
 			$topic_row['TOPIC_ATTRIBUTE'] = $this->qte->attr_display($event['row']['topic_attr_id'], $event['row']['topic_attr_user'], $event['row']['topic_attr_time']);
 			$event['topic_row'] = $topic_row;
 		}
+	}
+
+	public function viewtopic_attr_title($event)
+	{
+		$this->qte->get_users_by_user_id($event['topic_data']['topic_attr_id']);
+		$attr_title = $this->qte->attr_title($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']);
+		$event['page_title'] = $attr_title . ' ' . $event['page_title'];
 	}
 
 	public function viewtopic_select_assign_attributes($event)
