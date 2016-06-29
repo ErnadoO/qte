@@ -136,21 +136,24 @@ class qte
 	*/
 	public function get_users_by_user_id($user_id)
 	{
-		$sql = 'SELECT user_id, username, user_colour
+		if (!isset($this->_name[$user_id]))
+		{
+			$sql = 'SELECT user_id, username, user_colour
 			FROM ' . USERS_TABLE . '
 			WHERE user_id = ' . (int) $user_id;
-		$result = $this->db->sql_query($sql);
+			$result = $this->db->sql_query($sql);
 
-		$this->_name = array();
-		while ( $row = $this->db->sql_fetchrow($result) )
-		{
-			$this->_name[$row['user_id']] = array(
-				'user_id'		=> (int) $row['user_id'],
-				'username'		=> $row['username'],
-				'user_colour'	=> $row['user_colour'],
-			);
+			$this->_name = array();
+			while ( $row = $this->db->sql_fetchrow($result) )
+			{
+				$this->_name[$row['user_id']] = array(
+					'user_id'		=> (int) $row['user_id'],
+					'username'		=> $row['username'],
+					'user_colour'	=> $row['user_colour'],
+				);
+			}
+			$this->db->sql_freeresult();
 		}
-		$this->db->sql_freeresult();
 	}
 
 	/**
@@ -221,8 +224,9 @@ class qte
 			$this->template->assign_vars(array(
 				'S_QTE_SELECT'		=> true,
 				'S_QTE_REMOVE'		=> $show_remove,
-				'S_QTE_EMPTY'		=> (empty($attribute_id) || ($attribute_id == -1) || ($attribute_id == -2)),
+				'S_QTE_EMPTY'		=> (empty($attribute_id)),
 				'S_QTE_SELECTED'	=> ($show_remove && ($attribute_id == -1)),
+				'S_QTE_KEEP'		=> !empty($attribute_id) && ($attribute_id == self::KEEP),
 
 				'L_QTE_SELECT'		=> $this->user->lang['QTE_ATTRIBUTE_' . (!empty($attribute_id) ? ($show_remove ? 'REMOVE' : 'RESTRICT') : 'ADD')],
 				'U_QTE_URL'			=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => -1)) : false,
@@ -491,6 +495,7 @@ class qte
 
 		// time !
 		$current_time = time();
+		$user_groups = array();
 
 		if ($attribute_id == self::REMOVE && !$this->_check_auth_remove_attr($user_groups, $hide_attr))
 		{

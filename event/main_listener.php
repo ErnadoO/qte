@@ -57,7 +57,7 @@ class main_listener implements EventSubscriberInterface
 			'core.viewtopic_modify_page_title'				=> 'viewtopic_attr_title',
 
 			// posting
-			'core.posting_modify_template_vars'			=> array('posting_select_attributes', 'posting_preview_assign_attribute'),
+			'core.posting_modify_template_vars'			=> 'posting_select_assign_attributes',
 			'core.posting_modify_submit_post_before'	=> 'posting_submit_data',
 			'core.submit_post_modify_sql_data'			=> 'posting_save_attribute',
 		);
@@ -108,76 +108,53 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
-	public function posting_select_attributes($event)
+	public function posting_select_assign_attributes($event)
 	{
+		$topic_attribute = $this->request->variable('attr_id', !empty($event['post_data']['topic_attr_id']) ? \ernadoo\qte\qte::KEEP : 0, false, \phpbb\request\request_interface::POST);
+
 		if ($event['mode'] == 'post' || ($event['mode'] == 'edit' && $event['post_id'] == $event['post_data']['topic_first_post_id']))
 		{
-			$topic_attribute = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
-			if (!$event['preview'])
-			{
-				if (!empty($event['post_data']['topic_attr_id']))
-				{
-					$topic_attribute = $event['post_data']['topic_attr_id'];
-				}
-			}
-
 			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute, (array) unserialize(trim($event['post_data']['hide_attr'])));
 
-			$this->template->assign_vars(array(
-				'S_POSTING' => true,
-				'IS_AUTHOR' => ($event['post_data']['poster_id'] == $this->user->data['user_id']),
-			));
-		}
-	}
-
-	public function posting_preview_assign_attribute($event)
-	{
-		$topic_attribute = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
-		$current_time = time();
-
-		if (($event['mode'] == 'edit') && !empty($topic_attribute) && ($event['post_id'] == $event['post_data']['topic_first_post_id']))
-		{
-			$post_data = $event['post_data'];
-
-			if ($event['preview'])
+			if ($event['mode'] != 'post')
 			{
-				if ($topic_attribute != $post_data['topic_attr_id'])
+				$post_data = $event['post_data'];
+
+				if ($topic_attribute != \ernadoo\qte\qte::KEEP)
 				{
-					$post_data['topic_attr_id'] = (int) $topic_attribute;
-					$post_data['topic_attr_user'] = (int) $this->user->data['user_id'];
-					$post_data['topic_attr_time'] = (int) $current_time;
+					$post_data['topic_attr_id']		= (int) $topic_attribute;
+					$post_data['topic_attr_user']	= (int) $this->user->data['user_id'];
+					$post_data['topic_attr_time']	= time();
+
+					$this->qte->get_users_by_user_id($this->user->data['user_id']);
+				}
+
+				if ($topic_attribute != \ernadoo\qte\qte::REMOVE)
+				{
+					$this->qte->get_users_by_topic_id(array($post_data['topic_id']));
+					$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($post_data['topic_attr_id'], $post_data['topic_attr_user'], $post_data['topic_attr_time']));
 				}
 			}
-
-			if ($post_data['topic_attr_id'] != -1)
-			{
-				$this->qte->get_users_by_topic_id(array($post_data['topic_id']));
-				$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($post_data['topic_attr_id'], $post_data['topic_attr_user'], $post_data['topic_attr_time']));
-			}
-
-			$event['post_data'] = $post_data;
 		}
 	}
 
 	public function posting_submit_data($event)
 	{
-		$post_data = $event['post_data'];
-		$post_data['attr_id'] = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
+		$topic_attribute = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
 
-		if ($post_data['attr_id'] != \ernadoo\qte\qte::KEEP)
+		if ($topic_attribute != \ernadoo\qte\qte::KEEP)
 		{
 			if (!empty($event['post_data']['topic_attr_id']))
 			{
-				if (empty($post_data['attr_id']))
+				if (empty($topic_attribute))
 				{
-					$post_data['attr_id'] = $event['post_data']['topic_attr_id'];
+					$topic_attribute = $event['post_data']['topic_attr_id'];
 				}
 			}
 		}
-		$event['post_data'] = $post_data;
 
 		$data = $event['data'];
-		$data['attr_id'] = (int) (($event['mode'] == 'post') && !empty($event['post_data']['default_attr'])) ? $event['post_data']['default_attr'] : $event['post_data']['attr_id'];
+		$data['attr_id'] = (int) (($event['mode'] == 'post') && !empty($event['post_data']['default_attr'])) ? $event['post_data']['default_attr'] : $topic_attribute;
 		$event['data'] = $data;
 	}
 
@@ -195,9 +172,9 @@ class main_listener implements EventSubscriberInterface
 				else
 				{
 					$sql_data[TOPICS_TABLE]['sql'] += array(
-						'topic_attr_id' => $event['data']['attr_id'],
-						'topic_attr_user' => (int) $this->user->data['user_id'],
-						'topic_attr_time' => time(),
+						'topic_attr_id'		=> $event['data']['attr_id'],
+						'topic_attr_user'	=> (int) $this->user->data['user_id'],
+						'topic_attr_time'	=> time(),
 					);
 				}
 				$event['sql_data'] = $sql_data;
