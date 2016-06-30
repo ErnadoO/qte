@@ -47,9 +47,12 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			// MCP
+			'core.mcp_view_forum_modify_topicrow'	=> 'assign_topic_attributes',
+
 			// viewforum
 			'core.viewforum_modify_topics_data'	=> 'viewforum_get_user_infos',
-			'core.viewforum_modify_topicrow'	=> 'viewforum_assign_attribute',
+			'core.viewforum_modify_topicrow'	=> 'assign_topic_attributes',
 
 			// viewtopic
 			'core.viewtopic_add_quickmod_option_before'		=> 'viewtopic_attr_apply',
@@ -63,21 +66,21 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function viewforum_get_user_infos($event)
-	{
-		if (sizeof($event['topic_list']))
-		{
-			$this->qte->get_users_by_topic_id($event['topic_list']);
-		}
-	}
-
-	public function viewforum_assign_attribute($event)
+	public function assign_topic_attributes($event)
 	{
 		if (!empty($event['row']['topic_attr_id']))
 		{
 			$topic_row = $event['topic_row'];
 			$topic_row['TOPIC_ATTRIBUTE'] = $this->qte->attr_display($event['row']['topic_attr_id'], $event['row']['topic_attr_user'], $event['row']['topic_attr_time']);
 			$event['topic_row'] = $topic_row;
+		}
+	}
+
+	public function viewforum_get_user_infos($event)
+	{
+		if (sizeof($event['topic_list']))
+		{
+			$this->qte->get_users_by_topic_id($event['topic_list']);
 		}
 	}
 
