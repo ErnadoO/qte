@@ -58,8 +58,8 @@ $lang = array_merge($lang, array(
 	'QTE_ATTRIBUTE_UNSELECTED' => 'You must select an attribute!',
 
 	// placeholders
-	'QTE_KEY_USERNAME' => '¦user¦',
-	'QTE_KEY_DATE' => '¦date¦',
+	'QTE_KEY_USERNAME' => 'Â¦userÂ¦',
+	'QTE_KEY_DATE' => 'Â¦dateÂ¦',
 ));
 
 // topic attributes as keys
