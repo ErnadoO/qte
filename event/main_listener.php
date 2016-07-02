@@ -143,16 +143,17 @@ class main_listener implements EventSubscriberInterface
 
 	public function posting_submit_data($event)
 	{
-		$topic_attribute = $this->request->variable('attr_id', 0, false, \phpbb\request\request_interface::POST);
+		$topic_attribute = $this->request->variable('attr_id', \ernadoo\qte\qte::KEEP, false, \phpbb\request\request_interface::POST);
 
-		if ($topic_attribute != \ernadoo\qte\qte::KEEP)
+		if ($topic_attribute == $event['post_data']['topic_attr_id'])
 		{
-			if (!empty($event['post_data']['topic_attr_id']))
+			$topic_attribute = \ernadoo\qte\qte::KEEP;
+		}
+		else if ($topic_attribute != \ernadoo\qte\qte::KEEP)
+		{
+			if(empty($event['post_data']['topic_attr_id']) && $topic_attribute == \ernadoo\qte\qte::REMOVE)
 			{
-				if (empty($topic_attribute))
-				{
-					$topic_attribute = $event['post_data']['topic_attr_id'];
-				}
+				$topic_attribute = \ernadoo\qte\qte::KEEP;
 			}
 		}
 
@@ -184,7 +185,7 @@ class main_listener implements EventSubscriberInterface
 
 				if (in_array($event['post_mode'], array('edit_topic', 'edit_first_post')))
 				{
-					$attr_name = $this->qte->get_attr_name_by_id($event['data']['attr_id']);
+					$attr_name = ($event['data']['attr_id'] != \ernadoo\qte\qte::REMOVE) ? $this->qte->get_attr_name_by_id($event['data']['attr_id']) : '';
 					$log_data = array(
 						'forum_id' => $event['data']['forum_id'],
 						'topic_id' => $event['data']['topic_id'],
