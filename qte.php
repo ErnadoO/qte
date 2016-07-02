@@ -712,13 +712,12 @@ class qte
 	*/
 	public function attr_colour($a_name, $a_colour)
 	{
-		$a_name = preg_replace('#[^a-z0-9 _-]#', '', strtolower($a_name));
-		if (!empty($a_name))
+		if ($a_name != $this->user->lang($a_name))
 		{
-			$a_name .= '-qte';
+			$a_class_name = preg_replace('#[^a-z0-9 _-]#', '', strtolower($a_name));
 		}
 
-		return ' class="qte-attr ' . $a_name . '"' . (!empty($a_colour) ? ' style="color:#' . $a_colour . '; font-weight:bold;"' : '');
+		return ' class="qte-attr ' . (isset($a_class_name) ?  $a_class_name : '') . '"' . (!empty($a_colour) ? ' style="color:#' . $a_colour . '; font-weight:bold;"' : '');
 	}
 
 	/**
