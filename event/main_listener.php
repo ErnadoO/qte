@@ -145,7 +145,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		$topic_attribute = $this->request->variable('attr_id', \ernadoo\qte\qte::KEEP, false, \phpbb\request\request_interface::POST);
 
-		if ($topic_attribute == $event['post_data']['topic_attr_id'])
+		if ($event['mode'] != 'post' && $topic_attribute == $event['post_data']['topic_attr_id'])
 		{
 			$topic_attribute = \ernadoo\qte\qte::KEEP;
 		}
