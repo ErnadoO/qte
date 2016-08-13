@@ -245,37 +245,21 @@ class qte
 
 		foreach ($this->_attr as $attr)
 		{
-			if (empty($attr['attr_auths']))
-			{
-				$attr_auths = array(array(
-					'forums_ids'	=> array(),
-					'groups_ids'	=> array(),
-					'author'		=> false,
-				));
-			}
-			else
-			{
-				$attr_auths = json_decode($attr['attr_auths'], true);
-			}
+			// show the selector !
+			$show_select = true;
 
-			foreach ($attr_auths as $attr_auth)
-			{
-				// show the selector !
-				$show_select = true;
+			// parse the attribute name
+			$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
 
-				// parse the attribute name
-				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
+			$this->template->assign_block_vars('attributes', array(
+				'QTE_ID'		=> $attr['attr_id'],
+				'QTE_TYPE'		=> $attr['attr_type'],
+				'QTE_NAME'		=> $attribute_name,
+				'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
+				'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-				$this->template->assign_block_vars('attributes', array(
-					'QTE_ID'		=> $attr['attr_id'],
-					'QTE_TYPE'		=> $attr['attr_type'],
-					'QTE_NAME'		=> $attribute_name,
-					'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
-					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
-
-					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
-				));
-			}
+				'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+			));
 		}
 
 		if ($show_select)

@@ -23,6 +23,21 @@ services:
             - @ernadoo.qte
         tags:
             - { name: event.listener }
+    ernadoo.qte.search_listener:
+        class: ernadoo\qte\event\search_listener
+        arguments:
+            - @request
+            - @template
+            - @user
+            - @ernadoo.qte
+            - @ernadoo.qte.search.fulltext_attribute
+        tags:
+            - { name: event.listener }
+    ernadoo.qte.search.fulltext_attribute:
+        class: ernadoo\qte\search\fulltext_attribute
+        arguments:
+            - @config
+            - @dbal.conn
     ernadoo.qte.acp_listener:
         class: ernadoo\qte\event\acp_listener
         arguments:
