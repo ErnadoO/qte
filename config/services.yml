@@ -23,6 +23,17 @@ services:
             - @ernadoo.qte
         tags:
             - { name: event.listener }
+    ernadoo.qte.mcp_listener:
+        class: ernadoo\qte\event\mcp_listener
+        arguments:
+            - @request
+            - @dbal.conn
+            - @template
+            - @user
+            - @log
+            - @ernadoo.qte
+        tags:
+            - { name: event.listener }
     ernadoo.qte.search_listener:
         class: ernadoo\qte\event\search_listener
         arguments:

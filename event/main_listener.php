@@ -47,9 +47,6 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			// MCP
-			'core.mcp_view_forum_modify_topicrow'	=> 'assign_topic_attributes_mcp',
-
 			// viewforum
 			'core.viewforum_modify_topics_data'	=> 'viewforum_get_user_infos',
 			'core.viewforum_modify_topicrow'	=> 'assign_topic_attributes',
@@ -64,16 +61,6 @@ class main_listener implements EventSubscriberInterface
 			'core.posting_modify_submit_post_before'	=> 'posting_submit_data',
 			'core.submit_post_modify_sql_data'			=> 'posting_save_attribute',
 		);
-	}
-
-	public function assign_topic_attributes_mcp($event)
-	{
-		if (!empty($event['row']['topic_attr_id']))
-		{
-			$topic_row = $event['topic_row'];
-			$topic_row['MCP_TOPIC_ATTRIBUTE'] = $this->qte->attr_display($event['row']['topic_attr_id'], $event['row']['topic_attr_user'], $event['row']['topic_attr_time']);
-			$event['topic_row'] = $topic_row;
-		}
 	}
 
 	public function assign_topic_attributes($event)
