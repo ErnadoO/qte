@@ -58,6 +58,7 @@ class main_listener implements EventSubscriberInterface
 
 			// posting
 			'core.posting_modify_template_vars'			=> 'posting_select_assign_attributes',
+			'core.posting_modify_submission_errors'		=> 'posting_check_attribute',
 			'core.posting_modify_submit_post_before'	=> 'posting_submit_data',
 			'core.submit_post_modify_sql_data'			=> 'posting_save_attribute',
 		);
@@ -138,9 +139,30 @@ class main_listener implements EventSubscriberInterface
 		}
 	}
 
+	public function posting_check_attribute($event)
+	{
+		$post_data = $event['post_data'];
+		$post_data['attr_id'] = $this->request->variable('attr_id', \ernadoo\qte\qte::KEEP, false, \phpbb\request\request_interface::POST);
+
+		if ($event['post_data']['force_attr'])
+		{
+			if ($post_data['attr_id'] == \ernadoo\qte\qte::REMOVE && ($event['mode'] == 'post' || ($event['mode'] == 'edit' && $event['post_data']['topic_first_post_id'] == $event['post_id'])) )
+			{
+				$error = $event['error'];
+				$error[] = $this->user->lang['QTE_ATTRIBUTE_UNSELECTED'];
+				$event['error'] = $error ;
+
+				// init the value
+				$post_data['attr_id'] = 0;
+			}
+		}
+
+		$event['post_data'] = $post_data;
+	}
+
 	public function posting_submit_data($event)
 	{
-		$topic_attribute = $this->request->variable('attr_id', \ernadoo\qte\qte::KEEP, false, \phpbb\request\request_interface::POST);
+		$topic_attribute = $event['post_data']['attr_id'];
 
 		if ($event['mode'] != 'post' && $topic_attribute == $event['post_data']['topic_attr_id'])
 		{
