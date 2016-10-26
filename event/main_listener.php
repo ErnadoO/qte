@@ -185,7 +185,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		if (in_array($event['post_mode'], array('post', 'edit_topic', 'edit_first_post')))
 		{
-			if ($event['data']['attr_id'] != \ernadoo\qte\qte::KEEP)
+			if (isset($event['data']['attr_id']) && $event['data']['attr_id'] != \ernadoo\qte\qte::KEEP)
 			{
 				$sql_data = $event['sql_data'];
 				if ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE)
