@@ -76,7 +76,7 @@ class acp_listener implements EventSubscriberInterface
 	{
 		$sql = 'UPDATE ' . TOPICS_TABLE . '
 			SET topic_attr_user = ' . ANONYMOUS . '
-			WHERE topic_attr_user = ' . (int) $event['user_ids'];
+			WHERE ' . $this->db->sql_in_set('topic_attr_user', $event['user_ids']);
 		$this->db->sql_query($sql);
 	}
 
