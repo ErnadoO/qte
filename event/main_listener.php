@@ -168,12 +168,9 @@ class main_listener implements EventSubscriberInterface
 		{
 			$topic_attribute = \ernadoo\qte\qte::KEEP;
 		}
-		else if ($topic_attribute != \ernadoo\qte\qte::KEEP)
+		else if (empty($event['post_data']['topic_attr_id']) && $topic_attribute == \ernadoo\qte\qte::REMOVE)
 		{
-			if (empty($event['post_data']['topic_attr_id']) && $topic_attribute == \ernadoo\qte\qte::REMOVE)
-			{
-				$topic_attribute = \ernadoo\qte\qte::KEEP;
-			}
+			$topic_attribute = \ernadoo\qte\qte::KEEP;
 		}
 
 		$data = $event['data'];
