@@ -17,7 +17,7 @@ class drop_columns extends \phpbb\db\migration\migration
 	static public function depends_on()
 	{
 		return array(
-			'\ernadoo\qte\migrations\v200\convert_permissions',
+			'\ernadoo\qte\migrations\v200\convert_old_permissions',
 		);
 	}
 

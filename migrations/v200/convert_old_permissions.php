@@ -14,7 +14,7 @@ namespace ernadoo\qte\migrations\v200;
 
 use phpbb\db\migration\container_aware_migration;
 
-class convert_permissions extends container_aware_migration
+class convert_old_permissions extends container_aware_migration
 {
 	static public function depends_on()
 	{
