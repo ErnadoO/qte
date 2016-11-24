@@ -70,19 +70,15 @@ class acp_listener implements EventSubscriberInterface
 		$permissions = $event['permissions'];
 
 		$permissions += array(
-			// ACP
 			'a_attr_manage'		=> array('lang' => 'ACL_A_ATTR_MANAGE', 'cat' => 'posting'),
 			'm_qte_attr_del'	=> array('lang' => 'ACL_M_ATTR_DEL', 'cat' => 'qte'),
 			'm_qte_attr_edit'	=> array('lang' => 'ACL_M_ATTR_EDIT', 'cat' => 'qte'),
 		);
 
-		$sql = 'SELECT * FROM ' . $this->table_prefix . 'topics_attr';
-		$result = $this->db->sql_query($sql);
-
-		while ($row = $this->db->sql_fetchrow($result))
+		foreach ($this->qte->getAttr() as $attr)
 		{
 			$permissions += array(
-				'f_qte_attr_'.$row['attr_id'] => array('lang' => $this->user->lang('QTE_CAN_USE_ATTR', $row['attr_name']), 'cat' => 'qte'),
+				'f_qte_attr_'.$attr['attr_id'] => array('lang' => $this->user->lang('QTE_CAN_USE_ATTR', $attr['attr_name']), 'cat' => 'qte'),
 			);
 		}
 		$event['permissions'] = $permissions;
