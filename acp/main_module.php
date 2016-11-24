@@ -156,7 +156,7 @@ class main_module
 							$db->sql_query($sql);
 							$attr_id = $db->sql_nextid();
 
-							$this->migrator_tool_permission->add('f_qte_attr_'.$attr_id);
+							$this->migrator_tool_permission->add('f_qte_attr_'.$attr_id, false);
 
 							$message = 'ADDED';
 						}
