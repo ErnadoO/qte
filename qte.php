@@ -251,19 +251,24 @@ class qte
 	{
 		foreach ($this->_attr as $attr)
 		{
-			// parse the attribute name
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
+			$forum_allowed = $this->auth->acl_getf('f_qte_attr_'.$attr['attr_id'], true);
 
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID'		=> $attr['attr_id'],
-				'QTE_NAME'		=> $attribute_name,
-				'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
-				'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+			if (isset($forum_allowed[$forum_id]))
+			{
+				// parse the attribute name
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->lang['QTE_KEY_USERNAME'], $this->user->lang['QTE_KEY_DATE']), $this->user->lang($attr['attr_name']));
 
-				'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
+				$this->template->assign_block_vars('attributes', array(
+					'QTE_ID'		=> $attr['attr_id'],
+					'QTE_NAME'		=> $attribute_name,
+					'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
+					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
 
-				'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
-			));
+					'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)) ? true : false,
+
+					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+				));
+			}
 		}
 	}
 
@@ -439,7 +444,6 @@ class qte
 
 		if ($this->request->is_ajax())
 		{
-			//echo $this->attr_display($attribute_id, $this->user->data['user_id'], $current_time); exit;
 			$json_response = new \phpbb\json_response;
 			$json_response->send(array(
 				'success' => true,

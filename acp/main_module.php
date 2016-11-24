@@ -529,7 +529,7 @@ class main_module
 	*
 	* Copy a permission (auth) option
 	*
-	* @param string		$auth_optio			The name of the permission (auth) option
+	* @param string		$auth_option		The name of the permission (auth) option
 	* @param int|false	$copy_from			If set, contains the id of the permission from which to copy the new one.
 	* @param bool		$clear_dest_perms	True if destination permissions should be deleted
 	* @return null
