@@ -103,7 +103,7 @@ class qte
 					AND t.topic_attr_user <> ' . ANONYMOUS;
 			$result = $this->db->sql_query($sql);
 
-			while($row = $this->db->sql_fetchrow($result))
+			while ($row = $this->db->sql_fetchrow($result))
 			{
 				$this->_name[$row['user_id']] = array(
 					'user_id'		=> (int) $row['user_id'],
@@ -143,7 +143,7 @@ class qte
 				WHERE user_id = ' . (int) $user_id;
 			$result = $this->db->sql_query($sql);
 
-			while($row = $this->db->sql_fetchrow($result) )
+			while ($row = $this->db->sql_fetchrow($result))
 			{
 				$this->_name[$row['user_id']] = array(
 					'user_id'		=> (int) $row['user_id'],
