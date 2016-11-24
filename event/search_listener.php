@@ -19,12 +19,6 @@ class search_listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
 	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
@@ -34,11 +28,9 @@ class search_listener implements EventSubscriberInterface
 	/** @var int */
 	private $searc_attr_id;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, \ernadoo\qte\qte $qte, \ernadoo\qte\search\fulltext_attribute $qte_search)
+	public function __construct(\phpbb\request\request $request, \ernadoo\qte\qte $qte, \ernadoo\qte\search\fulltext_attribute $qte_search)
 	{
 		$this->request		= $request;
-		$this->template		= $template;
-		$this->user			= $user;
 		$this->qte			= $qte;
 		$this->qte_search	= $qte_search;
 	}

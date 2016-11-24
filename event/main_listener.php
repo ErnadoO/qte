@@ -19,9 +19,6 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
 	/** @var \phpbb\template\template */
 	protected $template;
 
@@ -34,14 +31,13 @@ class main_listener implements EventSubscriberInterface
 	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \ernadoo\qte\qte $qte)
+	public function __construct(\phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \ernadoo\qte\qte $qte)
 	{
-		$this->request = $request;
-		$this->db = $db;
-		$this->template = $template;
-		$this->user = $user;
-		$this->log = $log;
-		$this->qte = $qte;
+		$this->request	= $request;
+		$this->template	= $template;
+		$this->user		= $user;
+		$this->log		= $log;
+		$this->qte		= $qte;
 	}
 
 	static public function getSubscribedEvents()
@@ -49,7 +45,7 @@ class main_listener implements EventSubscriberInterface
 		return array(
 			// viewforum
 			'core.viewforum_modify_topics_data'	=> 'viewforum_get_user_infos',
-			'core.viewforum_modify_topicrow'	=> 'assign_topic_attributes',
+			'core.viewforum_modify_topicrow'	=> 'viewforum_assign_topic_attributes',
 
 			// viewtopic
 			'core.viewtopic_add_quickmod_option_before'		=> 'viewtopic_attr_apply',
@@ -64,7 +60,7 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
-	public function assign_topic_attributes($event)
+	public function viewforum_assign_topic_attributes($event)
 	{
 		if (!empty($event['row']['topic_attr_id']))
 		{
@@ -96,16 +92,16 @@ class main_listener implements EventSubscriberInterface
 			$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($event['topic_data']['topic_attr_id'], $event['topic_data']['topic_attr_user'], $event['topic_data']['topic_attr_time']));
 		}
 
-		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], (int) $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])), $event['viewtopic_url']);
+		$this->qte->attr_select($event['forum_id'], $event['topic_data']['topic_poster'], (int) $event['topic_data']['topic_attr_id'], $event['viewtopic_url']);
 	}
 
 	public function viewtopic_attr_apply($event)
 	{
 		$attr_id = (int) $this->request->variable('attr_id', 0);
-		if ( $attr_id )
+		if ($attr_id)
 		{
-			$this->qte->get_users_by_topic_id(array($event['topic_id']));
-			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id'], (array) unserialize(trim($event['topic_data']['hide_attr'])));
+			$this->qte->get_users_by_user_id($this->user->data['user_id']);
+			$this->qte->attr_apply($attr_id, $event['topic_id'], $event['forum_id'], $event['topic_data']['topic_attr_id'], $event['topic_data']['topic_poster'], $event['viewtopic_url']);
 		}
 	}
 
@@ -113,9 +109,9 @@ class main_listener implements EventSubscriberInterface
 	{
 		$topic_attribute = $this->request->variable('attr_id', !empty($event['post_data']['topic_attr_id']) ? \ernadoo\qte\qte::KEEP : 0, false, \phpbb\request\request_interface::POST);
 
-		if ($event['mode'] == 'post' || ($event['mode'] == 'edit' && $event['post_id'] == $event['post_data']['topic_first_post_id']))
+		if (in_array($event['mode'], array('post', 'reply', 'quote')) || ($event['mode'] == 'edit' && $event['post_id'] == $event['post_data']['topic_first_post_id']))
 		{
-			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute, (array) unserialize(trim($event['post_data']['hide_attr'])));
+			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute);
 
 			if ($event['mode'] != 'post')
 			{
@@ -180,36 +176,33 @@ class main_listener implements EventSubscriberInterface
 
 	public function posting_save_attribute($event)
 	{
-		if (in_array($event['post_mode'], array('post', 'edit_topic', 'edit_first_post')))
+		if (isset($event['data']['attr_id']) && $event['data']['attr_id'] != \ernadoo\qte\qte::KEEP)
 		{
-			if (isset($event['data']['attr_id']) && $event['data']['attr_id'] != \ernadoo\qte\qte::KEEP)
+			$sql_data = $event['sql_data'];
+			if ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE)
 			{
-				$sql_data = $event['sql_data'];
-				if ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE)
-				{
-					$sql_data[TOPICS_TABLE]['sql'] += array('topic_attr_id' => 0, 'topic_attr_user' => 0, 'topic_attr_time' => 0);
-				}
-				else
-				{
-					$sql_data[TOPICS_TABLE]['sql'] += array(
-						'topic_attr_id'		=> $event['data']['attr_id'],
-						'topic_attr_user'	=> (int) $this->user->data['user_id'],
-						'topic_attr_time'	=> time(),
-					);
-				}
-				$event['sql_data'] = $sql_data;
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_id = 0';
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_user = 0';
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_time = 0';
+			}
+			else
+			{
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_id = ' . (int) $event['data']['attr_id'];
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_user = ' . (int) $this->user->data['user_id'];
+				$sql_data[TOPICS_TABLE]['stat'][] = 'topic_attr_time = ' . time();
+			}
+			$event['sql_data'] = $sql_data;
 
-				if (in_array($event['post_mode'], array('edit_topic', 'edit_first_post')))
-				{
-					$attr_name = ($event['data']['attr_id'] != \ernadoo\qte\qte::REMOVE) ? $this->qte->get_attr_name_by_id($event['data']['attr_id']) : '';
-					$log_data = array(
-						'forum_id' => $event['data']['forum_id'],
-						'topic_id' => $event['data']['topic_id'],
-						$attr_name,
-					);
+			if (in_array($event['post_mode'], array('edit_topic', 'edit_first_post')))
+			{
+				$attr_name = ($event['data']['attr_id'] != \ernadoo\qte\qte::REMOVE) ? $this->qte->get_attr_name_by_id($event['data']['attr_id']) : '';
+				$log_data = array(
+					'forum_id' => $event['data']['forum_id'],
+					'topic_id' => $event['data']['topic_id'],
+					$attr_name,
+				);
 
-					$this->log->add('mod', $this->user->data['user_id'], $this->user->ip, 'MCP_ATTRIBUTE_' . ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE ? 'REMOVED' : 'UPDATED'), time(), $log_data);
-				}
+				$this->log->add('mod', $this->user->data['user_id'], $this->user->ip, 'MCP_ATTRIBUTE_' . ($event['data']['attr_id'] == \ernadoo\qte\qte::REMOVE ? 'REMOVED' : 'UPDATED'), time(), $log_data);
 			}
 		}
 	}

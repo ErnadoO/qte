@@ -19,29 +19,19 @@ class mcp_listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\log\log */
-	protected $log;
-
 	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \ernadoo\qte\qte $qte)
+	/**
+	* Constructor
+	*
+	* @param \phpbb\request\request					$request			Request object
+	* @param \ernadoo\qte\qte						$qte				QTE object
+	*/
+	public function __construct(\phpbb\request\request $request, \ernadoo\qte\qte $qte)
 	{
-		$this->request = $request;
-		$this->db = $db;
-		$this->template = $template;
-		$this->user = $user;
-		$this->log = $log;
-		$this->qte = $qte;
+		$this->request	= $request;
+		$this->qte		= $qte;
 	}
 
 	static public function getSubscribedEvents()
@@ -66,13 +56,14 @@ class mcp_listener implements EventSubscriberInterface
 
 	public function mcp_select_assign_attributes($event)
 	{
-		$attr_id = (int) $this->request->variable('attr_id', 0);
+		$attr_id	= (int) $this->request->variable('attr_id', 0);
+		$forum_id	= (int) $event['forum_info']['forum_id'];
 
 		if ($attr_id)
 		{
-			$this->qte->mcp_attr_apply($attr_id, $event['topic_id_list']);
+			$this->qte->mcp_attr_apply($attr_id, $forum_id, $event['topic_id_list']);
 		}
 
-		$this->qte->attr_select($event['forum_info']['forum_id'], $this->user->data['user_id'], 0, (array) unserialize(trim($event['forum_info']['hide_attr'])));
+		$this->qte->attr_select($forum_id);
 	}
 }

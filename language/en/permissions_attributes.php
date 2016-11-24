@@ -23,5 +23,9 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACL_A_ATTR_MANAGE' => 'Can manage topic attributes',
+	'ACL_A_ATTR_MANAGE'		=> 'Can manage topic attributes',
+	'ACL_M_ATTR_DEL'		=> 'Can delete attributes',
+	'ACL_M_ATTR_EDIT'		=> 'Can edit attributes',
+
+	'ACL_CAT_QTE'			=> 'QTE',
 ));

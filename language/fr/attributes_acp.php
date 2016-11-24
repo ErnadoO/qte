@@ -48,9 +48,6 @@ $lang = array_merge($lang, array(
 	'QTE_COPY_AUTHS' => 'Copier les permissions depuis',
 	'QTE_COPY_AUTHS_EXPLAIN' => 'Si vous choisissez de copier les permissions, l’attribut aura les mêmes permissions que celles sélectionnées ici. Elles remplaceront toutes les permissions précédemment définies pour cet attribut, par les permissions de l’attribut sélectionné. Si l’option <strong>Personnalisée</strong> est sélectionnée, les permissions actuelles seront conservées.',
 
-	'QTE_PERMISSIONS' => 'Permissions de l’attribut',
-	'QTE_ALLOWED_FORUMS' => 'Forums autorisés',
-	'QTE_ALLOWED_FORUMS_EXPLAIN' => 'Forums dont les groupes autorisés peuvent utiliser cet attribut.<br />Sélectionnez plusieurs forums en maintenant la touche <samp>CTRL</samp> ou la touche <samp>COMMAND</samp> et en cliquant.',
 	'QTE_ALLOWED_GROUPS' => 'Groupes autorisés',
 	'QTE_ALLOWED_GROUPS_EXPLAIN' => 'Groupes autorisés à utiliser cet attribut.<br />Sélectionnez plusieurs groupes en maintenant la touche <samp>CTRL</samp> ou la touche <samp>COMMAND</samp> et en cliquant.',
 	'QTE_ALLOWED_AUTHOR' => 'Autoriser l’auteur du sujet à utiliser cet attribut dans les forums sélectionnés',
@@ -94,8 +91,6 @@ $lang = array_merge($lang, array(
 
 	'QTE_DEFAULT_ATTR' => 'Attribut par défaut du forum',
 	'QTE_DEFAULT_ATTR_EXPLAIN' => 'L’attribut sélectionné sera appliqué à la création d’un sujet, quel que soient les permissions de l’utilisateur.',
-	'QTE_HIDE_ATTR' => 'Masquer l’option de suppression',
-	'QTE_HIDE_ATTR_EXPLAIN' => 'Les groupes sélectionnés ne pourront pas accéder à l’option de suppression.',
 	'QTE_FORCE_USERS' => 'Forcer les utilisateurs à appliquer un attribut à leur sujet',
 	'QTE_FORCE_USERS_EXPLAIN' => 'Si activée, les utilisateurs devront sélectionner un attribut pour leur sujet dans ce forum.',
 ));

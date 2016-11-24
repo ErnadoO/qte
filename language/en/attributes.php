@@ -23,6 +23,8 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+	'QTE_CAN_USE_ATTR'	=> 'Can use %s attribute',
+
 	// select
 	'QTE_ATTRIBUTES' => 'Topic attributes',
 	'QTE_ATTRIBUTE' => 'Topic attribute',
@@ -31,7 +33,6 @@ $lang = array_merge($lang, array(
 	'QTE_ATTRIBUTE_REMOVE' => 'Remove the topic attribute',
 	'QTE_ATTRIBUTE_DESIRED' => 'Select desired attribute',
 	'QTE_ATTRIBUTE_KEEP' => 'Keep the actual attribute',
-	'QTE_ATTRIBUTE_RESTRICT' => 'Forbidden attribute deletion',
 
 	// notifications
 	'QTE_ATTRIBUTE_ADDED' => 'An attribute has been applied to the topic title',

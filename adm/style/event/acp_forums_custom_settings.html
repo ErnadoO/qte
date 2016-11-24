@@ -1,6 +1,6 @@
 <fieldset>
 	<legend>{L_QTE_TOPICS_ATTR_SETTINGS}</legend>
-	<!-- IF not S_ADD_ACTION -->
+	<!-- IF .attributes -->
 	<dl>
 		<dt><label for="default_attr">{L_QTE_DEFAULT_ATTR}{L_COLON}</label><br /><span>{L_QTE_DEFAULT_ATTR_EXPLAIN}</span></dt>
 		<dd><select name="default_attr">
@@ -10,16 +10,11 @@
 			<!-- END attributes -->
 		</select></dd>
 	</dl>
-	<dl>
-		<dt><label for="hide_attr">{L_QTE_HIDE_ATTR}{L_COLON}</label><br /><span>{L_QTE_HIDE_ATTR_EXPLAIN}</span></dt>
-		<dd><select id="hide_attr" name="hide_attr[]" multiple="multiple" size="8">{S_GROUPS_HIDE_ATTR}</select></dd>
-	</dl>
-	<!-- ELSE -->
+	<!-- ENDIF -->
 	<dl>
 		<dt><label for="from_attr">{L_QTE_COPY_PERMISSIONS}{L_COLON}</label><br /><span>{L_QTE_COPY_PERMISSIONS_EXPLAIN}</span></dt>
-		<dd><select id="from_attr" name="from_attr"><option value="0">{L_NO_PERMISSIONS}</option>{S_MOVE_FORUM_OPTIONS}</select></dd>
+		<dd><select id="from_attr" name="from_attr"><option value="0">{L_NO_PERMISSIONS}</option>{S_FORUM_OPTIONS}</select></dd>
 	</dl>
-	<!-- ENDIF -->
 	<dl>
 		<dt><label for="force_attr">{L_QTE_FORCE_USERS}{L_COLON}</label><br /><span>{L_QTE_FORCE_USERS_EXPLAIN}</span></dt>
 		<dd><label><input type="radio" class="radio" name="force_attr" value="1"<!-- IF S_FORCE_ATTR --> id="force_attr" checked="checked"<!-- ENDIF --> /> {L_YES}</label>
