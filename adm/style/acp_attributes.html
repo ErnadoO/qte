@@ -25,8 +25,8 @@
 	<legend>{L_QTE_FIELDS}</legend>
 	<dl>
 		<dt><label for="attr_type">{L_QTE_TYPE}{L_COLON}</label></dt>
-		<dd><label><input type="radio" class="radio" name="attr_type" value="0"<!-- IF not S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_TXT}</label>
-			<label><input type="radio" class="radio" name="attr_type" value="1"<!-- IF S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_IMG}</label></dd>
+		<dd><label><input onclick="phpbb.toggleDisplay('img', -1)" type="radio" class="radio" name="attr_type" value="0"<!-- IF not S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_TXT}</label>
+			<label><input onclick="phpbb.toggleDisplay('img', 1)" type="radio" class="radio" name="attr_type" value="1"<!-- IF S_TEXT --> id="attr_type" checked="checked"<!-- ENDIF --> /> {L_QTE_TYPE_IMG}</label></dd>
 	</dl>
 	<dl>
 		<dt><label for="attr_name">{L_QTE_NAME}{L_COLON}</label><br /><span>{L_QTE_NAME_EXPLAIN}</span></dt>
