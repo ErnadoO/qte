@@ -137,10 +137,7 @@ class acp_listener implements EventSubscriberInterface
 			$event['forum_data'] += array('default_attr' => 0);
 		}
 
-		if ($event['update'])
-		{
-			$event['forum_data'] += array('force_attr' => false);
-		}
+		$event['forum_data'] += array('force_attr' => false);
 	}
 
 	public function add_attributes_features($event)
