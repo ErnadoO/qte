@@ -67,7 +67,7 @@ class convert_old_permissions extends container_aware_migration
 
 		foreach ($attr_permissions_array as $auth_option => $attr_permissions)
 		{
- 			foreach ($attr_permissions as $attr_permission)
+			foreach ($attr_permissions as $attr_permission)
 			{
 				foreach ($attr_permission['forums_ids'] as $forum_id)
 				{
