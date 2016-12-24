@@ -54,7 +54,6 @@ class convert_old_permissions extends container_aware_migration
 		{
 			$auth_option = 'f_qte_attr_'.$row['attr_id'];
 			$migrator_tool_permission->add($auth_option, false);
-
 			$attr_permissions_array[$auth_option] = json_decode($row['attr_auths'], true);
 		}
 
@@ -64,15 +63,25 @@ class convert_old_permissions extends container_aware_migration
 		}
 		$auth_admin = new \auth_admin();
 
+		$hold_ary = array();
+
 		foreach ($attr_permissions_array as $auth_option => $attr_permissions)
 		{
-			foreach ($attr_permissions as $attr_permission)
+ 			foreach ($attr_permissions as $attr_permission)
 			{
-				if (sizeof($attr_permission['forums_ids']) && sizeof($attr_permission['groups_ids']))
+				foreach ($attr_permission['forums_ids'] as $forum_id)
 				{
-					$auth_option_arry = array();
-					$auth_option_arry[$auth_option] = ACL_YES;
-					$auth_admin->acl_set('group', $attr_permission['forums_ids'], $attr_permission['groups_ids'], $auth_option_arry);
+					foreach ($attr_permission['groups_ids'] as $group_id)
+					{
+						if (!isset($hold_ary[$group_id][$forum_id]))
+						{
+							$hold_ary = $auth_admin->get_mask('set', false, $group_id, $forum_id, 'f_', 'local', ACL_NO);
+						}
+
+						$hold_ary[$group_id][$forum_id][$auth_option] = ACL_YES;
+
+						$auth_admin->acl_set('group', $forum_id, $group_id, $hold_ary[$group_id][$forum_id]);
+					}
 				}
 			}
 		}
@@ -96,9 +105,12 @@ class convert_old_permissions extends container_aware_migration
 
 			if (sizeof($result_diff))
 			{
-				$auth_option_arry = array();
-				$auth_option_arry['m_qte_attr_del'] = ACL_YES;
-				$auth_admin->acl_set('group', $row['forum_id'], $result_diff, $auth_option_arry);
+				foreach ($result_diff as $group_id)
+				{
+					$hold_ary = $auth_admin->get_mask('set', false, $group_id, $row['forum_id'], 'm_', 'local', ACL_NO);
+					$hold_ary[$group_id][$row['forum_id']]['m_qte_attr_del'] = ACL_YES;
+					$auth_admin->acl_set('group', $row['forum_id'], $group_id, $hold_ary[$group_id][$row['forum_id']]);
+				}
 			}
 		}
 	}
