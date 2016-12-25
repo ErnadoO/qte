@@ -162,47 +162,45 @@ class qte
 	* @param	int		$author_id		Topic author id
 	* @param	int		$attribute_id	Current attribute id
 	* @param	string	$viewtopic_url	Topic's url
+	* @param	string	$mode			Post mode
 	*
 	* @return	null
 	*/
-	public function attr_select($forum_id, $author_id = 0, $attribute_id = 0, $viewtopic_url = '')
+	public function attr_select($forum_id, $author_id = 0, $attribute_id = 0, $viewtopic_url = '', $mode = '')
 	{
 		$show_select	= false;
 		$current_time	= time();
-		$can_edit		= $this->auth->acl_get('m_qte_attr_edit', $forum_id);
-		$can_remove		= $this->auth->acl_get('m_qte_attr_del', $forum_id);
-		$is_author		= $this->user->data['is_registered'] && $this->user->data['user_id'] == $author_id;
+		$can_edit		= (bool) $this->auth->acl_get('m_qte_attr_edit', $forum_id);
+		$can_remove		= (bool) $this->auth->acl_get('m_qte_attr_del', $forum_id);
+		$is_author		= (bool) ($this->user->data['is_registered'] && $this->user->data['user_id'] == $author_id);
 
-		// Basic auth
-		if (!$can_remove && !$can_edit && !$is_author)
+		if ($can_edit || $is_author || $mode == 'post')
 		{
-			return;
-		}
-
-		foreach ($this->_attr as $attr)
-		{
-			if (!$this->auth->acl_get('f_qte_attr_'.$attr['attr_id'], $forum_id))
+			foreach ($this->_attr as $attr)
 			{
-				continue;
+				if (!$this->auth->acl_get('f_qte_attr_'.$attr['attr_id'], $forum_id))
+				{
+					continue;
+				}
+
+				// show the selector !
+				$show_select = true;
+
+				// parse the attribute name
+				$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->user->lang($attr['attr_name']));
+
+				$this->template->assign_block_vars('attributes', array(
+					'QTE_ID'		=> $attr['attr_id'],
+					'QTE_NAME'		=> $attribute_name,
+					'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
+					'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
+
+					'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
+
+					'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
+					'U_QTE_URL'		=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => $attr['attr_id'])) : false,
+				));
 			}
-
-			// show the selector !
-			$show_select = true;
-
-			// parse the attribute name
-			$attribute_name = str_replace(array('%mod%', '%date%'), array($this->user->data['username'], $this->user->format_date($current_time, $attr['attr_date'])), $this->user->lang($attr['attr_name']));
-
-			$this->template->assign_block_vars('attributes', array(
-				'QTE_ID'		=> $attr['attr_id'],
-				'QTE_NAME'		=> $attribute_name,
-				'QTE_DESC'		=> $this->user->lang($attr['attr_desc']),
-				'QTE_COLOUR'	=> $this->attr_colour($attr['attr_name'], $attr['attr_colour']),
-
-				'IS_SELECTED'	=> (!empty($attribute_id) && ($attr['attr_id'] == $attribute_id)),
-
-				'S_QTE_DESC'	=> !empty($attr['attr_desc']) ? true : false,
-				'U_QTE_URL'		=> !empty($viewtopic_url) ? append_sid($viewtopic_url, array('attr_id' => $attr['attr_id'])) : false,
-			));
 		}
 
 		$this->template->assign_vars(array(

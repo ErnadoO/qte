@@ -109,28 +109,25 @@ class main_listener implements EventSubscriberInterface
 	{
 		$topic_attribute = $this->request->variable('attr_id', !empty($event['post_data']['topic_attr_id']) ? \ernadoo\qte\qte::KEEP : 0, false, \phpbb\request\request_interface::POST);
 
-		if (in_array($event['mode'], array('post', 'reply', 'quote')) || ($event['mode'] == 'edit' && $event['post_id'] == $event['post_data']['topic_first_post_id']))
+		$this->qte->attr_select($event['forum_id'], !empty($event['post_data']['topic_attr_user']) ? $event['post_data']['topic_attr_user'] : 0, (int) $topic_attribute, '', $event['mode']);
+
+		if ($event['mode'] != 'post')
 		{
-			$this->qte->attr_select($event['forum_id'], $this->user->data['user_id'], (int) $topic_attribute);
+			$post_data = $event['post_data'];
 
-			if ($event['mode'] != 'post')
+			if ($topic_attribute != \ernadoo\qte\qte::KEEP)
 			{
-				$post_data = $event['post_data'];
+				$post_data['topic_attr_id']		= (int) $topic_attribute;
+				$post_data['topic_attr_user']	= (int) $this->user->data['user_id'];
+				$post_data['topic_attr_time']	= time();
 
-				if ($topic_attribute != \ernadoo\qte\qte::KEEP)
-				{
-					$post_data['topic_attr_id']		= (int) $topic_attribute;
-					$post_data['topic_attr_user']	= (int) $this->user->data['user_id'];
-					$post_data['topic_attr_time']	= time();
+				$this->qte->get_users_by_user_id($this->user->data['user_id']);
+			}
 
-					$this->qte->get_users_by_user_id($this->user->data['user_id']);
-				}
-
-				if ($topic_attribute != \ernadoo\qte\qte::REMOVE)
-				{
-					$this->qte->get_users_by_topic_id(array($post_data['topic_id']));
-					$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($post_data['topic_attr_id'], $post_data['topic_attr_user'], $post_data['topic_attr_time']));
-				}
+			if ($topic_attribute != \ernadoo\qte\qte::REMOVE)
+			{
+				$this->qte->get_users_by_topic_id(array($post_data['topic_id']));
+				$this->template->assign_var('TOPIC_ATTRIBUTE', $this->qte->attr_display($post_data['topic_attr_id'], $post_data['topic_attr_user'], $post_data['topic_attr_time']));
 			}
 		}
 	}
