@@ -48,6 +48,8 @@ class mcp_listener implements EventSubscriberInterface
 	{
 		return array(
 			// MCP
+			'core.mcp_main_modify_fork_sql'			=> 'mcp_main_modify_fork_sql',
+			'core.mcp_main_modify_shadow_sql'		=> 'mcp_main_modify_shadow_sql',
 			'core.mcp_view_forum_modify_topicrow'	=> 'assign_topic_attributes_mcp',
 			'core.mcp_forum_view_before'			=> 'mcp_select_assign_attributes',
 		);
@@ -62,6 +64,28 @@ class mcp_listener implements EventSubscriberInterface
 			$topic_row['MCP_TOPIC_ATTRIBUTE'] = $this->qte->attr_display($event['row']['topic_attr_id'], $event['row']['topic_attr_user'], $event['row']['topic_attr_time']);
 			$event['topic_row'] = $topic_row;
 		}
+	}
+
+	public function mcp_main_modify_fork_sql($event)
+	{
+		$sql_ary = $event['sql_ary'];
+
+		$sql_ary['topic_attr_id']	= $event['topic_row']['topic_attr_id'];
+		$sql_ary['topic_attr_user'] = $event['topic_row']['topic_attr_user'];
+		$sql_ary['topic_attr_time'] = $event['topic_row']['topic_attr_time'];
+
+		$event['sql_ary'] = $sql_ary;
+	}
+
+	public function mcp_main_modify_shadow_sql($event)
+	{
+		$shadow = $event['shadow'];
+
+		$shadow['topic_attr_id']	= $event['row']['topic_attr_id'];
+		$shadow['topic_attr_user']	= $event['row']['topic_attr_user'];
+		$shadow['topic_attr_time']	= $event['row']['topic_attr_time'];
+
+		$event['shadow'] = $shadow;
 	}
 
 	public function mcp_select_assign_attributes($event)
