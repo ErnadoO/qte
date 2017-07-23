@@ -5,8 +5,6 @@
     <property name="source" value="." />
     <property name="testdir" value="tests" />
 
-	<autoloader autoloaderpath="/var/lib/jenkins/.composer/vendor/autoload.php"/>
-
     <fileset id="php-files" dir="${project.basedir}">
         <include name="**/*.php"/>
         <exclude name="build/**"/>
@@ -25,7 +23,7 @@
         <phingCall target="pdepend" />
         <phingCall target="phpmd" />
         <phingCall target="phpcpd" />
-        <phingCall target="phpdoc2" />
+        <phingCall target="phpdoc" />
         <phingCall target="phpcs" />
         <phingCall target="phploc" />
         <phingCall target="phpcb" />
@@ -110,13 +108,20 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: Docblox                               -->
+    <!-- Target: PHPDoc                               -->
     <!-- ============================================  -->
-    <target name="phpdoc2" description="Generate API documentation with DocBlox">
-        <phpdoc2 title="${project.name} API Documentation" destdir="${builddir}/api/docblox">
-            <fileset refid="php-files"/>
-        </phpdoc2>
-    </target>
+	<target name="phpdoc">
+		<phpdoc title="API Documentation" destdir="${builddir}/api/docblox" sourcecode="false" output="HTML:Smarty:PHP">
+			<fileset dir="${project.basedir}/${source}">
+				<include name="**/*.php"/>
+			</fileset>
+			<projdocfileset dir=".">
+				<include name="README"/>
+				<include name="INSTALL"/>
+				<include name="CHANGELOG"/>
+			</projdocfileset>
+		</phpdoc>
+	</target>
 
     <!-- ============================================  -->
     <!-- Target: PHPLoc (PHP Lines of Code)              -->
