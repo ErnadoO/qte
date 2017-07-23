@@ -18,7 +18,7 @@ class dev extends \phpbb\db\migration\migration
 	{
 		return array(
 			'\ernadoo\qte\migrations\v12x\v125',
-			'\phpbb\db\migration\data\v31x\v3110rc1',
+			'\phpbb\db\migration\data\v31x\v3111',
 			'\ernadoo\qte\migrations\v200\convert_old_modules',
 		);
 	}
