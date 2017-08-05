@@ -1,9 +1,9 @@
 {
     "unstable": {
         "2.0": {
-            "current": "2.0.0-a1",
+            "current": "2.0.0-a2",
             "announcement": "https://www.phpbb.com/community/viewtopic.php?f=501&t=2218556",
-            "download": "https://github.com/ErnadoO/qte/releases/download/v2.0.0-a1/qte-2.0.0-a1.zip",
+            "download": "https://github.com/ErnadoO/qte/archive/v2.0.0-a2.zip",
             "eol": null,
             "security": false
         }
