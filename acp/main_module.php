@@ -20,24 +20,26 @@ class main_module
 	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
+	/** @var \phpbb\db\migration\tool\permission */
+	protected $migrator_tool_permission;
+
 	public function main($id, $mode)
 	{
-		/** @var \phpbb\request\request $request */
-		/** @var \phpbb\log\log $phpbb_log */
-		global $phpbb_container, $db, $user, $phpbb_log, $template, $cache, $request, $table_prefix, $phpbb_root_path;
-		$this->qte = $phpbb_container->get('ernadoo.qte');
+		global $phpbb_container, $db, $user, $phpbb_log, $template, $cache, $request, $table_prefix;
 
-		$ext_root_path = $phpbb_root_path . 'ext/ernadoo/qte/';
+		$this->qte						= $phpbb_container->get('ernadoo.qte');
+		$this->migrator_tool_permission	= $phpbb_container->get('migrator.tool.permission');
 
-		$action = $request->variable('action', '');
-		$submit = $request->is_set_post('submit');
-		$attr_id = $request->variable('id', 0);
-		$attr_auth_id = $request->variable('attr_auth_id', 0);
+		$action			= $request->variable('action', '');
+		$submit			= $request->is_set_post('submit');
+		$attr_id		= $request->variable('id', 0);
+		$attr_auth_id	= $request->variable('attr_auth_id', 0);
 
 		$error = array();
+		$clear_dest_perms = false;
 
-		$this->tpl_name = 'acp_attributes';
-		$this->page_title = 'QTE_MANAGE_TITLE';
+		$this->tpl_name		= 'acp_attributes';
+		$this->page_title	= 'QTE_MANAGE_TITLE';
 
 		$user->add_lang_ext('ernadoo/qte', array('attributes', 'attributes_acp'));
 
@@ -58,21 +60,6 @@ class main_module
 				$attr_date = $request->variable('attr_date', '');
 				$attr_colour = $request->variable('attr_colour', '');
 				$attr_user_colour = $request->variable('attr_user_colour', 0);
-
-				// is it too complex for u ? pastisd has no limit :)
-				$attr_auths = array(array('forums_ids' => array(), 'groups_ids' => array(), 'author' => false));
-				if ($request->is_set_post('attr_auths'))
-				{
-					$attr_auths = $request->variable('attr_auths', array(array('' => array(0))));
-					foreach ($attr_auths as &$attr_auth)
-					{
-						$attr_auth = array(
-							'forums_ids' => isset($attr_auth['forums_ids']) ? $attr_auth['forums_ids'] : array(),
-							'groups_ids' => isset($attr_auth['groups_ids']) ? $attr_auth['groups_ids'] : array(),
-							'author' => isset($attr_auth['author']) ? true : false,
-						);
-					}
-				}
 
 				if ($submit)
 				{
@@ -142,7 +129,6 @@ class main_module
 							'attr_date' => $attr_date,
 							'attr_colour' => $attr_colour,
 							'attr_user_colour' => $attr_user_colour,
-							'attr_auths' => sizeof($attr_auths) ? json_encode($attr_auths) : '',
 						);
 
 						if ($attr_id)
@@ -152,6 +138,7 @@ class main_module
 								WHERE attr_id = ' . (int) $attr_id;
 							$db->sql_query($sql);
 
+							$clear_dest_perms = true;
 							$message = 'UPDATED';
 						}
 						else
@@ -167,8 +154,16 @@ class main_module
 
 							$sql = 'INSERT INTO ' . $table_prefix . 'topics_attr ' . $db->sql_build_array('INSERT', $sql_ary);
 							$db->sql_query($sql);
+							$attr_id = $db->sql_nextid();
+
+							$this->migrator_tool_permission->add('f_qte_attr_'.$attr_id, false);
 
 							$message = 'ADDED';
+						}
+
+						if ($attr_auth_id)
+						{
+							$this->_copy_permission('f_qte_attr_'.$attr_id, 'f_qte_attr_'.$attr_auth_id, $clear_dest_perms);
 						}
 
 						$cache->destroy('_attr');
@@ -180,9 +175,7 @@ class main_module
 				}
 				else if ($attr_id)
 				{
-					$set_permissions = $this->set_auths($attr_id);
-					$attr = $set_permissions['attr'];
-					$attr_auths = $set_permissions['attr_auths'];
+					$attr = $this->_get_attr_info($attr_id);
 				}
 
 				if ($action == 'edit')
@@ -198,16 +191,9 @@ class main_module
 						'L_QTE_ADD_EDIT' => $user->lang['QTE_ADD'],
 						'L_QTE_ADD_EDIT_EXPLAIN' => $user->lang['QTE_ADD_EXPLAIN'],
 					));
-
-					$attr_auths = array(array(
-						'forums_ids' => array(),
-						'groups_ids' => array(),
-						'author' => false,
-					));
 				}
 
 				$this->qte_attr_select($attr_id);
-				$this->add_auths($attr_auths);
 
 				if (sizeof($error))
 				{
@@ -239,24 +225,9 @@ class main_module
 					'S_TEXT' => $attr_type_state ? true : false,
 					'S_USER_COLOUR' => $attr_user_colour_state ? true : false,
 
-					'ICON_ATTR_AUTH_ADD' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
-					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
 				));
 
 				return;
-
-			break;
-
-			case 'set_permissions':
-
-				$set_permissions = $this->set_auths($attr_auth_id);
-				$this->add_auths($set_permissions['attr_auths']);
-
-				$template->assign_vars(array(
-					'ICON_ATTR_AUTH_ADD' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_add.gif" alt="' . $user->lang['QTE_AUTH_ADD'] . '" title="' . $user->lang['QTE_AUTH_ADD'] . '" />',
-					'ICON_ATTR_AUTH_REMOVE' => '<img src="' . $ext_root_path . 'adm/images/qte_auth_remove.gif" alt="' . $user->lang['QTE_AUTH_REMOVE'] . '" title="' . $user->lang['QTE_AUTH_REMOVE'] . '" />',
-				));
-				$this->tpl_name = 'acp_attributes_auths';
 
 			break;
 
@@ -299,6 +270,8 @@ class main_module
 					$db->sql_freeresult($result);
 
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_ATTRIBUTE_REMOVED', time(), array($attr_name));
+
+					$this->migrator_tool_permission->remove('f_qte_attr_'.$attr_id, false);
 
 					$sql = 'DELETE FROM ' . $table_prefix . 'topics_attr
 						WHERE attr_id = ' . (int) $attr_id;
@@ -418,7 +391,7 @@ class main_module
 		$db->sql_freeresult($result);
 	}
 
-	protected function set_auths($attr_id)
+	protected function _get_attr_info($attr_id)
 	{
 		global $db, $table_prefix;
 
@@ -427,39 +400,7 @@ class main_module
 		$attr = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
 
-		if (!$attr['attr_auths'])
-		{
-			$attr_auths = array(array(
-				'forums_ids' => array(),
-				'groups_ids' => array(),
-				'author' => false,
-			));
-		}
-		else
-		{
-			$attr_auths = json_decode($attr['attr_auths'], true);
-		}
-
-		return array('attr' => $attr, 'attr_auths' => $attr_auths);
-	}
-
-	protected function add_auths($attr_auths)
-	{
-		global $template;
-
-		$offset = 0;
-		foreach ($attr_auths as $attr_auth)
-		{
-			$template->assign_block_vars('auths_row', array(
-				'OFFSET' => $offset,
-
-				'S_FORUM_ID_OPTIONS' => $this->qte_forum_select($attr_auth['forums_ids']),
-				'S_GROUP_ID_OPTIONS' => $this->qte->qte_group_select($attr_auth['groups_ids'], false, false),
-
-				'S_AUTHOR' => $attr_auth['author'],
-			));
-			$offset++;
-		}
+		return $attr;
 	}
 
 	protected function qte_move($attr_row, $action = 'move_up', $steps = 1)
@@ -522,72 +463,6 @@ class main_module
 		return $target['attr_name'];
 	}
 
-	// borrowed from "includes/acp/acp_attachments.php" file
-	protected function qte_forum_select($forum_ids)
-	{
-		global $db;
-
-		$s_forum_id_options = '';
-
-		$sql = 'SELECT forum_id, forum_name, parent_id, forum_type, left_id, right_id
-			FROM ' . FORUMS_TABLE . '
-			ORDER BY left_id ASC';
-		$result = $db->sql_query($sql, 600);
-
-		$right = $cat_right = $padding_inc = 0;
-		$padding = $forum_list = $holding = '';
-		$padding_store = array('0' => '');
-
-		while ($row = $db->sql_fetchrow($result))
-		{
-			if (($row['forum_type'] == FORUM_CAT) && ($row['left_id'] + 1 == $row['right_id']))
-			{
-				continue;
-			}
-
-			if ($row['left_id'] < $right)
-			{
-				$padding .= '&nbsp; &nbsp;';
-				$padding_store[$row['parent_id']] = $padding;
-			}
-			else if ($row['left_id'] > $right + 1)
-			{
-				$padding = empty($padding_store[$row['parent_id']]) ? '' : $padding_store[$row['parent_id']];
-			}
-
-			$right = $row['right_id'];
-
-			$selected = in_array($row['forum_id'], $forum_ids) ? ' selected="selected"' : '';
-
-			if ($row['left_id'] > $cat_right)
-			{
-				$s_forum_id_options .= $holding;
-				$holding = '';
-			}
-
-			if ($row['right_id'] - $row['left_id'] > 1)
-			{
-				$cat_right = max($cat_right, $row['right_id']);
-
-				$holding .= '<option value="' . $row['forum_id'] . '"' . (($row['forum_type'] == FORUM_POST) ? ' class="sep"' : ' disabled="disabled"') . $selected . '>' . $padding . $row['forum_name'] . '</option>';
-			}
-			else
-			{
-				$s_forum_id_options .= $holding . '<option value="' . $row['forum_id'] . '"' . (($row['forum_type'] == FORUM_POST) ? ' class="sep"' : ' disabled="disabled"') . $selected . '>' . $padding . $row['forum_name'] . '</option>';
-				$holding = '';
-			}
-		}
-
-		if ($holding)
-		{
-			$s_forum_id_options .= $holding;
-		}
-
-		$db->sql_freeresult($result);
-
-		return $s_forum_id_options;
-	}
-
 	protected function qte_attr_select($attr_id)
 	{
 		global $user, $template;
@@ -647,5 +522,62 @@ class main_module
 				'VERSION_WARNING' => $user->lang('QTE_BETA_WARNING', $version),
 			));
 		}
+	}
+
+	/**
+	* Permission Copy
+	*
+	* Copy a permission (auth) option
+	*
+	* @param string		$auth_option		The name of the permission (auth) option
+	* @param int		$copy_from			If set, contains the id of the permission from which to copy the new one.
+	* @param bool		$clear_dest_perms	True if destination permissions should be deleted
+	* @return null
+	*/
+	private function _copy_permission($auth_option, $copy_from, $clear_dest_perms = true)
+	{
+		global $db, $phpbb_root_path, $phpEx;
+
+		if (!class_exists('auth_admin'))
+		{
+			include($phpbb_root_path . 'includes/acp/auth.' . $phpEx);
+		}
+		$auth_admin = new \auth_admin();
+
+		$old_id = $auth_admin->acl_options['id'][$copy_from];
+		$new_id = $auth_admin->acl_options['id'][$auth_option];
+
+		$tables = array(ACL_GROUPS_TABLE, ACL_ROLES_DATA_TABLE, ACL_USERS_TABLE);
+
+		foreach ($tables as $table)
+		{
+			// Clear current permissions of destination attributes
+			if ($clear_dest_perms)
+			{
+				$sql = 'DELETE FROM ' . $table . '
+					WHERE auth_option_id = ' . $new_id;
+				$db->sql_query($sql);
+			}
+
+			$sql = 'SELECT *
+					FROM ' . $table . '
+					WHERE auth_option_id = ' . $old_id;
+			$result = $db->sql_query($sql);
+
+			$sql_ary = array();
+			while ($row = $db->sql_fetchrow($result))
+			{
+				$row['auth_option_id'] = $new_id;
+				$sql_ary[] = $row;
+			}
+			$db->sql_freeresult($result);
+
+			if (!empty($sql_ary))
+			{
+				$db->sql_multi_insert($table, $sql_ary);
+			}
+		}
+
+		$auth_admin->acl_clear_prefetch();
 	}
 }

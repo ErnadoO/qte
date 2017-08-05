@@ -1,12 +1,17 @@
-<!-- IF S_POST_ACTION && S_QTE_SELECT -->
+<!-- IF S_QTE_SELECT -->
 <dl>
 	<dt><label for="attribute">{L_QTE_ATTRIBUTE}{L_COLON}</label></dt>
-	<dd><select name="attr_id" id="attribute">
-		<!-- IF S_EDIT_POST && not S_QTE_EMPTY --><option value="-2" style="font-weight:bold;"<!-- IF S_QTE_KEEP --> selected="selected"<!-- ENDIF -->>{L_QTE_ATTRIBUTE_KEEP}</option><!-- ENDIF -->
-		<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->"<!-- IF S_QTE_SELECTED --> selected="selected"<!-- ENDIF --> style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
-		<!-- BEGIN attributes -->
-		<option value="{attributes.QTE_ID}"{attributes.QTE_COLOUR}<!-- IF attributes.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{attributes.QTE_NAME}<!-- IF attributes.S_QTE_DESC --> [{attributes.QTE_DESC}]<!-- ENDIF --></option>
-		<!-- END attributes -->
-	</select></dd>
+	<dd>
+		<select name="attr_id" id="attribute">
+			<!-- IF not S_QTE_EMPTY -->
+			<option value="-2" style="font-weight:bold;"<!-- IF S_QTE_KEEP --> selected="selected"<!-- ENDIF -->>{L_QTE_ATTRIBUTE_KEEP}</option>
+			<!-- IF S_QTE_REMOVE --><option value="-1"<!-- IF S_QTE_SELECTED --> selected="selected"<!-- ENDIF -->>{L_QTE_ATTRIBUTE_REMOVE}</option><!-- ENDIF -->
+			<!-- ENDIF -->
+			<!-- IF S_QTE_EMPTY --><option value="0"<!-- IF S_QTE_SELECTED --> selected="selected"<!-- ENDIF --> style="font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_ATTRIBUTE_ADD}</option><!-- ENDIF -->
+			<!-- BEGIN attributes -->
+			<option value="{attributes.QTE_ID}"{attributes.QTE_COLOUR}<!-- IF attributes.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{attributes.QTE_NAME}<!-- IF attributes.S_QTE_DESC --> [{attributes.QTE_DESC}]<!-- ENDIF --></option>
+			<!-- END attributes -->
+		</select>
+	</dd>
 </dl>
 <!-- ENDIF -->

@@ -48,9 +48,6 @@ $lang = array_merge($lang, array(
 	'QTE_COPY_AUTHS' => 'Copy permissions from',
 	'QTE_COPY_AUTHS_EXPLAIN' => 'If you choose to copy permissions, the attribute will have the same permissions as the one you select here. This will overwrite any permissions you have previously set for this attribute with the permissions of the attribute you select here. If the <strong>Custom</strong> option is selected, the current permissions will be kept.',
 
-	'QTE_PERMISSIONS' => 'Attribute permissions',
-	'QTE_ALLOWED_FORUMS' => 'Allowed forums',
-	'QTE_ALLOWED_FORUMS_EXPLAIN' => 'Forums, where allowed groups can use that attribute.<br />Select multiple forums by holding <samp>CTRL</samp> or <samp>COMMAND</samp> and clicking.',
 	'QTE_ALLOWED_GROUPS' => 'Allowed groups',
 	'QTE_ALLOWED_GROUPS_EXPLAIN' => 'Groups, which are allowed to use that attribute.<br />Select multiple groups by holding <samp>CTRL</samp> or <samp>COMMAND</samp> and clicking.',
 	'QTE_ALLOWED_AUTHOR' => 'Allow the topic author to use that attribute in the selected forums',
@@ -94,8 +91,6 @@ $lang = array_merge($lang, array(
 
 	'QTE_DEFAULT_ATTR' => 'Default attribute of the forum',
 	'QTE_DEFAULT_ATTR_EXPLAIN' => 'The selected attribute will be applied when a new topic is created, whatever the user permissions.',
-	'QTE_HIDE_ATTR' => 'Hide the remove option',
-	'QTE_HIDE_ATTR_EXPLAIN' => 'The selected groups will not see the remove option.',
 	'QTE_FORCE_USERS' => 'Force users to apply an attribute to their topic',
 	'QTE_FORCE_USERS_EXPLAIN' => 'If enabled, users will have to select an attribute for their topic in that forum.',
 ));
