@@ -139,7 +139,7 @@ class main_listener implements EventSubscriberInterface
 
 		if ($event['post_data']['force_attr'])
 		{
-			if ($post_data['attr_id'] == \ernadoo\qte\qte::REMOVE && ($event['mode'] == 'post' || ($event['mode'] == 'edit' && $event['post_data']['topic_first_post_id'] == $event['post_id'])) )
+			if ((!$post_data['attr_id'] || $post_data['attr_id'] == \ernadoo\qte\qte::REMOVE) && ($event['mode'] == 'post' || ($event['mode'] == 'edit' && $event['post_data']['topic_first_post_id'] == $event['post_id'])) )
 			{
 				$error = $event['error'];
 				$error[] = $this->user->lang['QTE_ATTRIBUTE_UNSELECTED'];
