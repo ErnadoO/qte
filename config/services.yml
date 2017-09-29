@@ -2,54 +2,54 @@ services:
     ernadoo.qte:
         class: ernadoo\qte\qte
         arguments:
-            - @request
-            - @cache.driver
-            - @dbal.conn
-            - @template
-            - @user
-            - @log
-            - @auth
-            - %core.root_path%
-            - %core.php_ext%
-            - %core.table_prefix%
+            - '@request'
+            - '@cache.driver'
+            - '@dbal.conn'
+            - '@template'
+            - '@user'
+            - '@log'
+            - '@auth'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+            - '%core.table_prefix%'
     ernadoo.qte.main_listener:
         class: ernadoo\qte\event\main_listener
         arguments:
-            - @request
-            - @template
-            - @user
-            - @log
-            - @ernadoo.qte
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@log'
+            - '@ernadoo.qte'
         tags:
             - { name: event.listener }
     ernadoo.qte.mcp_listener:
         class: ernadoo\qte\event\mcp_listener
         arguments:
-            - @request
-            - @ernadoo.qte
+            - '@request'
+            - '@ernadoo.qte'
         tags:
             - { name: event.listener }
     ernadoo.qte.search_listener:
         class: ernadoo\qte\event\search_listener
         arguments:
-            - @request
-            - @ernadoo.qte
-            - @ernadoo.qte.search.fulltext_attribute
+            - '@request'
+            - '@ernadoo.qte'
+            - '@ernadoo.qte.search.fulltext_attribute'
         tags:
             - { name: event.listener }
     ernadoo.qte.search.fulltext_attribute:
         class: ernadoo\qte\search\fulltext_attribute
         arguments:
-            - @config
-            - @dbal.conn
+            - '@config'
+            - '@dbal.conn'
     ernadoo.qte.acp_listener:
         class: ernadoo\qte\event\acp_listener
         arguments:
-            - @request
-            - @cache.driver
-            - @dbal.conn
-            - @user
-            - @ernadoo.qte
-            - %core.table_prefix%
+            - '@request'
+            - '@cache.driver'
+            - '@dbal.conn'
+            - '@user'
+            - '@ernadoo.qte'
+            - '%core.table_prefix%'
         tags:
             - { name: event.listener }
