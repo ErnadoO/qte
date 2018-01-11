@@ -23,7 +23,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-    'QTE_CAN_USE_ATTR'	=> 'Pode usar o atributo %s ',
+    'QTE_CAN_USE_ATTR'	=> 'Pode usar o atributo %s',
 
 	// select
 	'QTE_ATTRIBUTES' => 'Atributos do tópico',
