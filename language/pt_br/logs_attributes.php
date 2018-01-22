@@ -32,6 +32,6 @@ $lang = array_merge($lang, array(
 	'LOG_ATTRIBUTE_MOVE_UP'	=> '<strong>Moveu um atributo</strong> %1$s <strong>acima</strong> %2$s',
 
 	'MCP_ATTRIBUTE_ADDED' => '<strong>Adicionado um novo atributo ao tópico</strong><br />» %s',
-	'MCP_ATTRIBUTE_UPDATED' => '<strong>Atualizado um novo atributo ao tópico/strong><br />» %s',
+	'MCP_ATTRIBUTE_UPDATED' => '<strong>Atualizado um novo atributo ao tópico</strong><br />» %s',
 	'MCP_ATTRIBUTE_REMOVED'	=> '<strong>Deletado um novo atributo ao tópico</strong><br />» %s',
 ));
