@@ -109,7 +109,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		$topic_attribute = $this->request->variable('attr_id', !empty($event['post_data']['topic_attr_id']) ? \ernadoo\qte\qte::KEEP : 0, false, \phpbb\request\request_interface::POST);
 
-		$this->qte->attr_select($event['forum_id'], !empty($event['post_data']['topic_attr_user']) ? $event['post_data']['topic_attr_user'] : 0, (int) $topic_attribute, '', $event['mode']);
+		$this->qte->attr_select($event['forum_id'], !empty($event['post_data']['topic_poster']) ? $event['post_data']['topic_poster'] : 0, (int) $topic_attribute, '', $event['mode']);
 
 		if ($event['mode'] != 'post')
 		{
