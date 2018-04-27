@@ -488,7 +488,7 @@ class main_module
 
 	protected function display_version_warning()
 	{
-		global $config, $user, $template;
+		global $config, $user;
 
 		$version = \ernadoo\qte\ext::VERSION;
 
@@ -496,31 +496,6 @@ class main_module
 		if ($config['qte_version'] != $version && stripos($version, '-dev') === false)
 		{
 			trigger_error($user->lang('QTE_MIGRATIONS_OUTDATED', $config['qte_version'], $version), E_USER_ERROR);
-		}
-
-		// Display a warning for unstable versions
-		if (stripos($version, '-dev') !== false)
-		{
-			$template->assign_vars(array(
-				'S_VERSION_UNSTABLE' => true,
-				'S_VERSION_DEV' => true,
-				'VERSION_WARNING' => $user->lang('QTE_DEV_WARNING', $version) . '<br />' . $user->lang['QTE_DEV_WARNING_DEV'],
-			));
-		}
-		else if (stripos($version, '-a') !== false)
-		{
-			$template->assign_vars(array(
-				'S_VERSION_UNSTABLE' => true,
-				'S_VERSION_DEV' => true,
-				'VERSION_WARNING' => $user->lang('QTE_DEV_WARNING', $version),
-			));
-		}
-		else if (stripos($version, '-b') !== false)
-		{
-			$template->assign_vars(array(
-				'S_VERSION_UNSTABLE' => true,
-				'VERSION_WARNING' => $user->lang('QTE_BETA_WARNING', $version),
-			));
 		}
 	}
 

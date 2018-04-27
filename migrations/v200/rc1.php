@@ -10,15 +10,21 @@
  *
  */
 
-namespace ernadoo\qte;
+namespace ernadoo\qte\migrations\v200;
 
-class ext extends \phpbb\extension\base
+class rc1 extends \phpbb\db\migration\migration
 {
-	const VERSION = '2.0.0-RC1';
-
-	public function is_enableable()
+	static public function depends_on()
 	{
-		$config = $this->container->get('config');
-		return phpbb_version_compare($config['version'], '3.1.11', '>=');
+		return array(
+			'\ernadoo\qte\migrations\v200\alpha2',
+		);
+	}
+
+	public function update_data()
+	{
+		return array(
+			array('config.update', array('qte_version', '2.0.0-RC1')),
+		);
 	}
 }

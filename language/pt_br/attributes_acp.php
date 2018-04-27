@@ -80,9 +80,6 @@ $lang = array_merge($lang, array(
 	'QTE_REMOVED' => 'O atributo selecionado foi deletado.',
 
 	'QTE_MIGRATIONS_OUTDATED' => 'Seu banco de dados não está atualizado.<br /> Desative e reative a extensão para atualizá-lo.<br /><br />Versão do banco de dados: %1$s<br />Versão dos arquivos: %2$s',
-	'QTE_DEV_WARNING' => 'Você usa atualmente uma versão de desenvolvimento da extensão (%s).<br /> Você não deve usar essas versões em um ambiente de produção.<br /> Essas versões podem conter muitos recursos e problemas de segurança inacabados ou tornam instável seu fórum.',
-	'QTE_DEV_WARNING_DEV' => 'Não seremos responsáveis ​​por eventuais perdas de dados ou corrupções.',
-	'QTE_BETA_WARNING' => 'Você usa atualmente uma versão instável da extensão (%s).<br /> As versões instáveis ​​podem conter muitos erros, problemas de segurança ou tornar instável seu fórum.<br /> É altamente recomendável que você não use essas versões em um ambiente de produção.',
 ));
 
 // forums
